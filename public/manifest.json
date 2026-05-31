@@ -1,0 +1,23 @@
+{
+  "name": "MarTech Open Hub",
+  "short_name": "MarTech Hub",
+  "description": "市场营销 × 消费者行为研究的开源项目发现平台",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0A0F",
+  "theme_color": "#6366F1",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["business", "education", "productivity"]
+}
