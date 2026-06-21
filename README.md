@@ -2,6 +2,8 @@
 
 **市场营销 × 消费者行为研究的开源项目发现与实证分析平台**
 
+[English](./README_EN.md) | [中文](./README.md)
+
 <!-- 核心状态 -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/linkingoscar/marketing-open-hub/update-projects.yml?label=build)](https://github.com/linkingoscar/marketing-open-hub/actions)
