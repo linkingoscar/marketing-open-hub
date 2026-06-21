@@ -2,11 +2,39 @@
 
 **市场营销 × 消费者行为研究的开源项目发现与实证分析平台**
 
+<!-- 核心状态 -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/linkingoscar/marketing-open-hub/update-projects.yml?label=build)](https://github.com/linkingoscar/marketing-open-hub/actions)
+[![Vercel](https://img.shields.io/badge/Vercel-deployed-black?logo=vercel)](https://martech-open-hub.vercel.app)
+
+<!-- 框架与语言 -->
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue?logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?logo=tailwindcss)](https://tailwindcss.com/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38BDF8?logo=tailwindcss)](https://tailwindcss.com/)
+
+<!-- 工具与库 -->
+[![Zustand](https://img.shields.io/badge/Zustand-5.x-FF6B35?logo=zustand)](https://zustand-demo.pmnd.rs/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.x-0055FF?logo=framer)](https://www.framer.com/motion/)
+[![Recharts](https://img.shields.io/badge/Recharts-3.8-FF6B6B)](https://recharts.org/)
+[![Vitest](https://img.shields.io/badge/Vitest-3.2-6E9F18?logo=vitest)](https://vitest.dev/)
+
+<!-- 测试与质量 -->
 [![Tests](https://img.shields.io/badge/Tests-60%20passed-brightgreen)](#测试)
+[![Coverage](https://img.shields.io/badge/Coverage-statistics%20%2B%20workflow-brightgreen)](#测试)
+
+<!-- GitHub 互动 -->
+[![GitHub Stars](https://img.shields.io/github/stars/linkingoscar/marketing-open-hub?style=social)](https://github.com/linkingoscar/marketing-open-hub/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/linkingoscar/marketing-open-hub?style=social)](https://github.com/linkingoscar/marketing-open-hub/network/members)
+[![GitHub Issues](https://img.shields.io/github/issues/linkingoscar/marketing-open-hub)](https://github.com/linkingoscar/marketing-open-hub/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/linkingoscar/marketing-open-hub)](https://github.com/linkingoscar/marketing-open-hub/pulls)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/linkingoscar/marketing-open-hub/pulls)
+
+<!-- 特性标签 -->
+[![PWA](https://img.shields.io/badge/PWA-supported-5A0FC8)](https://martech-open-hub.vercel.app)
+[![i18n](https://img.shields.io/badge/i18n-zh%20%7C%20en-blue)](#国际化)
+[![SEO](https://img.shields.io/badge/SEO-JSON--LD%20%2B%20RSC-green)](#技术栈)
+[![Security](https://img.shields.io/badge/Security-AES--GCM%20encrypted-orange)](#安全特性)
 
 31 个学术级开源项目 · 36 种统计检验 · 18 个交互式工具 · 11 家 LLM API · 纯浏览器端计算
 
