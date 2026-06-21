@@ -3,559 +3,243 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MarTech Open Hub — 市场营销开源项目发现与实证分析平台</title>
-  <meta name="description" content="31 个学术级开源项目，36 种统计检验，18 个交互式工具，覆盖从数据清洗到论文输出的完整研究链路。">
+  <title>MarTech Open Hub</title>
+  <meta name="description" content="Marketing × Consumer Behavior Research Platform. 31 open-source projects, 36 statistical tests, 18 interactive tools.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔬</text></svg>">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-      --bg: #0a0a0f;
-      --bg-card: #12121a;
-      --bg-card-hover: #1a1a25;
-      --border: rgba(255,255,255,0.06);
-      --text: #e2e8f0;
-      --text-muted: #64748b;
-      --text-dim: #475569;
-      --primary: #6366f1;
-      --primary-light: #818cf8;
-      --accent: #06b6d4;
-      --success: #10b981;
-      --warning: #f59e0b;
-      --gradient-1: linear-gradient(135deg, #6366f1, #06b6d4);
-      --gradient-2: linear-gradient(135deg, #8b5cf6, #ec4899);
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* ========== Hero ========== */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 30%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1.25rem;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--bg-card);
-      backdrop-filter: blur(10px);
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-      animation: fadeIn 0.6s ease;
-    }
-
-    .hero-title {
-      font-size: clamp(2.5rem, 8vw, 5rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 1rem;
-      animation: fadeIn 0.6s ease 0.1s both;
-    }
-
-    .hero-title .gradient {
-      background: var(--gradient-1);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-subtitle {
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      color: var(--text-muted);
-      max-width: 600px;
-      margin-bottom: 2.5rem;
-      animation: fadeIn 0.6s ease 0.2s both;
-    }
-
-    .hero-stats {
-      display: flex;
-      gap: 3rem;
-      margin-bottom: 3rem;
-      animation: fadeIn 0.6s ease 0.3s both;
-    }
-
-    .hero-stat {
-      text-align: center;
-    }
-
-    .hero-stat-value {
-      font-size: 2.5rem;
-      font-weight: 800;
-      background: var(--gradient-1);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-stat-label {
-      font-size: 0.75rem;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      animation: fadeIn 0.6s ease 0.4s both;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.75rem;
-      border-radius: 0.75rem;
-      font-size: 0.95rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.2s;
-      cursor: pointer;
-      border: none;
-    }
-
-    .btn-primary {
-      background: var(--gradient-1);
-      color: white;
-    }
-
-    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .btn-outline:hover { border-color: var(--primary); color: var(--primary-light); }
-
-    .scroll-hint {
-      position: absolute;
-      bottom: 2rem;
-      animation: bounce 2s infinite;
-      color: var(--text-dim);
-      font-size: 0.75rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.25rem;
-    }
-
-    /* ========== Sections ========== */
-    .section {
-      padding: 6rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section-title {
-      font-size: 2rem;
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 0.75rem;
-    }
-
-    .section-desc {
-      text-align: center;
-      color: var(--text-muted);
-      max-width: 600px;
-      margin: 0 auto 3rem;
-    }
-
-    /* ========== Feature Grid ========== */
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .feature-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 1rem;
-      padding: 1.5rem;
-      transition: all 0.2s;
-    }
-
-    .feature-card:hover {
-      border-color: rgba(99,102,241,0.3);
-      background: var(--bg-card-hover);
-      transform: translateY(-2px);
-    }
-
-    .feature-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 0.75rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .feature-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .feature-desc {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* ========== Stats Grid ========== */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1rem;
-      margin-bottom: 3rem;
-    }
-
-    .stat-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 0.75rem;
-      padding: 1.25rem;
-      text-align: center;
-    }
-
-    .stat-number {
-      font-size: 2rem;
-      font-weight: 800;
-      background: var(--gradient-1);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .stat-label {
-      font-size: 0.75rem;
-      color: var(--text-dim);
-      margin-top: 0.25rem;
-    }
-
-    /* ========== Methods Table ========== */
-    .methods-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.875rem;
-    }
-
-    .methods-table th, .methods-table td {
-      padding: 0.75rem 1rem;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .methods-table th {
-      color: var(--text-muted);
-      font-weight: 600;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .methods-table td:first-child {
-      font-weight: 600;
-      color: var(--primary-light);
-      white-space: nowrap;
-    }
-
-    .methods-table tr:hover td {
-      background: var(--bg-card-hover);
-    }
-
-    /* ========== Tech Stack ========== */
-    .tech-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 0.75rem;
-    }
-
-    .tech-tag {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 0.5rem;
-      padding: 0.6rem 1rem;
-      text-align: center;
-      font-size: 0.8rem;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-
-    .tech-tag:hover {
-      border-color: var(--primary);
-      color: var(--primary-light);
-    }
-
-    /* ========== CTA ========== */
-    .cta {
-      text-align: center;
-      padding: 6rem 2rem;
-      background: var(--bg-card);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .cta-title {
-      font-size: 2rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
-    }
-
-    .cta-desc {
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-    }
-
-    /* ========== Footer ========== */
-    .footer {
-      text-align: center;
-      padding: 3rem 2rem;
-      color: var(--text-dim);
-      font-size: 0.8rem;
-    }
-
-    .footer a {
-      color: var(--text-muted);
-      text-decoration: none;
-    }
-
-    .footer a:hover { color: var(--primary-light); }
-
-    /* ========== Animations ========== */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(8px); }
-    }
-
-    /* ========== Responsive ========== */
-    @media (max-width: 640px) {
-      .hero-stats { gap: 1.5rem; }
-      .hero-stat-value { font-size: 1.75rem; }
-      .section { padding: 4rem 1.25rem; }
-      .methods-table { font-size: 0.8rem; }
-      .methods-table th, .methods-table td { padding: 0.5rem 0.75rem; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Hero -->
-<section class="hero">
-  <div class="hero-badge">🔬 开源 · 免费 · 浏览器端计算</div>
-  <h1 class="hero-title">
-    <span class="gradient">Marketing</span><br>Open Hub
-  </h1>
-  <p class="hero-subtitle">
-    市场营销 × 消费者行为研究的开源项目发现与实证分析平台
-  </p>
-  <div class="hero-stats">
-    <div class="hero-stat">
-      <div class="hero-stat-value">31</div>
-      <div class="hero-stat-label">开源项目</div>
+  <!-- ===== Nav ===== -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">🔬 MarTech Hub</a>
+      <div class="nav-links">
+        <a href="#features" data-en="Features" data-zh="功能">功能</a>
+        <a href="#methods" data-en="Methods" data-zh="方法">方法</a>
+        <a href="#tech" data-en="Tech" data-zh="技术">技术</a>
+        <a href="https://github.com/linkingoscar/marketing-open-hub" target="_blank">GitHub</a>
+        <button id="lang-toggle" class="lang-btn" onclick="toggleLang()">EN</button>
+      </div>
+      <button class="nav-mobile-btn" onclick="toggleMobileMenu()">☰</button>
     </div>
-    <div class="hero-stat">
-      <div class="hero-stat-value">36</div>
-      <div class="hero-stat-label">统计检验</div>
+    <div class="nav-mobile" id="mobile-menu">
+      <a href="#features" data-en="Features" data-zh="功能">功能</a>
+      <a href="#methods" data-en="Methods" data-zh="方法">方法</a>
+      <a href="#tech" data-en="Tech" data-zh="技术">技术</a>
+      <a href="https://github.com/linkingoscar/marketing-open-hub" target="_blank">GitHub</a>
+      <button class="lang-btn" onclick="toggleLang()" data-en="中文" data-zh="EN">EN</button>
     </div>
-    <div class="hero-stat">
-      <div class="hero-stat-value">18</div>
-      <div class="hero-stat-label">分析工具</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-value">11</div>
-      <div class="hero-stat-label">LLM API</div>
-    </div>
-  </div>
-  <div class="hero-actions">
-    <a href="https://github.com/linkingoscar/marketing-open-hub" class="btn btn-primary">
-      ⭐ GitHub 仓库
-    </a>
-    <a href="https://github.com/linkingoscar/marketing-open-hub#getting-started" class="btn btn-outline">
-      📖 使用指南
-    </a>
-  </div>
-  <div class="scroll-hint">
-    <span>向下探索</span>
-    <span>↓</span>
-  </div>
-</section>
+  </nav>
 
-<!-- Features -->
-<section class="section">
-  <h2 class="section-title">核心能力</h2>
-  <p class="section-desc">从项目发现到论文输出的完整研究链路</p>
-  <div class="features">
-    <div class="feature-card">
-      <div class="feature-icon" style="background:rgba(99,102,241,0.1)">📊</div>
-      <div class="feature-title">统计分析</div>
-      <div class="feature-desc">36 种检验方法，APA 格式输出，结果自动注释。支持 t 检验、ANOVA、回归、因子分析、中介调节等。</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon" style="background:rgba(6,182,212,0.1)">📋</div>
-      <div class="feature-title">营销模板</div>
-      <div class="feature-desc">10 个预设研究场景：品牌认知、A/B 测试、满意度、市场细分、价格敏感度、广告效果等。</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon" style="background:rgba(16,185,129,0.1)">📚</div>
-      <div class="feature-title">文献搜索</div>
-      <div class="feature-desc">Semantic Scholar 2 亿+ 论文。证据方向仪表盘、结构化提取、引用分类。</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon" style="background:rgba(139,92,246,0.1)">🔄</div>
-      <div class="feature-title">研究工作流</div>
-      <div class="feature-desc">可视化流程编排，4 个预设模板，步骤依赖管理，进度追踪。</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon" style="background:rgba(236,72,153,0.1)">🤖</div>
-      <div class="feature-title">AI 助手</div>
-      <div class="feature-desc">11 家 LLM API 支持。对话式研究指导、论文写作、AI 痕迹检测与润色。</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon" style="background:rgba(245,158,11,0.1)">🔒</div>
-      <div class="feature-title">数据安全</div>
-      <div class="feature-desc">纯浏览器端计算，数据不离开设备。API Key 仅存本地。</div>
-    </div>
-  </div>
-</section>
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-glow-2"></div>
 
-<!-- Stats Methods -->
-<section class="section">
-  <h2 class="section-title">36 种统计检验</h2>
-  <p class="section-desc">覆盖从描述统计到贝叶斯分析的完整方法体系</p>
-  <div class="stats-grid">
-    <div class="stat-card">
-      <div class="stat-number">6</div>
-      <div class="stat-label">描述统计</div>
+    <div class="hero-badge">
+      <span class="pulse-dot"></span>
+      <span data-en="Open Source · Free · Browser-side Computing" data-zh="开源 · 免费 · 浏览器端计算">开源 · 免费 · 浏览器端计算</span>
     </div>
-    <div class="stat-card">
-      <div class="stat-number">8</div>
-      <div class="stat-label">比较检验</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">4</div>
-      <div class="stat-label">相关回归</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">6</div>
-      <div class="stat-label">信效度</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">4</div>
-      <div class="stat-label">因子分析</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">4</div>
-      <div class="stat-label">中介调节</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">4</div>
-      <div class="stat-label">贝叶斯</div>
-    </div>
-  </div>
-  <table class="methods-table">
-    <thead>
-      <tr><th>分组</th><th>方法</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>描述</td><td>描述性统计、Likert 频率表</td></tr>
-      <tr><td>前提</td><td>Shapiro-Wilk 正态性、Levene's 方差齐性</td></tr>
-      <tr><td>比较</td><td>独立 t、配对 t、Mann-Whitney U、Wilcoxon、ANOVA、重复测量 ANOVA、Kruskal-Wallis、Friedman</td></tr>
-      <tr><td>分类</td><td>卡方检验、Fisher 精确检验</td></tr>
-      <tr><td>相关</td><td>Pearson r、Spearman ρ</td></tr>
-      <tr><td>回归</td><td>多元线性回归、二元 Logistic</td></tr>
-      <tr><td>信度</td><td>Cronbach's α、项目分析、分半信度</td></tr>
-      <tr><td>效度</td><td>CR + AVE、HTMT、共同方法偏差</td></tr>
-      <tr><td>因子</td><td>EFA（KMO + Bartlett + Varimax）、CFA（RMSEA + CFI + SRMR）</td></tr>
-      <tr><td>中介调节</td><td>中介效应（Baron-Kenny + Sobel）、调节效应（交互项 + 简单斜率）</td></tr>
-      <tr><td>贝叶斯</td><td>贝叶斯 t 检验、贝叶斯相关（BF₁₀ 分级）</td></tr>
-    </tbody>
-  </table>
-</section>
 
-<!-- Tech Stack -->
-<section class="section">
-  <h2 class="section-title">技术栈</h2>
-  <p class="section-desc">现代前端技术，极致开发体验</p>
-  <div class="tech-grid">
-    <div class="tech-tag">Next.js 16</div>
-    <div class="tech-tag">React 19</div>
-    <div class="tech-tag">TypeScript</div>
-    <div class="tech-tag">Tailwind CSS 4</div>
-    <div class="tech-tag">shadcn/ui</div>
-    <div class="tech-tag">Framer Motion</div>
-    <div class="tech-tag">GSAP</div>
-    <div class="tech-tag">Recharts</div>
-    <div class="tech-tag">Zustand</div>
-    <div class="tech-tag">cmdk</div>
-    <div class="tech-tag">Fuse.js</div>
-    <div class="tech-tag">Semantic Scholar</div>
-  </div>
-</section>
+    <h1 class="hero-title">
+      <span class="gradient">MarTech</span>
+      <span data-en="Open Hub" data-zh="Open Hub"> Open Hub</span>
+    </h1>
 
-<!-- CTA -->
-<section class="cta">
-  <h2 class="cta-title">开始你的研究之旅</h2>
-  <p class="cta-desc">纯浏览器端计算 · 数据不离开设备 · MIT 开源</p>
-  <div class="hero-actions" style="justify-content:center">
-    <a href="https://github.com/linkingoscar/marketing-open-hub" class="btn btn-primary">
-      ⭐ Star on GitHub
-    </a>
-    <a href="https://github.com/linkingoscar/marketing-open-hub/blob/main/README.md#-快速开始" class="btn btn-outline">
-      🚀 快速开始
-    </a>
-  </div>
-</section>
+    <p class="hero-subtitle" data-en="The open-source discovery and empirical analysis platform for marketing and consumer behavior research." data-zh="市场营销 × 消费者行为研究的开源项目发现与实证分析平台">市场营销 × 消费者行为研究的开源项目发现与实证分析平台</p>
 
-<!-- Footer -->
-<footer class="footer">
-  <p>
-    MarTech Open Hub · MIT License ·
-    <a href="https://github.com/linkingoscar">linkingoscar</a> ·
-    <a href="https://github.com/linkingoscar/marketing-open-hub">GitHub</a>
-  </p>
-</footer>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-value" data-count="31">0</div>
+        <div class="hero-stat-label" data-en="Projects" data-zh="开源项目">开源项目</div>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-value" data-count="36">0</div>
+        <div class="hero-stat-label" data-en="Stat Tests" data-zh="统计检验">统计检验</div>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-value" data-count="18">0</div>
+        <div class="hero-stat-label" data-en="Tools" data-zh="分析工具">分析工具</div>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-value" data-count="11">0</div>
+        <div class="hero-stat-label" data-en="LLM APIs" data-zh="LLM API">LLM API</div>
+      </div>
+    </div>
 
+    <div class="hero-actions">
+      <a href="https://github.com/linkingoscar/marketing-open-hub" class="btn btn-primary">
+        <span>⭐</span>
+        <span data-en="Star on GitHub" data-zh="GitHub 仓库">GitHub 仓库</span>
+      </a>
+      <a href="https://github.com/linkingoscar/marketing-open-hub#getting-started" class="btn btn-outline">
+        <span>📖</span>
+        <span data-en="Getting Started" data-zh="快速开始">快速开始</span>
+      </a>
+    </div>
+
+    <div class="scroll-hint">
+      <span data-en="Scroll to explore" data-zh="向下探索">向下探索</span>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M4 9l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </section>
+
+  <!-- ===== Features ===== -->
+  <section id="features" class="section">
+    <h2 class="section-title" data-en="Core Capabilities" data-zh="核心能力">核心能力</h2>
+    <p class="section-desc" data-en="A complete research pipeline from project discovery to paper output." data-zh="从项目发现到论文输出的完整研究链路">从项目发现到论文输出的完整研究链路</p>
+
+    <div class="features">
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="--icon-bg: rgba(99,102,241,0.12)">📊</div>
+        <div class="feature-title" data-en="Statistical Analysis" data-zh="统计分析">统计分析</div>
+        <div class="feature-desc" data-en="36 tests with APA output and auto-annotation. t-test, ANOVA, regression, factor analysis, mediation/moderation, Bayesian." data-zh="36 种检验方法，APA 格式输出，结果自动注释。支持 t 检验、ANOVA、回归、因子分析、中介调节、贝叶斯等。">36 种检验方法，APA 格式输出，结果自动注释。支持 t 检验、ANOVA、回归、因子分析、中介调节、贝叶斯等。</div>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="--icon-bg: rgba(6,182,212,0.12)">📋</div>
+        <div class="feature-title" data-en="Marketing Templates" data-zh="营销模板">营销模板</div>
+        <div class="feature-desc" data-en="10 preset research scenarios: brand awareness, A/B testing, satisfaction, market segmentation, price sensitivity, ad effectiveness, and more." data-zh="10 个预设研究场景：品牌认知、A/B 测试、满意度、市场细分、价格敏感度、广告效果等。">10 个预设研究场景：品牌认知、A/B 测试、满意度、市场细分、价格敏感度、广告效果等。</div>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="--icon-bg: rgba(16,185,129,0.12)">📚</div>
+        <div class="feature-title" data-en="Literature Search" data-zh="文献搜索">文献搜索</div>
+        <div class="feature-desc" data-en="Semantic Scholar 200M+ papers. Evidence direction dashboard, structured extraction, citation classification." data-zh="Semantic Scholar 2 亿+ 论文。证据方向仪表盘、结构化提取、引用分类。">Semantic Scholar 2 亿+ 论文。证据方向仪表盘、结构化提取、引用分类。</div>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="--icon-bg: rgba(139,92,246,0.12)">🔄</div>
+        <div class="feature-title" data-en="Research Workflow" data-zh="研究工作流">研究工作流</div>
+        <div class="feature-desc" data-en="Visual pipeline orchestration, 4 preset templates, step dependency management, progress tracking." data-zh="可视化流程编排，4 个预设模板，步骤依赖管理，进度追踪。">可视化流程编排，4 个预设模板，步骤依赖管理，进度追踪。</div>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="--icon-bg: rgba(236,72,153,0.12)">🤖</div>
+        <div class="feature-title" data-en="AI Assistant" data-zh="AI 助手">AI 助手</div>
+        <div class="feature-desc" data-en="11 LLM APIs supported. Conversational research guidance, paper writing, AI-trace detection and polishing." data-zh="11 家 LLM API 支持。对话式研究指导、论文写作、AI 痕迹检测与润色。">11 家 LLM API 支持。对话式研究指导、论文写作、AI 痕迹检测与润色。</div>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="--icon-bg: rgba(245,158,11,0.12)">🔒</div>
+        <div class="feature-title" data-en="Data Security" data-zh="数据安全">数据安全</div>
+        <div class="feature-desc" data-en="Pure browser-side computation. Your data never leaves your device. API keys stored locally only." data-zh="纯浏览器端计算，数据不离开设备。API Key 仅存本地。">纯浏览器端计算，数据不离开设备。API Key 仅存本地。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Stats Methods ===== -->
+  <section id="methods" class="section section-alt">
+    <h2 class="section-title" data-en="36 Statistical Tests" data-zh="36 种统计检验">36 种统计检验</h2>
+    <p class="section-desc" data-en="A complete method system from descriptive statistics to Bayesian analysis." data-zh="覆盖从描述统计到贝叶斯分析的完整方法体系">覆盖从描述统计到贝叶斯分析的完整方法体系</p>
+
+    <div class="stats-grid">
+      <div class="stat-card reveal">
+        <div class="stat-number" data-count="6">0</div>
+        <div class="stat-label" data-en="Descriptive" data-zh="描述统计">描述统计</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-number" data-count="8">0</div>
+        <div class="stat-label" data-en="Comparison" data-zh="比较检验">比较检验</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-number" data-count="4">0</div>
+        <div class="stat-label" data-en="Correlation" data-zh="相关回归">相关回归</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-number" data-count="6">0</div>
+        <div class="stat-label" data-en="Reliability" data-zh="信效度">信效度</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-number" data-count="4">0</div>
+        <div class="stat-label" data-en="Factor" data-zh="因子分析">因子分析</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-number" data-count="4">0</div>
+        <div class="stat-label" data-en="Mediation" data-zh="中介调节">中介调节</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-number" data-count="4">0</div>
+        <div class="stat-label" data-en="Bayesian" data-zh="贝叶斯">贝叶斯</div>
+      </div>
+    </div>
+
+    <div class="table-wrapper reveal">
+      <table class="methods-table">
+        <thead>
+          <tr>
+            <th data-en="Group" data-zh="分组">分组</th>
+            <th data-en="Methods" data-zh="方法">方法</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td data-en="Descriptive" data-zh="描述">描述</td><td data-en="Descriptive stats, Likert frequency table" data-zh="描述性统计、Likert 频率表">描述性统计、Likert 频率表</td></tr>
+          <tr><td data-en="Prerequisite" data-zh="前提">前提</td><td data-en="Shapiro-Wilk normality, Levene's homogeneity" data-zh="Shapiro-Wilk 正态性、Levene's 方差齐性">Shapiro-Wilk 正态性、Levene's 方差齐性</td></tr>
+          <tr><td data-en="Comparison" data-zh="比较">比较</td><td data-en="Independent t, Paired t, Mann-Whitney U, Wilcoxon, ANOVA, Repeated ANOVA, Kruskal-Wallis, Friedman" data-zh="独立 t、配对 t、Mann-Whitney U、Wilcoxon、ANOVA、重复测量 ANOVA、Kruskal-Wallis、Friedman">独立 t、配对 t、Mann-Whitney U、Wilcoxon、ANOVA、重复测量 ANOVA、Kruskal-Wallis、Friedman</td></tr>
+          <tr><td data-en="Categorical" data-zh="分类">分类</td><td data-en="Chi-square, Fisher's exact test" data-zh="卡方检验、Fisher 精确检验">卡方检验、Fisher 精确检验</td></tr>
+          <tr><td data-en="Correlation" data-zh="相关">相关</td><td data-en="Pearson r, Spearman ρ" data-zh="Pearson r、Spearman ρ">Pearson r、Spearman ρ</td></tr>
+          <tr><td data-en="Regression" data-zh="回归">回归</td><td data-en="Multiple linear regression, Binary logistic" data-zh="多元线性回归、二元 Logistic">多元线性回归、二元 Logistic</td></tr>
+          <tr><td data-en="Reliability" data-zh="信度">信度</td><td data-en="Cronbach's α, Item analysis, Split-half" data-zh="Cronbach's α、项目分析、分半信度">Cronbach's α、项目分析、分半信度</td></tr>
+          <tr><td data-en="Validity" data-zh="效度">效度</td><td data-en="CR + AVE, HTMT, Common method bias" data-zh="CR + AVE、HTMT、共同方法偏差">CR + AVE、HTMT、共同方法偏差</td></tr>
+          <tr><td data-en="Factor" data-zh="因子">因子</td><td data-en="EFA (KMO + Bartlett + Varimax), CFA (RMSEA + CFI + SRMR)" data-zh="EFA（KMO + Bartlett + Varimax）、CFA（RMSEA + CFI + SRMR）">EFA（KMO + Bartlett + Varimax）、CFA（RMSEA + CFI + SRMR）</td></tr>
+          <tr><td data-en="Mediation" data-zh="中介调节">中介调节</td><td data-en="Mediation (Baron-Kenny + Sobel), Moderation (interaction + simple slope)" data-zh="中介效应（Baron-Kenny + Sobel）、调节效应（交互项 + 简单斜率）">中介效应（Baron-Kenny + Sobel）、调节效应（交互项 + 简单斜率）</td></tr>
+          <tr><td data-en="Bayesian" data-zh="贝叶斯">贝叶斯</td><td data-en="Bayesian t-test, Bayesian correlation (BF₁₀ grading)" data-zh="贝叶斯 t 检验、贝叶斯相关（BF₁₀ 分级）">贝叶斯 t 检验、贝叶斯相关（BF₁₀ 分级）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== Tech Stack ===== -->
+  <section id="tech" class="section">
+    <h2 class="section-title" data-en="Tech Stack" data-zh="技术栈">技术栈</h2>
+    <p class="section-desc" data-en="Modern frontend technologies for an exceptional development experience." data-zh="现代前端技术，极致开发体验">现代前端技术，极致开发体验</p>
+
+    <div class="tech-grid">
+      <div class="tech-tag reveal">Next.js 16</div>
+      <div class="tech-tag reveal">React 19</div>
+      <div class="tech-tag reveal">TypeScript</div>
+      <div class="tech-tag reveal">Tailwind CSS 4</div>
+      <div class="tech-tag reveal">shadcn/ui</div>
+      <div class="tech-tag reveal">Framer Motion</div>
+      <div class="tech-tag reveal">GSAP</div>
+      <div class="tech-tag reveal">Recharts</div>
+      <div class="tech-tag reveal">Zustand</div>
+      <div class="tech-tag reveal">cmdk</div>
+      <div class="tech-tag reveal">Fuse.js</div>
+      <div class="tech-tag reveal">Semantic Scholar</div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta">
+    <div class="cta-glow"></div>
+    <h2 class="cta-title" data-en="Start Your Research Journey" data-zh="开始你的研究之旅">开始你的研究之旅</h2>
+    <p class="cta-desc" data-en="Browser-side computing · Data never leaves your device · MIT Open Source" data-zh="纯浏览器端计算 · 数据不离开设备 · MIT 开源">纯浏览器端计算 · 数据不离开设备 · MIT 开源</p>
+    <div class="hero-actions" style="justify-content:center">
+      <a href="https://github.com/linkingoscar/marketing-open-hub" class="btn btn-primary">
+        <span>⭐</span>
+        <span data-en="Star on GitHub" data-zh="Star on GitHub">Star on GitHub</span>
+      </a>
+      <a href="https://github.com/linkingoscar/marketing-open-hub/blob/main/README.md#-快速开始" class="btn btn-outline">
+        <span>🚀</span>
+        <span data-en="Quick Start" data-zh="快速开始">快速开始</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <p>
+      MarTech Open Hub · MIT License ·
+      <a href="https://github.com/linkingoscar">linkingoscar</a> ·
+      <a href="https://github.com/linkingoscar/marketing-open-hub" data-en="GitHub" data-zh="GitHub">GitHub</a>
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
