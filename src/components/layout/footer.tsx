@@ -40,7 +40,7 @@ export function Footer() {
             <h3 className="font-semibold text-[var(--text-primary)]">资源</h3>
             <ul className="space-y-2">
               {[
-                { label: "GitHub 仓库", href: "https://github.com", icon: GitFork },
+                { label: "GitHub 仓库", href: "https://github.com/linkingoscar/marketing-open-hub", icon: GitFork },
                 { label: "文献搜索", href: "/workspace/literature", icon: ExternalLink },
                 { label: "设置", href: "/settings", icon: ExternalLink },
               ].map((link) => (

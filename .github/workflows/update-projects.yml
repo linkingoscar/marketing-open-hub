@@ -1,0 +1,55 @@
+name: Update Project Data
+
+on:
+  schedule:
+    # 每周一早上 8 点 UTC (北京时间 16 点) 运行
+    - cron: "0 8 * * 1"
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  update-projects:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run update script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/update-projects.js
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet src/data/projects-data.json || echo "has_changes=true" >> $GITHUB_OUTPUT
+
+      - name: Create Pull Request
+        if: steps.changes.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: auto-update project stars and forks"
+          title: "🔄 Auto-update project data"
+          body: |
+            Automated weekly update of project data from GitHub API.
+
+            Updated fields:
+            - ⭐ Stars count
+            - 🍴 Forks count
+            - 📅 Last updated date
+            - 📝 Description (if previously empty)
+            - 🔗 Homepage (if previously empty)
+
+            This PR was created automatically by the `update-projects.yml` workflow.
+          branch: auto-update-projects
+          delete-branch: true
+          labels: automated,data-update

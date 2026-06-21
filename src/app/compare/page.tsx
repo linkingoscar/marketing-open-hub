@@ -3,14 +3,227 @@
 import Link from "next/link";
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Plus, X, Search, ArrowLeft } from "lucide-react";
+import { Plus, X, Search, ArrowLeft, FlaskConical, BarChart3, MessageSquare, Users, TrendingUp, Target, CheckCircle } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 import { projects } from "@/data/projects";
 import { getCategoryById, getCategoryColor } from "@/data/categories";
 import { type Project } from "@/data/types";
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend, ResponsiveContainer } from "recharts";
 
+// ===== 场景定义 =====
+interface Scenario {
+  id: string;
+  name: string;
+  description: string;
+  icon: React.ReactNode;
+  relevantTags: string[];
+  relevantCategories: string[];
+}
+
+const SCENARIOS: Scenario[] = [
+  {
+    id: "sentiment",
+    name: "消费者情感分析",
+    description: "分析消费者评论、社媒帖子的情感倾向，提取关键主题和情绪",
+    icon: <MessageSquare className="w-5 h-5" />,
+    relevantTags: ["sentiment", "nlp", "bert", "topic-modeling"],
+    relevantCategories: ["sentiment-analysis", "brand-monitoring"],
+  },
+  {
+    id: "causal",
+    name: "营销因果推断",
+    description: "评估营销活动的真实增量效果，控制混杂因素",
+    icon: <FlaskConical className="w-5 h-5" />,
+    relevantTags: ["causal-inference", "uplift", "treatment-effect", "meta-learner"],
+    relevantCategories: ["marketing-mix", "ai-simulation"],
+  },
+  {
+    id: "user-behavior",
+    name: "用户行为分析",
+    description: "追踪用户行为路径，分析转化漏斗，识别关键驱动因素",
+    icon: <Users className="w-5 h-5" />,
+    relevantTags: ["user-analytics", "ga4", "conversion", "clv", "btyd"],
+    relevantCategories: ["user-behavior", "customer-data-platform"],
+  },
+  {
+    id: "social-media",
+    name: "社媒趋势洞察",
+    description: "追踪社交媒体内容趋势，预测传播走势，评估 KOL 影响力",
+    icon: <TrendingUp className="w-5 h-5" />,
+    relevantTags: ["trend-analysis", "content-propagation", "xiaohongshu", "douyin", "tiktok"],
+    relevantCategories: ["social-media"],
+  },
+  {
+    id: "brand",
+    name: "品牌监测与可见性",
+    description: "监测品牌在各平台的提及、情感和可见性，包括 AI 模型中的品牌表现",
+    icon: <Target className="w-5 h-5" />,
+    relevantTags: ["brand-visibility", "geo", "sentiment", "amazon"],
+    relevantCategories: ["brand-monitoring"],
+  },
+  {
+    id: "validation",
+    name: "需求与创意验证",
+    description: "验证产品创意、市场需求和商业假设，降低创业风险",
+    icon: <CheckCircle className="w-5 h-5" />,
+    relevantTags: ["idea-validation", "pmf", "survey", "synthetic-data"],
+    relevantCategories: ["demand-validation", "ai-simulation"],
+  },
+  {
+    id: "stats",
+    name: "统计分析与建模",
+    description: "问卷数据分析、A/B 测试评估、联合分析、结构方程建模",
+    icon: <BarChart3 className="w-5 h-5" />,
+    relevantTags: ["statistics", "conjoint", "maxdiff", "ab-testing", "mmm"],
+    relevantCategories: ["statistics-toolkit", "marketing-mix"],
+  },
+];
+
 const COLORS = ["#6366F1", "#06B6D4", "#F59E0B", "#EC4899", "#10B981"];
+
+// ===== Tab type =====
+type CompareTab = "scenario" | "manual";
+
+// ===== Find relevant projects for a scenario =====
+function findRelevantProjects(scenario: Scenario): Project[] {
+  return projects.filter((p) => {
+    // Match by category
+    if (scenario.relevantCategories.includes(p.category)) return true;
+    // Match by tags
+    return p.tags.some((t) => scenario.relevantTags.includes(t));
+  });
+}
+
+// ===== Scenario Comparison Panel =====
+function ScenarioComparison() {
+  const [selectedScenario, setSelectedScenario] = useState<Scenario | null>(null);
+  const [compareIds, setCompareIds] = useState<string[]>([]);
+
+  const relevantProjects = useMemo(() => {
+    if (!selectedScenario) return [];
+    return findRelevantProjects(selectedScenario);
+  }, [selectedScenario]);
+
+  const compareProjects = useMemo(() => {
+    return compareIds.map((id) => projects.find((p) => p.id === id)).filter(Boolean) as Project[];
+  }, [compareIds]);
+
+  const toggleCompare = (id: string) => {
+    setCompareIds((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : prev.length < 4 ? [...prev, id] : prev
+    );
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Scenario selector */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {SCENARIOS.map((scenario) => (
+          <button
+            key={scenario.id}
+            onClick={() => {
+              setSelectedScenario(scenario);
+              setCompareIds([]);
+            }}
+            className={`p-4 rounded-xl border text-left transition-all ${
+              selectedScenario?.id === scenario.id
+                ? "border-[var(--primary)] bg-[var(--primary)]/10"
+                : "border-[var(--border)] hover:border-[var(--primary)]/30 hover:bg-[var(--bg-card)]"
+            }`}
+          >
+            <div className="flex items-center gap-3 mb-2">
+              <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                selectedScenario?.id === scenario.id ? "bg-[var(--primary)] text-white" : "bg-[var(--bg-tertiary)] text-[var(--text-secondary)]"
+              }`}>
+                {scenario.icon}
+              </div>
+              <h3 className="font-medium text-[var(--text-primary)]">{scenario.name}</h3>
+            </div>
+            <p className="text-xs text-[var(--text-muted)] leading-relaxed">{scenario.description}</p>
+          </button>
+        ))}
+      </div>
+
+      {/* Relevant tools */}
+      {selectedScenario && (
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg font-semibold text-[var(--text-primary)]">
+              {selectedScenario.name} — 相关工具 ({relevantProjects.length})
+            </h3>
+            {compareIds.length >= 2 && (
+              <span className="text-sm text-[var(--primary)]">
+                已选 {compareIds.length} 个，可对比
+              </span>
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {relevantProjects.map((p) => {
+              const cat = getCategoryById(p.category);
+              const catColor = getCategoryColor(p.category);
+              const isSelected = compareIds.includes(p.id);
+              const avgScore = (p.scores.features + p.scores.easeOfUse + p.scores.documentation + p.scores.community + p.scores.performance) / 5;
+
+              return (
+                <button
+                  key={p.id}
+                  onClick={() => toggleCompare(p.id)}
+                  className={`p-4 rounded-xl border text-left transition-all ${
+                    isSelected
+                      ? "border-[var(--primary)] bg-[var(--primary)]/5"
+                      : "border-[var(--border)] hover:border-[var(--primary)]/30"
+                  }`}
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center text-xl shrink-0" style={{ background: `${catColor}15` }}>
+                      {p.icon}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="font-medium text-[var(--text-primary)] text-sm">{p.name}</span>
+                        <span className="text-xs font-mono text-[var(--text-muted)]">{avgScore.toFixed(1)}</span>
+                        {isSelected && (
+                          <span className="ml-auto w-5 h-5 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-xs">
+                            ✓
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-xs text-[var(--text-muted)] line-clamp-2 mb-2">{p.descriptionCN}</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        <span className="text-[10px] px-1.5 py-0.5 rounded-full border" style={{ borderColor: `${catColor}30`, color: catColor }}>
+                          {cat?.nameCN}
+                        </span>
+                        <span className="text-[10px] px-1.5 py-0.5 rounded-full border border-[var(--border)] text-[var(--text-muted)]">
+                          ⭐ {p.stars >= 1000 ? `${(p.stars / 1000).toFixed(1)}k` : p.stars}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Comparison result */}
+          {compareProjects.length >= 2 && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6 mt-8">
+              <div className="glass-card p-6">
+                <h4 className="text-lg font-semibold text-[var(--text-primary)] mb-4">能力雷达图</h4>
+                <CompareRadar selected={compareProjects} />
+              </div>
+              <div className="glass-card p-6">
+                <h4 className="text-lg font-semibold text-[var(--text-primary)] mb-4">详细对比</h4>
+                <CompareTable selected={compareProjects} />
+              </div>
+            </motion.div>
+          )}
+        </motion.div>
+      )}
+    </div>
+  );
+}
 
 function CompareRadar({ selected }: { selected: Project[] }) {
   const dimensions = [
@@ -94,6 +307,7 @@ function CompareTable({ selected }: { selected: Project[] }) {
 }
 
 export default function ComparePage() {
+  const [tab, setTab] = useState<CompareTab>("scenario");
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [search, setSearch] = useState("");
 
@@ -128,31 +342,60 @@ export default function ComparePage() {
         <h1 className="text-3xl sm:text-4xl font-bold mb-2">
           项目<span className="gradient-text">对比</span>
         </h1>
-        <p className="text-[var(--text-secondary)] mb-8">选择最多 4 个项目进行多维度对比分析</p>
+        <p className="text-[var(--text-secondary)] mb-6">按研究场景推荐工具对比，或手动选择项目进行多维度分析</p>
 
-        {/* Search + Selected */}
-        <div className="glass-card p-6 mb-8">
-          {/* Selected chips */}
-          <div className="flex flex-wrap gap-2 mb-4">
-            {selected.map((p) => {
-              const catColor = getCategoryColor(p.category);
-              return (
-                <span key={p.id} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm border"
-                  style={{ borderColor: `${catColor}40`, background: `${catColor}10` }}>
-                  <span>{p.icon}</span>
-                  <span className="text-[var(--text-primary)]">{p.name}</span>
-                  <button onClick={() => removeProject(p.id)} className="ml-1 text-[var(--text-muted)] hover:text-[var(--error)] transition-colors">
-                    <X className="w-3.5 h-3.5" />
-                  </button>
-                </span>
-              );
-            })}
-            {selectedIds.length < 4 && (
-              <span className="text-sm text-[var(--text-muted)] self-center">
-                还可添加 {4 - selectedIds.length} 个项目
-              </span>
-            )}
-          </div>
+        {/* Tab navigation */}
+        <div className="flex gap-1 p-1 rounded-lg bg-[var(--bg-card)] mb-8 w-fit">
+          <button
+            onClick={() => setTab("scenario")}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              tab === "scenario"
+                ? "bg-[var(--primary)] text-white"
+                : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+            }`}
+          >
+            🎯 场景对比
+          </button>
+          <button
+            onClick={() => setTab("manual")}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              tab === "manual"
+                ? "bg-[var(--primary)] text-white"
+                : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+            }`}
+          >
+            🔧 手动对比
+          </button>
+        </div>
+
+        {/* Tab content */}
+        {tab === "scenario" ? (
+          <ScenarioComparison />
+        ) : (
+          <>
+            {/* Search + Selected */}
+            <div className="glass-card p-6 mb-8">
+              {/* Selected chips */}
+              <div className="flex flex-wrap gap-2 mb-4">
+                {selected.map((p) => {
+                  const catColor = getCategoryColor(p.category);
+                  return (
+                    <span key={p.id} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm border"
+                      style={{ borderColor: `${catColor}40`, background: `${catColor}10` }}>
+                      <span>{p.icon}</span>
+                      <span className="text-[var(--text-primary)]">{p.name}</span>
+                      <button onClick={() => removeProject(p.id)} className="ml-1 text-[var(--text-muted)] hover:text-[var(--error)] transition-colors">
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    </span>
+                  );
+                })}
+                {selectedIds.length < 4 && (
+                  <span className="text-sm text-[var(--text-muted)] self-center">
+                    还可添加 {4 - selectedIds.length} 个项目
+                  </span>
+                )}
+              </div>
 
           {/* Search */}
           <div className="relative">
@@ -214,6 +457,8 @@ export default function ComparePage() {
             <p className="text-lg mb-2">请至少选择 2 个项目开始对比</p>
             <p className="text-sm">在上方搜索框中搜索并添加项目</p>
           </div>
+        )}
+          </>
         )}
       </motion.div>
     </div>

@@ -24,6 +24,71 @@ function estimateTokens(text: string): number {
   return Math.ceil(count);
 }
 
+/**
+ * Read an SSE stream with proper cross-chunk line buffering.
+ * Handles incomplete lines split across TCP chunks.
+ */
+async function readSSEStream(
+  reader: ReadableStreamDefaultReader<Uint8Array>,
+  onLine: (line: string) => void,
+  signal?: AbortSignal
+): Promise<void> {
+  const decoder = new TextDecoder();
+  let buffer = "";
+
+  while (true) {
+    if (signal?.aborted) break;
+
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    buffer += decoder.decode(value, { stream: true });
+
+    // Split by newlines, but keep the last incomplete segment in buffer
+    const lines = buffer.split("\n");
+    buffer = lines.pop() ?? ""; // last element may be incomplete
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (trimmed) onLine(trimmed);
+    }
+  }
+
+  // Process any remaining buffer
+  if (buffer.trim()) onLine(buffer.trim());
+}
+
+/**
+ * Parse SSE data lines for OpenAI-compatible providers.
+ * Returns the extracted text content.
+ */
+function parseOpenAISSELine(line: string): string | null {
+  if (!line.startsWith("data: ") || line === "data: [DONE]") return null;
+  try {
+    const json = JSON.parse(line.slice(6));
+    return json.choices?.[0]?.delta?.content ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Parse SSE data lines for Anthropic providers.
+ * Returns the extracted text content.
+ */
+function parseAnthropicSSELine(line: string): string | null {
+  if (!line.startsWith("data: ")) return null;
+  try {
+    const json = JSON.parse(line.slice(6));
+    if (json.type === "content_block_delta") {
+      return json.delta?.text ?? null;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
 export async function callLLM(options: CallOptions): Promise<string> {
   const store = useAPIStore.getState();
   const allConfigs = store.getAllConfigs();
@@ -62,9 +127,9 @@ export async function callLLM(options: CallOptions): Promise<string> {
 async function callWithConfig(config: { provider: string; apiKey: string; baseUrl: string; model: string }, options: CallOptions): Promise<string> {
   const { messages, temperature = 0.7, maxTokens = 2000, stream = false, onChunk } = options;
 
-  // 30s timeout
+  // 120s timeout — LLM responses can be slow for long outputs
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 30000);
+  const timeout = setTimeout(() => controller.abort(), 120_000);
 
   try {
     // OpenAI-compatible API (works for OpenAI, DeepSeek, MiMo, Qwen, Kimi, Doubao, Spark, Zhipu, custom endpoints)
@@ -98,23 +163,16 @@ async function callWithConfig(config: { provider: string; apiKey: string; baseUr
 
       if (stream && onChunk) {
         const reader = res.body?.getReader();
-        const decoder = new TextDecoder();
+        if (!reader) throw new Error("无法读取响应流");
+
         let full = "";
-        while (reader) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          const chunk = decoder.decode(value);
-          for (const line of chunk.split("\n")) {
-            if (line.startsWith("data: ") && line !== "data: [DONE]") {
-              try {
-                const json = JSON.parse(line.slice(6));
-                const text = json.choices?.[0]?.delta?.content ?? "";
-                full += text;
-                onChunk(text);
-              } catch (e) { console.warn("[SSE] Parse chunk failed:", e); }
-            }
+        await readSSEStream(reader, (line) => {
+          const text = parseOpenAISSELine(line);
+          if (text) {
+            full += text;
+            onChunk(text);
           }
-        }
+        }, controller.signal);
         return full;
       }
 
@@ -152,25 +210,16 @@ async function callWithConfig(config: { provider: string; apiKey: string; baseUr
 
       if (stream && onChunk) {
         const reader = res.body?.getReader();
-        const decoder = new TextDecoder();
+        if (!reader) throw new Error("无法读取响应流");
+
         let full = "";
-        while (reader) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          const chunk = decoder.decode(value);
-          for (const line of chunk.split("\n")) {
-            if (line.startsWith("data: ")) {
-              try {
-                const json = JSON.parse(line.slice(6));
-                if (json.type === "content_block_delta") {
-                  const text = json.delta?.text ?? "";
-                  full += text;
-                  onChunk(text);
-                }
-              } catch (e) { console.warn("[SSE] Parse Anthropic chunk failed:", e); }
-            }
+        await readSSEStream(reader, (line) => {
+          const text = parseAnthropicSSELine(line);
+          if (text) {
+            full += text;
+            onChunk(text);
           }
-        }
+        }, controller.signal);
         return full;
       }
 

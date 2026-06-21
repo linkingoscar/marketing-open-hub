@@ -1,0 +1,1412 @@
+[
+  {
+    "id": "pymc-marketing",
+    "name": "PyMC-Marketing",
+    "fullName": "pymc-labs/pymc-marketing",
+    "description": "Bayesian marketing toolbox in PyMC. Media Mix (MMM), customer lifetime value (CLV), buy-till-you-die (BTYD) models and more.",
+    "descriptionCN": "贝叶斯营销工具箱：媒体组合模型(MMM)、客户生命周期价值(CLV)、客户选择分析(CSA)，生产级开源方案。",
+    "url": "https://github.com/pymc-labs/pymc-marketing",
+    "homepage": "https://www.pymc-marketing.io",
+    "stars": 2100,
+    "forks": 340,
+    "language": "Python",
+    "license": "Apache-2.0",
+    "lastUpdated": "2026-05-15",
+    "createdAt": "2022-03-07",
+    "category": "marketing-mix",
+    "tags": [
+      "bayesian",
+      "mmm",
+      "clv",
+      "marketing-analytics",
+      "pymc"
+    ],
+    "scenarios": [
+      "广告归因分析",
+      "营销预算分配",
+      "客户生命周期预测"
+    ],
+    "dataSources": [],
+    "aiCapabilities": [
+      "traditional-ml"
+    ],
+    "scores": {
+      "features": 9,
+      "easeOfUse": 7,
+      "documentation": 9,
+      "community": 8,
+      "performance": 8
+    },
+    "icon": "📈",
+    "featured": true,
+    "relatedProjects": [
+      "oransim",
+      "meridian"
+    ]
+  },
+  {
+    "id": "meridian",
+    "name": "Google Meridian",
+    "fullName": "google/meridian",
+    "description": "Google's open-source Bayesian marketing mix modeling framework for in-house MMM, ROI measurement, budget optimization, and experiment calibration.",
+    "descriptionCN": "Google 开源贝叶斯营销组合建模框架：支持自建 MMM、ROI 评估、预算优化、实验校准和地理级数据建模。",
+    "url": "https://github.com/google/meridian",
+    "homepage": "https://developers.google.com/meridian",
+    "stars": 1400,
+    "forks": 266,
+    "language": "Python",
+    "license": "Apache-2.0",
+    "lastUpdated": "2026-05-31",
+    "createdAt": "2025-01-29",
+    "category": "marketing-mix",
+    "tags": [
+      "bayesian",
+      "mmm",
+      "roi",
+      "budget-optimization",
+      "google"
+    ],
+    "scenarios": [
+      "营销组合建模",
+      "广告 ROI 评估",
+      "预算分配优化"
+    ],
+    "dataSources": [],
+    "aiCapabilities": [
+      "traditional-ml"
+    ],
+    "scores": {
+      "features": 9,
+      "easeOfUse": 7,
+      "documentation": 9,
+      "community": 8,
+      "performance": 8
+    },
+    "icon": "📈",
+    "featured": true,
+    "relatedProjects": [
+      "pymc-marketing",
+      "oransim",
+      "econml"
+    ]
+  },
+  {
+    "id": "oransim",
+    "name": "OranSim",
+    "fullName": "OranAi-Ltd/oransim",
+    "description": "Causal Digital Twin for Marketing at Scale. Predict any marketing decision before you spend a dollar.",
+    "descriptionCN": "因果数字孪生营销引擎，基于小红书 430 万+笔记和 210 万+达人数据，支持反事实推理和 14 天传播预测。",
+    "url": "https://github.com/OranAi-Ltd/oransim",
+    "stars": 120,
+    "forks": 18,
+    "language": "Python",
+    "license": "Apache-2.0",
+    "lastUpdated": "2026-04-18",
+    "createdAt": "2026-04-18",
+    "category": "marketing-mix",
+    "tags": [
+      "causal-inference",
+      "digital-twin",
+      "counterfactual",
+      "xiaohongshu",
+      "hawkes-process"
+    ],
+    "scenarios": [
+      "KOL 投放预测",
+      "营销 ROI 预估",
+      "反事实分析"
+    ],
+    "dataSources": [
+      "xiaohongshu"
+    ],
+    "aiCapabilities": [
+      "llm",
+      "traditional-ml"
+    ],
+    "scores": {
+      "features": 8,
+      "easeOfUse": 5,
+      "documentation": 7,
+      "community": 4,
+      "performance": 7
+    },
+    "icon": "📈",
+    "featured": false,
+    "relatedProjects": [
+      "pymc-marketing"
+    ]
+  },
+  {
+    "id": "synthetic-market-research",
+    "name": "Synthetic Market Research",
+    "fullName": "BayramAnnakov/synthetic-market-research",
+    "description": "AI agent skill for fast, cheap market research using LLM synthetic surveys + Semantic Similarity Rating (SSR).",
+    "descriptionCN": "基于 LLM 合成问卷调研 + 语义相似度评分(SSR)，与真人调研 90% 相关性，无需 API Key，分钟级完成。",
+    "url": "https://github.com/BayramAnnakov/synthetic-market-research",
+    "stars": 23,
+    "forks": 3,
+    "language": "Python",
+    "license": "MIT",
+    "lastUpdated": "2026-02-14",
+    "createdAt": "2026-02-14",
+    "category": "ai-simulation",
+    "tags": [
+      "llm",
+      "survey",
+      "synthetic-data",
+      "ssr",
+      "purchase-intent"
+    ],
+    "scenarios": [
+      "产品概念测试",
+      "定价策略研究",
+      "购买意向评估"
+    ],
+    "dataSources": [],
+    "aiCapabilities": [
+      "llm"
+    ],
+    "scores": {
+      "features": 7,
+      "easeOfUse": 9,
+      "documentation": 8,
+      "community": 5,
+      "performance": 8
+    },
+    "icon": "🧪",
+    "featured": true,
+    "relatedProjects": [
+      "microcrowd",
+      "tunnel",
+      "persona"
+    ]
+  },
+  {
+    "id": "microcrowd",
+    "name": "MicroCrowd",
+    "fullName": "vtmade/MicroCrowd",
+    "description": "Transform consumer data into realistic personas for simulated focus groups and market research insights.",
+    "descriptionCN": "将 CSV 消费者数据转化为 AI 人格，模拟焦点小组讨论，支持真实分歧、人格化语言模式和情绪追踪。",
+    "url": "https://github.com/vtmade/MicroCrowd",
+    "stars": 4,
+    "forks": 1,
+    "language": "TypeScript",
+    "license": "MIT",
+    "lastUpdated": "2025-06-12",
+    "createdAt": "2025-06-06",
+    "category": "ai-simulation",
+    "tags": [
+      "focus-group",
+      "persona",
+      "simulation",
+      "market-research"
+    ],
+    "scenarios": [
+      "产品测试",
+      "品牌感知研究",
+      "用户分群验证"
+    ],
+    "dataSources": [],
+    "aiCapabilities": [
+      "llm"
+    ],
+    "scores": {
+      "features": 7,
+      "easeOfUse": 8,
+      "documentation": 7,
+      "community": 3,
+      "performance": 7
+    },
+    "icon": "🧪",
+    "featured": false,
+    "relatedProjects": [
+      "synthetic-market-research",
+      "tunnel",
+      "persona"
+    ]
+  },
+  {
+    "id": "tunnel",
+    "name": "Tunnel",
+    "fullName": "krish1905/tunnel",
+    "description": "AI agents for simulated market research with 200+ personas, voice conversations, and global deployment simulation.",
+    "descriptionCN": "200+ AI 人格模拟市场测试平台，支持语音对话、情感分析、全球部署模拟和 3D 可视化。",
+    "url": "https://github.com/krish1905/tunnel",
+    "stars": 2,
+    "forks": 0,
+    "language": "TypeScript",
+    "license": "",
+    "lastUpdated": "2025-10-04",
+    "createdAt": "2025-09-13",
+    "category": "ai-simulation",
+    "tags": [
+      "ai-agents",
+      "voice",
+      "simulation",
+      "persona",
+      "3d-visualization"
+    ],
+    "scenarios": [
+      "产品创意验证",
+      "焦点小组模拟",
+      "全球市场测试"
+    ],
+    "dataSources": [],
+    "aiCapabilities": [
+      "llm"
+    ],
+    "scores": {
+      "features": 7,
+      "easeOfUse": 6,
+      "documentation": 5,
+      "community": 2,
+      "performance": 6
+    },
+    "icon": "🧪",
+    "featured": false,
+    "relatedProjects": [
+      "synthetic-market-research",
+      "microcrowd",
+      "persona"
+    ]
+  },
+  {
+    "id": "dowhy",
+    "name": "DoWhy",
+    "fullName": "py-why/dowhy",
+    "description": "Causal inference library based on Judea Pearl's do-calculus. End-to-end causal pipeline: model → identify → estimate → refute.",
+    "descriptionCN": "微软开源因果推断框架：基于 Pearl do-calculus，端到端因果分析流程（建模→识别→估计→反驳），学术级因果推断标准。",
+    "url": "https://github.com/py-why/dowhy",
+    "stars": 3200,
+    "forks": 450,
+    "language": "Python",
+    "license": "MIT",
+    "lastUpdated": "2026-05-01",
+    "createdAt": "2018-10-01",
+    "category": "ai-simulation",
+    "tags": [
+      "causal-inference",
+      "do-calculus",
+      "dag",
+      "counterfactual",
+      "microsoft"
+    ],
+    "scenarios": [
+      "因果效应估计",
+      "混杂变量控制",
+      "反事实分析"
+    ],
+    "dataSources": [],
+    "aiCapabilities": [
+      "traditional-ml"
+    ],
+    "scores": {
+      "features": 9,
+      "easeOfUse": 6,
+      "documentation": 9,
+      "community": 8,
+      "performance": 8
+    },
+    "icon": "🧪",
+    "featured": false,
+    "relatedProjects": [
+      "causalml",
+      "pymc-marketing",
+      "oransim"
+    ]
+  },
+  {
+    "id": "sentique",
+    "name": "Sentique",
+    "fullName": "rushilpatel21/Sentique",
+    "description": "Full-stack feedback analytics platform with fine-tuned BERT model, 16 categories, and RAG chatbot.",
+    "descriptionCN": "全栈反馈分析平台：App Store/Google Play/Trustpilot/Reddit/Twitter 数据采集，微调 BERT 16 分类 + RAG 聊天机器人。",
+    "url": "https://github.com/rushilpatel21/Sentique",
+    "homepage": "https://sentique.vercel.app",
+    "stars": 3,
+    "forks": 3,
+    "language": "TypeScript",
+    "license": "Apache-2.0",
+    "lastUpdated": "2025-11-02",
+    "createdAt": "2025-02-22",
+    "category": "sentiment-analysis",
+    "tags": [
+      "bert",
+      "rag",
+      "multi-platform",
+      "feedback-analysis",
+      "nlp"
+    ],
+    "scenarios": [
+      "产品反馈分析",
+      "竞品口碑监测",
+      "用户情感趋势"
+    ],
+    "dataSources": [
+      "app-store",
+      "google-play",
+      "trustpilot",
+      "reddit",
+      "twitter"
+    ],
+    "aiCapabilities": [
+      "nlp",
+      "llm"
+    ],
+    "scores": {
+      "features": 8,
+      "easeOfUse": 7,
+      "documentation": 7,
+      "community": 4,
+      "performance": 7
+    },
+    "icon": "💬",
+    "featured": true,
+    "relatedProjects": [
+      "customer-insight",
+      "customer-sentiment",
+      "sentiment-research-report"
+    ]
+  },
+  {
+    "id": "customer-insight",
+    "name": "CustomerInsight",
+    "fullName": "ChanMeng666/customer-insight",
+    "description": "AI-powered customer review analysis platform — sentiment analysis, keyword extraction, topic modeling, and anomaly detection.",
+    "descriptionCN": "中英双语客户评论分析平台：BERT 情感分析、TF-IDF 关键词提取、LDA 主题建模、Isolation Forest 异常检测。",
+    "url": "https://github.com/ChanMeng666/customer-insight",
+    "stars": 50,
+    "forks": 12,
+    "language": "Python",
+    "license": "",
+    "lastUpdated": "2025-03-15",
+    "createdAt": "2024-11-20",
+    "category": "sentiment-analysis",
+    "tags": [
+      "bert",
+      "topic-modeling",
+      "anomaly-detection",
+      "chinese-nlp",
+      "streamlit"
+    ],
+    "scenarios": [
+      "中文评论分析",
+      "产品口碑监测",
+      "异常评论检测"
+    ],
+    "dataSources": [],
+    "aiCapabilities": [
+      "nlp",
+      "traditional-ml"
+    ],
+    "scores": {
+      "features": 8,
+      "easeOfUse": 8,
+      "documentation": 7,
+      "community": 6,
+      "performance": 7
+    },
+    "icon": "💬",
+    "featured": false,
+    "relatedProjects": [
+      "sentique",
+      "customer-sentiment",
+      "brand-sentiment-monitoring"
+    ]
+  },
+  {
+    "id": "bertopic",
+    "name": "BERTopic",
+    "fullName": "MaartenGr/BERTopic",
+    "description": "Leveraging BERT and TF-IDF to create easily interpretable topics. Academic-grade topic modeling with embeddings, visualizations, and dynamic topic modeling.",
+    "descriptionCN": "学术级主题建模：基于 BERT 嵌入 + TF-IDF 的可解释主题提取，支持动态主题建模、层次聚类和可视化。取代传统 LDA。",
+    "url": "https://github.com/MaartenGr/BERTopic",
+    "stars": 22000,
+    "forks": 2800,
+    "language": "Python",
+    "license": "MIT",
+    "lastUpdated": "2026-04-15",
+    "createdAt": "2020-12-01",
+    "category": "sentiment-analysis",
+    "tags": [
+      "bert",
+      "topic-modeling",
+      "embeddings",
+      "clustering",
+      "nlp"
+    ],
+    "scenarios": [
+      "消费者评论主题提取",
+      "社媒话题发现",
+      "品牌叙事分析"
+    ],
+    "dataSources": [],
+    "aiCapabilities": [
+      "nlp",
+      "traditional-ml"
+    ],
+    "scores": {
+      "features": 9,
+      "easeOfUse": 7,
+      "documentation": 9,
+      "community": 9,
+      "performance": 8
+    },
+    "icon": "💬",
+    "featured": true,
+    "relatedProjects": [
+      "sentique",
+      "customer-insight",
+      "sentiment-research-report"
+    ]
+  },
+  {
+    "id": "scikit-uplift",
+    "name": "scikit-uplift",
+    "fullName": "maximtrp/scikit-uplift",
+    "description": "Uplift modeling (causal inference) Python package with sklearn-style API. S-Learner, T-Learner, X-Learner, Class Transformation, and all standard uplift metrics (AUUC, Qini).",
+    "descriptionCN": "学术级因果推断 uplift 建模：sklearn 风格 API，支持 S/T/X-Learner、Class Transformation，内置 AUUC/Qini 等全套 uplift 指标。",
+    "url": "https://github.com/maximtrp/scikit-uplift",
+    "stars": 680,
+    "forks": 100,
+    "language": "Python",
+    "license": "MIT",
+    "lastUpdated": "2026-03-10",
+    "createdAt": "2019-05-01",
+    "category": "sentiment-analysis",
+    "tags": [
+      "uplift",
+      "causal-inference",
+      "treatment-effect",
+      "marketing",
+      "scikit-learn"
+    ],
+    "scenarios": [
+      "营销活动增量效果评估",
+      "优惠券发放优化",
+      "用户干预效果建模"
+    ],
+    "dataSources": [],
+    "aiCapabilities": [
+      "traditional-ml"
+    ],
+    "scores": {
+      "features": 8,
+      "easeOfUse": 8,
+      "documentation": 8,
+      "community": 7,
+      "performance": 8
+    },
+    "icon": "💬",
+    "featured": false,
+    "relatedProjects": [
+      "pymc-marketing",
+      "oransim"
+    ]
+  },
+  {
+    "id": "amazon-behavior-analyzer",
+    "name": "Amazon Behavior Analyzer",
+    "fullName": "or4k2l/Amazon_Customer_Behavior_Analyzer",
+    "description": "Amazon product analytics: Pressure × Traction scoring, quadrant segmentation, sentiment analysis, and anomaly detection.",
+    "descriptionCN": "Amazon 产品分析：Pressure×Traction 双轴评分、象限分割、VADER+TextBlob 情感分析、Isolation Forest 异常检测。",
+    "url": "https://github.com/or4k2l/Amazon_Customer_Behavior_Analyzer",
+    "stars": 1,
+    "forks": 0,
+    "language": "Python",
+    "license": "Apache-2.0",
+    "lastUpdated": "2026-03-10",
+    "createdAt": "2026-03-08",
+    "category": "sentiment-analysis",
+    "tags": [
+      "amazon",
+      "sentiment",
+      "anomaly-detection",
+      "plotly",
+      "scoring"
+    ],
+    "scenarios": [
+      "Amazon 产品分析",
+      "消费者行为分群",
+      "异常产品检测"
+    ],
+    "dataSources": [
+      "amazon"
+    ],
+    "aiCapabilities": [
+      "nlp",
+      "traditional-ml"
+    ],
+    "scores": {
+      "features": 7,
+      "easeOfUse": 8,
+      "documentation": 6,
+      "community": 2,
+      "performance": 7
+    },
+    "icon": "💬",
+    "featured": false,
+    "relatedProjects": [
+      "sentique",
+      "customer-insight"
+    ]
+  },
+  {
+    "id": "sentiment-research-report",
+    "name": "Sentiment Research Report",
+    "fullName": "joleneann/sentiment-research-report",
+    "description": "Enterprise-grade consumer sentiment discovery engine: multi-platform data, theme extraction, evidence scoring, DOCX reports.",
+    "descriptionCN": "企业级消费者情感发现引擎：多平台数据采集→主题提取→证据评分→生成 DOCX 报告，8 阶段 pipeline。",
+    "url": "https://github.com/joleneann/sentiment-research-report",
+    "stars": 5,
+    "forks": 1,
+    "language": "Python",
+    "license": "",
+    "lastUpdated": "2026-04-10",
+    "createdAt": "2026-04-06",
+    "category": "sentiment-analysis",
+    "tags": [
+      "sentiment",
+      "theme-extraction",
+      "report-generation",
+      "multi-platform",
+      "llm"
+    ],
+    "scenarios": [
+      "品牌情感研究",
+      "消费者洞察报告",
+      "竞品分析"
+    ],
+    "dataSources": [
+      "reddit",
+      "youtube",
+      "twitter"
+    ],
+    "aiCapabilities": [
+      "nlp",
+      "llm"
+    ],
+    "scores": {
+      "features": 8,
+      "easeOfUse": 6,
+      "documentation": 8,
+      "community": 3,
+      "performance": 7
+    },
+    "icon": "💬",
+    "featured": false,
+    "relatedProjects": [
+      "sentique",
+      "customer-insight",
+      "google-social-pulse"
+    ]
+  },
+  {
+    "id": "google-social-pulse",
+    "name": "Gemini Social Pulse",
+    "fullName": "google-marketing-solutions/social-pulse",
+    "description": "Google's Gemini-powered social sentiment analyzer for YouTube content analysis.",
+    "descriptionCN": "Google 官方出品：Gemini 驱动的社交情感分析器，YouTube 视频/评论情感评分 + 相关性评分。",
+    "url": "https://github.com/google-marketing-solutions/social-pulse",
+    "stars": 80,
+    "forks": 20,
+    "language": "Python",
+    "license": "Apache-2.0",
+    "lastUpdated": "2026-03-20",
+    "createdAt": "2026-03-12",
+    "category": "sentiment-analysis",
+    "tags": [
+      "gemini",
+      "youtube",
+      "google-cloud",
+      "sentiment",
+      "bigquery"
+    ],
+    "scenarios": [
+      "YouTube 内容分析",
+      "广告主情感监测",
+      "竞品社媒分析"
+    ],
+    "dataSources": [
+      "youtube"
+    ],
+    "aiCapabilities": [
+      "llm",
+      "nlp"
+    ],
+    "scores": {
+      "features": 7,
+      "easeOfUse": 6,
+      "documentation": 8,
+      "community": 5,
+      "performance": 8
+    },
+    "icon": "💬",
+    "featured": false,
+    "relatedProjects": [
+      "sentiment-research-report",
+      "brand-sentiment-monitoring"
+    ]
+  },
+  {
+    "id": "zengrowth",
+    "name": "ZenGrowth",
+    "fullName": "xiongQvQ/ZenGrowth",
+    "description": "Automated user behavior analysis system based on CrewAI multi-agent framework with GA4 data integration.",
+    "descriptionCN": "基于 CrewAI 多智能体的用户行为分析系统：事件分析、留存分析、转化漏斗、用户分群、路径分析，支持 GA4 数据。",
+    "url": "https://github.com/xiongQvQ/ZenGrowth",
+    "stars": 2,
+    "forks": 0,
+    "language": "Python",
+    "license": "MIT",
+    "lastUpdated": "2025-09-04",
+    "createdAt": "2025-08-11",
+    "category": "user-behavior",
+    "tags": [
+      "crewai",
+      "ga4",
+      "multi-agent",
+      "user-analytics",
+      "streamlit"
+    ],
+    "scenarios": [
+      "用户行为分析",
+      "转化漏斗优化",
+      "留存率提升"
+    ],
+    "dataSources": [],
+    "aiCapabilities": [
+      "llm",
+      "traditional-ml"
+    ],
+    "scores": {
+      "features": 8,
+      "easeOfUse": 6,
+      "documentation": 7,
+      "community": 3,
+      "performance": 6
+    },
+    "icon": "📊",
+    "featured": false,
+    "relatedProjects": [
+      "istari",
+      "ecommerce-consumer-analysis"
+    ]
+  },
+  {
+    "id": "istari",
+    "name": "Istari",
+    "fullName": "tanayag/istari",
+    "description": "Open-source intent inference engine for behavioral event streams.",
+    "descriptionCN": "行为事件流意图推断引擎：将用户会话建模为连续意图轨迹，支持 Microsoft Clarity 集成。",
+    "url": "https://github.com/tanayag/istari",
+    "stars": 3,
+    "forks": 0,
+    "language": "Python",
+    "license": "Apache-2.0",
+    "lastUpdated": "2025-12-16",
+    "createdAt": "2025-12-15",
+    "category": "user-behavior",
+    "tags": [
+      "intent-inference",
+      "behavioral-events",
+      "clarity",
+      "state-machine",
+      "explainability"
+    ],
+    "scenarios": [
+      "用户意图识别",
+      "会话行为分析",
+      "CRO 优化"
+    ],
+    "dataSources": [],
+    "aiCapabilities": [
+      "traditional-ml"
+    ],
+    "scores": {
+      "features": 7,
+      "easeOfUse": 6,
+      "documentation": 7,
+      "community": 2,
+      "performance": 7
+    },
+    "icon": "📊",
+    "featured": false,
+    "relatedProjects": [
+      "zengrowth",
+      "ecommerce-consumer-analysis"
+    ]
+  },
+  {
+    "id": "leo-cdp",
+    "name": "LEO CDP",
+    "fullName": "trieu/leo-cdp-framework",
+    "description": "Open-source AI-first Customer Data Platform for building customizable, self-hosted CDP infrastructure.",
+    "descriptionCN": "开源 AI-first 客户数据平台：统一数据采集、实时分析、受众分群、RFM/CLV 预测、个性化营销。",
+    "url": "https://github.com/trieu/leo-cdp-framework",
+    "stars": 150,
+    "forks": 40,
+    "language": "Java",
+    "license": "MIT",
+    "lastUpdated": "2026-04-01",
+    "createdAt": "2025-08-13",
+    "category": "customer-data-platform",
+    "tags": [
+      "cdp",
+      "customer-data",
+      "segmentation",
+      "rfm",
+      "personalization"
+    ],
+    "scenarios": [
+      "客户数据统一",
+      "用户分群营销",
+      "个性化推荐"
+    ],
+    "dataSources": [],
+    "aiCapabilities": [
+      "traditional-ml",
+      "recommendation"
+    ],
+    "scores": {
+      "features": 8,
+      "easeOfUse": 5,
+      "documentation": 7,
+      "community": 5,
+      "performance": 7
+    },
+    "icon": "👥",
+    "featured": true,
+    "relatedProjects": []
+  },
+  {
+    "id": "ecommerce-consumer-analysis",
+    "name": "E-commerce Consumer Analysis",
+    "fullName": "Wvvi/E-commerce_consumer_analysis",
+    "description": "E-commerce consumer data analysis: user profiling, behavior analysis, conversion rate comparison.",
+    "descriptionCN": "电商消费者数据分析：用户画像、行为分析、转化率对比、运营指标分析，基于某电商平台真实数据。",
+    "url": "https://github.com/Wvvi/E-commerce_consumer_analysis",
+    "stars": 25,
+    "forks": 8,
+    "language": "Python",
+    "license": "",
+    "lastUpdated": "2020-08-15",
+    "createdAt": "2020-07-06",
+    "category": "user-behavior",
+    "tags": [
+      "ecommerce",
+      "user-profiling",
+      "conversion",
+      "eda",
+      "pandas"
+    ],
+    "scenarios": [
+      "电商用户画像",
+      "转化率分析",
+      "运营指标监控"
+    ],
+    "dataSources": [],
+    "aiCapabilities": [
+      "traditional-ml"
+    ],
+    "scores": {
+      "features": 6,
+      "easeOfUse": 7,
+      "documentation": 6,
+      "community": 4,
+      "performance": 6
+    },
+    "icon": "📊",
+    "featured": false,
+    "relatedProjects": [
+      "zengrowth",
+      "istari"
+    ]
+  },
+  {
+    "id": "ripple",
+    "name": "Ripple",
+    "fullName": "kangning-huang/Ripple",
+    "description": "CAS-theory-driven social behavior prediction engine for content propagation and PMF validation.",
+    "descriptionCN": "CAS 理论驱动的社会行为预测引擎：社交媒体内容传播预测 + 产品市场契合度(PMF)验证，支持 8 渠道 5 行业。",
+    "url": "https://github.com/kangning-huang/Ripple",
+    "stars": 30,
+    "forks": 5,
+    "language": "Python",
+    "license": "",
+    "lastUpdated": "2026-04-20",
+    "createdAt": "2026-04-01",
+    "category": "social-media",
+    "tags": [
+      "cas-theory",
+      "pmf",
+      "content-propagation",
+      "xiaohongshu",
+      "multi-agent"
+    ],
+    "scenarios": [
+      "内容传播预测",
+      "PMF 验证",
+      "渠道策略评估"
+    ],
+    "dataSources": [
+      "xiaohongshu",
+      "douyin",
+      "weibo"
+    ],
+    "aiCapabilities": [
+      "llm"
+    ],
+    "scores": {
+      "features": 8,
+      "easeOfUse": 5,
+      "documentation": 7,
+      "community": 3,
+      "performance": 7
+    },
+    "icon": "📱",
+    "featured": true,
+    "relatedProjects": [
+      "intelligence",
+      "taste-analytics"
+    ]
+  },
+  {
+    "id": "intelligence",
+    "name": "Intelligence",
+    "fullName": "zinan92/intelligence",
+    "description": "Social content trend research engine: XHS/Douyin data to structured trend signals and decision reports.",
+    "descriptionCN": "社交内容趋势研究引擎：小红书/抖音数据→结构化趋势信号+方向聚类+决策报告+交互看板，零依赖。",
+    "url": "https://github.com/zinan92/intelligence",
+    "stars": 10,
+    "forks": 2,
+    "language": "Python",
+    "license": "",
+    "lastUpdated": "2026-03-28",
+    "createdAt": "2026-03-23",
+    "category": "social-media",
+    "tags": [
+      "trend-analysis",
+      "xiaohongshu",
+      "douyin",
+      "content-analysis",
+      "zero-dependency"
+    ],
+    "scenarios": [
+      "社媒趋势研究",
+      "品类趋势分析",
+      "内容策略制定"
+    ],
+    "dataSources": [
+      "xiaohongshu",
+      "douyin"
+    ],
+    "aiCapabilities": [],
+    "scores": {
+      "features": 7,
+      "easeOfUse": 7,
+      "documentation": 6,
+      "community": 2,
+      "performance": 8
+    },
+    "icon": "📱",
+    "featured": false,
+    "relatedProjects": [
+      "ripple",
+      "taste-analytics",
+      "deepfeelings"
+    ]
+  },
+  {
+    "id": "taste-analytics",
+    "name": "Taste Engine",
+    "fullName": "codebyellalesperance/taste-analytics",
+    "description": "Real-time consumer intelligence platform tracking fashion, brands, and culture trends.",
+    "descriptionCN": "实时消费者情报平台：追踪 TikTok/Twitter/StockX/时装周趋势，时尚品牌与文化趋势分析。",
+    "url": "https://github.com/codebyellalesperance/taste-analytics",
+    "stars": 2,
+    "forks": 0,
+    "language": "Python",
+    "license": "",
+    "lastUpdated": "2026-02-06",
+    "createdAt": "2026-02-06",
+    "category": "social-media",
+    "tags": [
+      "fashion",
+      "tiktok",
+      "stockx",
+      "trend-tracking",
+      "consumer-intelligence"
+    ],
+    "scenarios": [
+      "时尚趋势预测",
+      "品牌热度监测",
+      "消费文化研究"
+    ],
+    "dataSources": [
+      "tiktok",
+      "twitter",
+      "stockx"
+    ],
+    "aiCapabilities": [],
+    "scores": {
+      "features": 6,
+      "easeOfUse": 6,
+      "documentation": 5,
+      "community": 2,
+      "performance": 6
+    },
+    "icon": "📱",
+    "featured": false,
+    "relatedProjects": [
+      "ripple",
+      "intelligence",
+      "deepfeelings"
+    ]
+  },
+  {
+    "id": "causalml",
+    "name": "CausalML",
+    "fullName": "uber/causalml",
+    "description": "Uplift modeling and causal inference with ML algorithms. S-Learner, T-Learner, X-Learner, R-Learner, DR-Learner. Estimation of Conditional Average Treatment Effects (CATE).",
+    "descriptionCN": "Uber 开源因果机器学习：Meta-Learner 全家桶（S/T/X/R/DR-Learner），CATE 估计，uplift 建模，arXiv 论文背书。",
+    "url": "https://github.com/uber/causalml",
+    "stars": 2200,
+    "forks": 350,
+    "language": "Python",
+    "license": "Apache-2.0",
+    "lastUpdated": "2026-05-15",
+    "createdAt": "2019-07-09",
+    "category": "social-media",
+    "tags": [
+      "causal-inference",
+      "uplift",
+      "cate",
+      "meta-learner",
+      "marketing"
+    ],
+    "scenarios": [
+      "营销增量效果评估",
+      "优惠券精准投放",
+      "A/B 测试分析"
+    ],
+    "dataSources": [],
+    "aiCapabilities": [
+      "traditional-ml"
+    ],
+    "scores": {
+      "features": 9,
+      "easeOfUse": 7,
+      "documentation": 8,
+      "community": 8,
+      "performance": 8
+    },
+    "icon": "📱",
+    "featured": true,
+    "relatedProjects": [
+      "pymc-marketing",
+      "oransim"
+    ]
+  },
+  {
+    "id": "geo-insight",
+    "name": "GEO Insight",
+    "fullName": "huanghfzhufeng/GEO-Insight",
+    "description": "Brand visibility analysis platform for Chinese AI models using parallel universe simulation.",
+    "descriptionCN": "品牌在国产大模型（DeepSeek/Kimi/文心一言/豆包）中的可见性分析平台，'平行宇宙'仿真策略。",
+    "url": "https://github.com/huanghfzhufeng/GEO-Insight",
+    "stars": 40,
+    "forks": 8,
+    "language": "Python",
+    "license": "",
+    "lastUpdated": "2025-12-15",
+    "createdAt": "2025-12-05",
+    "category": "brand-monitoring",
+    "tags": [
+      "geo",
+      "brand-visibility",
+      "deepseek",
+      "kimi",
+      "langgraph"
+    ],
+    "scenarios": [
+      "AI 品牌可见性",
+      "竞品 AI 表现对比",
+      "内容优化策略"
+    ],
+    "dataSources": [],
+    "aiCapabilities": [
+      "llm"
+    ],
+    "scores": {
+      "features": 8,
+      "easeOfUse": 6,
+      "documentation": 7,
+      "community": 4,
+      "performance": 7
+    },
+    "icon": "🏷️",
+    "featured": true,
+    "relatedProjects": [
+      "social-pulse",
+      "amazon-reviews-analytics"
+    ]
+  },
+  {
+    "id": "social-pulse",
+    "name": "SocialPulse",
+    "fullName": "its-vanshitaaa/SocialPulse",
+    "description": "Multi-platform sentiment analysis for Amazon and Flipkart with real-time tracking.",
+    "descriptionCN": "多平台情感分析工具：Amazon/Flipkart 评论分析，实时追踪、关键词分析、可定制报告。",
+    "url": "https://github.com/its-vanshitaaa/SocialPulse",
+    "stars": 5,
+    "forks": 2,
+    "language": "Python",
+    "license": "",
+    "lastUpdated": "2024-11-15",
+    "createdAt": "2024-10-28",
+    "category": "brand-monitoring",
+    "tags": [
+      "sentiment",
+      "amazon",
+      "flipkart",
+      "real-time",
+      "streamlit"
+    ],
+    "scenarios": [
+      "电商口碑监测",
+      "品牌情感追踪",
+      "产品评论分析"
+    ],
+    "dataSources": [
+      "amazon"
+    ],
+    "aiCapabilities": [
+      "nlp"
+    ],
+    "scores": {
+      "features": 6,
+      "easeOfUse": 7,
+      "documentation": 5,
+      "community": 3,
+      "performance": 6
+    },
+    "icon": "🏷️",
+    "featured": false,
+    "relatedProjects": [
+      "geo-insight",
+      "amazon-reviews-analytics"
+    ]
+  },
+  {
+    "id": "amazon-reviews-analytics",
+    "name": "Amazon Reviews Analytics",
+    "fullName": "Saravanan-Arumugam3/Advanced-NLP-Based-Amazon-Reviews-Analytics",
+    "description": "MLOps project on Sentiment Analysis and Aspect Based Sentiment Analysis (ABSA) on Amazon Reviews.",
+    "descriptionCN": "Amazon 评论高级分析：BERT 情感分析 + 方面级情感分析(ABSA)，MLOps 全流程（Airflow + MLflow + Docker）。",
+    "url": "https://github.com/Saravanan-Arumugam3/Advanced-NLP-Based-Amazon-Reviews-Analytics",
+    "stars": 35,
+    "forks": 10,
+    "language": "Python",
+    "license": "",
+    "lastUpdated": "2024-04-01",
+    "createdAt": "2024-03-10",
+    "category": "brand-monitoring",
+    "tags": [
+      "absa",
+      "bert",
+      "mlops",
+      "amazon",
+      "airflow"
+    ],
+    "scenarios": [
+      "产品方面级分析",
+      "评论情感挖掘",
+      "MLOps 流水线"
+    ],
+    "dataSources": [
+      "amazon"
+    ],
+    "aiCapabilities": [
+      "nlp",
+      "traditional-ml"
+    ],
+    "scores": {
+      "features": 8,
+      "easeOfUse": 5,
+      "documentation": 7,
+      "community": 4,
+      "performance": 7
+    },
+    "icon": "🏷️",
+    "featured": false,
+    "relatedProjects": [
+      "geo-insight",
+      "social-pulse"
+    ]
+  },
+  {
+    "id": "ideacan",
+    "name": "IdeaScan",
+    "fullName": "tangchunwu/IdeaScan",
+    "description": "AI idea validation platform: XHS/Douyin scraping, competitive analysis, AI scoring, MVP landing page generation.",
+    "descriptionCN": "AI 需求验证平台：小红书/抖音数据抓取→竞品分析→AI 评分报告→MVP 落地页生成，中英双语。",
+    "url": "https://github.com/tangchunwu/IdeaScan",
+    "stars": 20,
+    "forks": 3,
+    "language": "TypeScript",
+    "license": "",
+    "lastUpdated": "2026-02-15",
+    "createdAt": "2026-02-03",
+    "category": "demand-validation",
+    "tags": [
+      "idea-validation",
+      "xiaohongshu",
+      "douyin",
+      "mvp",
+      "competitive-analysis"
+    ],
+    "scenarios": [
+      "创业点子验证",
+      "市场需求评估",
+      "竞品分析"
+    ],
+    "dataSources": [
+      "xiaohongshu",
+      "douyin"
+    ],
+    "aiCapabilities": [
+      "llm"
+    ],
+    "scores": {
+      "features": 8,
+      "easeOfUse": 7,
+      "documentation": 7,
+      "community": 3,
+      "performance": 7
+    },
+    "icon": "✅",
+    "featured": false,
+    "relatedProjects": [
+      "mk-intel"
+    ]
+  },
+  {
+    "id": "mk-intel",
+    "name": "MK Intel",
+    "fullName": "MarketKinetics/mk-intel",
+    "description": "AI-augmented target audience analysis system mapping customer data to U.S. population archetypes.",
+    "descriptionCN": "AI 增强目标受众分析：基于美国人口普查 1590 万条记录构建 7 类行为原型，生成带来源标注的受众报告。",
+    "url": "https://github.com/MarketKinetics/mk-intel",
+    "stars": 3,
+    "forks": 0,
+    "language": "Python",
+    "license": "MIT",
+    "lastUpdated": "2026-04-30",
+    "createdAt": "2026-04-01",
+    "category": "demand-validation",
+    "tags": [
+      "audience-analysis",
+      "archetypes",
+      "census-data",
+      "llm",
+      "fastapi"
+    ],
+    "scenarios": [
+      "目标受众分析",
+      "营销策略制定",
+      "用户画像构建"
+    ],
+    "dataSources": [],
+    "aiCapabilities": [
+      "llm",
+      "traditional-ml"
+    ],
+    "scores": {
+      "features": 7,
+      "easeOfUse": 5,
+      "documentation": 7,
+      "community": 2,
+      "performance": 6
+    },
+    "icon": "✅",
+    "featured": false,
+    "relatedProjects": [
+      "ideacan"
+    ]
+  },
+  {
+    "id": "market-research-stats-toolkit",
+    "name": "Market Research Stats Toolkit",
+    "fullName": "Dekic648/market-research-stats-toolkit",
+    "description": "Free, open-source statistical analysis toolkit with 59 methods for market researchers.",
+    "descriptionCN": "59 种统计方法的浏览器端工具箱：t 检验、ANOVA、联合分析、MaxDiff、离散选择建模、LCA 等，纯前端零依赖。",
+    "url": "https://github.com/Dekic648/market-research-stats-toolkit",
+    "stars": 8,
+    "forks": 2,
+    "language": "JavaScript",
+    "license": "",
+    "lastUpdated": "2026-03-20",
+    "createdAt": "2026-03-14",
+    "category": "statistics-toolkit",
+    "tags": [
+      "statistics",
+      "conjoint",
+      "maxdiff",
+      "ab-testing",
+      "browser-based"
+    ],
+    "scenarios": [
+      "问卷数据分析",
+      "A/B 测试评估",
+      "联合分析"
+    ],
+    "dataSources": [],
+    "aiCapabilities": [
+      "pure-stats"
+    ],
+    "scores": {
+      "features": 9,
+      "easeOfUse": 9,
+      "documentation": 8,
+      "community": 3,
+      "performance": 9
+    },
+    "icon": "🧮",
+    "featured": false,
+    "relatedProjects": []
+  },
+  {
+    "id": "lifetimes",
+    "name": "Lifetimes",
+    "fullName": "CamDavidsonPilon/lifetimes",
+    "description": "Customer Lifetime Value (CLV) estimation using BG/NBD, Pareto/NBD, and Gamma-Gamma models. Academic-grade BTYD (Buy Till You Die) implementation.",
+    "descriptionCN": "学术级 CLV 客户生命周期价值建模：BG/NBD + Pareto/NBD + Gamma-Gamma 模型，Buy Till You Die 方法论，Python 实现。",
+    "url": "https://github.com/CamDavidsonPilon/lifetimes",
+    "stars": 1700,
+    "forks": 300,
+    "language": "Python",
+    "license": "MIT",
+    "lastUpdated": "2025-06-01",
+    "createdAt": "2015-03-01",
+    "category": "marketing-mix",
+    "tags": [
+      "clv",
+      "btyd",
+      "bg-nbd",
+      "pareto-nbd",
+      "gamma-gamma",
+      "customer-lifetime-value"
+    ],
+    "scenarios": [
+      "客户生命周期价值预测",
+      "客户分群",
+      "复购行为建模"
+    ],
+    "dataSources": [],
+    "aiCapabilities": [
+      "traditional-ml"
+    ],
+    "scores": {
+      "features": 8,
+      "easeOfUse": 7,
+      "documentation": 8,
+      "community": 7,
+      "performance": 8
+    },
+    "icon": "📈",
+    "featured": false,
+    "relatedProjects": [
+      "pymc-marketing"
+    ]
+  },
+  {
+    "id": "econml",
+    "name": "EconML",
+    "fullName": "microsoft/EconML",
+    "description": "Heterogeneous treatment effect estimation from econometrics and ML. CATE estimation, Double ML, DR-Learner, Orthogonal Forest.",
+    "descriptionCN": "微软开源因果机器学习：异质处理效应估计，Double ML / DR-Learner / Orthogonal Forest，KDD/ICML 论文背书。",
+    "url": "https://github.com/microsoft/EconML",
+    "stars": 1800,
+    "forks": 280,
+    "language": "Python",
+    "license": "MIT",
+    "lastUpdated": "2026-04-01",
+    "createdAt": "2019-01-01",
+    "category": "marketing-mix",
+    "tags": [
+      "causal-inference",
+      "cate",
+      "double-ml",
+      "treatment-effect",
+      "microsoft"
+    ],
+    "scenarios": [
+      "异质处理效应估计",
+      "营销策略个性化",
+      "政策效果评估"
+    ],
+    "dataSources": [],
+    "aiCapabilities": [
+      "traditional-ml"
+    ],
+    "scores": {
+      "features": 9,
+      "easeOfUse": 6,
+      "documentation": 9,
+      "community": 8,
+      "performance": 8
+    },
+    "icon": "📈",
+    "featured": true,
+    "relatedProjects": [
+      "causalml",
+      "dowhy",
+      "pymc-marketing"
+    ]
+  },
+  {
+    "id": "tfcausalimpact",
+    "name": "TFCausalImpact",
+    "fullName": "WillianFuks/tfcausalimpact",
+    "description": "Google's Causal Impact algorithm implemented on TensorFlow Probability. Bayesian structural time series for measuring causal effects of interventions.",
+    "descriptionCN": "Google Causal Impact 的 Python 实现：基于贝叶斯结构时间序列，评估营销干预的因果效果（如广告投放、促销活动的真实增量）。",
+    "url": "https://github.com/WillianFuks/tfcausalimpact",
+    "stars": 670,
+    "forks": 80,
+    "language": "Python",
+    "license": "Apache-2.0",
+    "lastUpdated": "2025-01-13",
+    "createdAt": "2020-08-17",
+    "category": "marketing-mix",
+    "tags": [
+      "causal-inference",
+      "time-series",
+      "bayesian",
+      "intervention",
+      "google"
+    ],
+    "scenarios": [
+      "广告投放增量评估",
+      "促销活动因果效果",
+      "品牌危机影响量化"
+    ],
+    "dataSources": [],
+    "aiCapabilities": [
+      "traditional-ml"
+    ],
+    "scores": {
+      "features": 8,
+      "easeOfUse": 7,
+      "documentation": 8,
+      "community": 7,
+      "performance": 8
+    },
+    "icon": "📈",
+    "featured": false,
+    "relatedProjects": [
+      "pymc-marketing",
+      "econml"
+    ]
+  }
+]

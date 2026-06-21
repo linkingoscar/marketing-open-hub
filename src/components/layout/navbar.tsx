@@ -93,7 +93,7 @@ export function Navbar() {
               <span className="sr-only">切换主题</span>
             </Button>
 
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer"
+            <a href="https://github.com/linkingoscar/marketing-open-hub" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center justify-center h-9 w-9 rounded-md text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)] transition-colors"
             >
               <GitFork className="h-4 w-4" />

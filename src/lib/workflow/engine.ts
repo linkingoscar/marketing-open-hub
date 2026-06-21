@@ -294,6 +294,7 @@ export const WORKFLOW_TEMPLATES: Omit<Workflow, "id" | "createdAt" | "updatedAt"
 export function createWorkflow(template: Omit<Workflow, "id" | "createdAt" | "updatedAt" | "status">): Workflow {
   return {
     ...template,
+    steps: template.steps.map((step) => ({ ...step })),
     id: `wf-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
     createdAt: Date.now(),
     updatedAt: Date.now(),

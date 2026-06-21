@@ -1,7 +1,8 @@
 "use client";
 
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
+import { encrypt, decrypt, migratePlaintextStorage } from "@/lib/crypto";
 
 export interface APIProvider {
   id: string;
@@ -57,6 +58,37 @@ interface APIStore {
   hasAnyKey: () => boolean;
   recordUsage: (providerId: string, inputTokens: number, outputTokens: number, latencyMs: number) => void;
 }
+
+export const STORAGE_KEY = "martech-api-config";
+
+/**
+ * Encrypted localStorage adapter for Zustand.
+ * Encrypts API keys before writing to localStorage,
+ * decrypts after reading.
+ */
+const encryptedStorage = createJSONStorage<APIStore>(() => ({
+  getItem: async (name: string) => {
+    const raw = localStorage.getItem(name);
+    if (!raw) return null;
+    try {
+      const decrypted = await decrypt(raw);
+      return decrypted;
+    } catch {
+      return raw; // fallback to plaintext (migration path)
+    }
+  },
+  setItem: async (name: string, value: string) => {
+    try {
+      const encrypted = await encrypt(value);
+      localStorage.setItem(name, encrypted);
+    } catch {
+      localStorage.setItem(name, value); // fallback to plaintext
+    }
+  },
+  removeItem: (name: string) => {
+    localStorage.removeItem(name);
+  },
+}));
 
 export const useAPIStore = create<APIStore>()(
   persist(
@@ -123,6 +155,15 @@ export const useAPIStore = create<APIStore>()(
         });
       },
     }),
-    { name: "martech-api-config" }
+    {
+      name: STORAGE_KEY,
+      storage: encryptedStorage,
+      onRehydrateStorage: () => {
+        // Migrate existing plaintext data to encrypted on first load
+        return (_state, _error) => {
+          migratePlaintextStorage(STORAGE_KEY);
+        };
+      },
+    }
   )
 );

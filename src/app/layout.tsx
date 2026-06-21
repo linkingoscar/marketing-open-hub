@@ -6,6 +6,8 @@ import { Footer } from "@/components/layout/footer";
 import { MobileTabBar } from "@/components/layout/mobile-tab-bar";
 import { CommandPalette } from "@/components/search/command-palette";
 import { ErrorBoundary } from "@/components/error-boundary";
+import { AnalyticsProvider } from "@/components/analytics-provider";
+import { OnboardingOverlay } from "@/components/workspace/onboarding";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -43,13 +45,16 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
-          <ErrorBoundary>
-            <CommandPalette />
-            <Navbar />
-            <main className="flex-1 pt-16 pb-16 md:pb-0">{children}</main>
-            <MobileTabBar />
-            <Footer />
-          </ErrorBoundary>
+          <AnalyticsProvider>
+            <ErrorBoundary>
+              <CommandPalette />
+              <OnboardingOverlay />
+              <Navbar />
+              <main className="flex-1 pt-16 pb-16 md:pb-0">{children}</main>
+              <MobileTabBar />
+              <Footer />
+            </ErrorBoundary>
+          </AnalyticsProvider>
         </ThemeProvider>
         <Script id="sw-register" strategy="afterInteractive">{`
           if('serviceWorker' in navigator){
