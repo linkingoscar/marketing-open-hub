@@ -7,11 +7,11 @@
     "descriptionCN": "贝叶斯营销工具箱：媒体组合模型(MMM)、客户生命周期价值(CLV)、客户选择分析(CSA)，生产级开源方案。",
     "url": "https://github.com/pymc-labs/pymc-marketing",
     "homepage": "https://www.pymc-marketing.io",
-    "stars": 2100,
-    "forks": 340,
+    "stars": 1172,
+    "forks": 383,
     "language": "Python",
     "license": "Apache-2.0",
-    "lastUpdated": "2026-05-15",
+    "lastUpdated": "2026-06-22",
     "createdAt": "2022-03-07",
     "category": "marketing-mix",
     "tags": [
@@ -52,11 +52,11 @@
     "descriptionCN": "Google 开源贝叶斯营销组合建模框架：支持自建 MMM、ROI 评估、预算优化、实验校准和地理级数据建模。",
     "url": "https://github.com/google/meridian",
     "homepage": "https://developers.google.com/meridian",
-    "stars": 1400,
-    "forks": 266,
+    "stars": 1432,
+    "forks": 272,
     "language": "Python",
     "license": "Apache-2.0",
-    "lastUpdated": "2026-05-31",
+    "lastUpdated": "2026-06-20",
     "createdAt": "2025-01-29",
     "category": "marketing-mix",
     "tags": [
@@ -97,11 +97,11 @@
     "description": "Causal Digital Twin for Marketing at Scale. Predict any marketing decision before you spend a dollar.",
     "descriptionCN": "因果数字孪生营销引擎，基于小红书 430 万+笔记和 210 万+达人数据，支持反事实推理和 14 天传播预测。",
     "url": "https://github.com/OranAi-Ltd/oransim",
-    "stars": 120,
-    "forks": 18,
+    "stars": 1171,
+    "forks": 153,
     "language": "Python",
     "license": "Apache-2.0",
-    "lastUpdated": "2026-04-18",
+    "lastUpdated": "2026-04-24",
     "createdAt": "2026-04-18",
     "category": "marketing-mix",
     "tags": [
@@ -134,7 +134,8 @@
     "featured": false,
     "relatedProjects": [
       "pymc-marketing"
-    ]
+    ],
+    "homepage": "https://oran.cn"
   },
   {
     "id": "synthetic-market-research",
@@ -143,8 +144,8 @@
     "description": "AI agent skill for fast, cheap market research using LLM synthetic surveys + Semantic Similarity Rating (SSR).",
     "descriptionCN": "基于 LLM 合成问卷调研 + 语义相似度评分(SSR)，与真人调研 90% 相关性，无需 API Key，分钟级完成。",
     "url": "https://github.com/BayramAnnakov/synthetic-market-research",
-    "stars": 23,
-    "forks": 3,
+    "stars": 34,
+    "forks": 6,
     "language": "Python",
     "license": "MIT",
     "lastUpdated": "2026-02-14",
@@ -188,7 +189,7 @@
     "description": "Transform consumer data into realistic personas for simulated focus groups and market research insights.",
     "descriptionCN": "将 CSV 消费者数据转化为 AI 人格，模拟焦点小组讨论，支持真实分歧、人格化语言模式和情绪追踪。",
     "url": "https://github.com/vtmade/MicroCrowd",
-    "stars": 4,
+    "stars": 3,
     "forks": 1,
     "language": "TypeScript",
     "license": "MIT",
@@ -232,7 +233,7 @@
     "description": "AI agents for simulated market research with 200+ personas, voice conversations, and global deployment simulation.",
     "descriptionCN": "200+ AI 人格模拟市场测试平台，支持语音对话、情感分析、全球部署模拟和 3D 可视化。",
     "url": "https://github.com/krish1905/tunnel",
-    "stars": 2,
+    "stars": 5,
     "forks": 0,
     "language": "TypeScript",
     "license": "",
@@ -268,7 +269,8 @@
       "synthetic-market-research",
       "microcrowd",
       "persona"
-    ]
+    ],
+    "homepage": "https://tunnel-sigma-six.vercel.app"
   },
   {
     "id": "dowhy",
@@ -277,11 +279,11 @@
     "description": "Causal inference library based on Judea Pearl's do-calculus. End-to-end causal pipeline: model → identify → estimate → refute.",
     "descriptionCN": "微软开源因果推断框架：基于 Pearl do-calculus，端到端因果分析流程（建模→识别→估计→反驳），学术级因果推断标准。",
     "url": "https://github.com/py-why/dowhy",
-    "stars": 3200,
-    "forks": 450,
+    "stars": 8175,
+    "forks": 1039,
     "language": "Python",
     "license": "MIT",
-    "lastUpdated": "2026-05-01",
+    "lastUpdated": "2026-06-22",
     "createdAt": "2018-10-01",
     "category": "ai-simulation",
     "tags": [
@@ -313,7 +315,8 @@
       "causalml",
       "pymc-marketing",
       "oransim"
-    ]
+    ],
+    "homepage": "https://www.pywhy.org/dowhy"
   },
   {
     "id": "sentique",
@@ -323,7 +326,7 @@
     "descriptionCN": "全栈反馈分析平台：App Store/Google Play/Trustpilot/Reddit/Twitter 数据采集，微调 BERT 16 分类 + RAG 聊天机器人。",
     "url": "https://github.com/rushilpatel21/Sentique",
     "homepage": "https://sentique.vercel.app",
-    "stars": 3,
+    "stars": 5,
     "forks": 3,
     "language": "TypeScript",
     "license": "Apache-2.0",
@@ -375,11 +378,11 @@
     "description": "AI-powered customer review analysis platform — sentiment analysis, keyword extraction, topic modeling, and anomaly detection.",
     "descriptionCN": "中英双语客户评论分析平台：BERT 情感分析、TF-IDF 关键词提取、LDA 主题建模、Isolation Forest 异常检测。",
     "url": "https://github.com/ChanMeng666/customer-insight",
-    "stars": 50,
-    "forks": 12,
+    "stars": 0,
+    "forks": 2,
     "language": "Python",
-    "license": "",
-    "lastUpdated": "2025-03-15",
+    "license": "Apache-2.0",
+    "lastUpdated": "2026-06-16",
     "createdAt": "2024-11-20",
     "category": "sentiment-analysis",
     "tags": [
@@ -412,7 +415,8 @@
       "sentique",
       "customer-sentiment",
       "brand-sentiment-monitoring"
-    ]
+    ],
+    "homepage": "https://chanmeng666-customerinsight-app-oeiu2h.streamlit.app/"
   },
   {
     "id": "bertopic",
@@ -421,11 +425,11 @@
     "description": "Leveraging BERT and TF-IDF to create easily interpretable topics. Academic-grade topic modeling with embeddings, visualizations, and dynamic topic modeling.",
     "descriptionCN": "学术级主题建模：基于 BERT 嵌入 + TF-IDF 的可解释主题提取，支持动态主题建模、层次聚类和可视化。取代传统 LDA。",
     "url": "https://github.com/MaartenGr/BERTopic",
-    "stars": 22000,
-    "forks": 2800,
+    "stars": 7701,
+    "forks": 908,
     "language": "Python",
     "license": "MIT",
-    "lastUpdated": "2026-04-15",
+    "lastUpdated": "2026-05-13",
     "createdAt": "2020-12-01",
     "category": "sentiment-analysis",
     "tags": [
@@ -458,7 +462,8 @@
       "sentique",
       "customer-insight",
       "sentiment-research-report"
-    ]
+    ],
+    "homepage": "https://maartengr.github.io/BERTopic/"
   },
   {
     "id": "scikit-uplift",
@@ -511,7 +516,7 @@
     "description": "Amazon product analytics: Pressure × Traction scoring, quadrant segmentation, sentiment analysis, and anomaly detection.",
     "descriptionCN": "Amazon 产品分析：Pressure×Traction 双轴评分、象限分割、VADER+TextBlob 情感分析、Isolation Forest 异常检测。",
     "url": "https://github.com/or4k2l/Amazon_Customer_Behavior_Analyzer",
-    "stars": 1,
+    "stars": 0,
     "forks": 0,
     "language": "Python",
     "license": "Apache-2.0",
@@ -558,8 +563,8 @@
     "description": "Enterprise-grade consumer sentiment discovery engine: multi-platform data, theme extraction, evidence scoring, DOCX reports.",
     "descriptionCN": "企业级消费者情感发现引擎：多平台数据采集→主题提取→证据评分→生成 DOCX 报告，8 阶段 pipeline。",
     "url": "https://github.com/joleneann/sentiment-research-report",
-    "stars": 5,
-    "forks": 1,
+    "stars": 0,
+    "forks": 0,
     "language": "Python",
     "license": "",
     "lastUpdated": "2026-04-10",
@@ -608,11 +613,11 @@
     "description": "Google's Gemini-powered social sentiment analyzer for YouTube content analysis.",
     "descriptionCN": "Google 官方出品：Gemini 驱动的社交情感分析器，YouTube 视频/评论情感评分 + 相关性评分。",
     "url": "https://github.com/google-marketing-solutions/social-pulse",
-    "stars": 80,
-    "forks": 20,
+    "stars": 1,
+    "forks": 1,
     "language": "Python",
     "license": "Apache-2.0",
-    "lastUpdated": "2026-03-20",
+    "lastUpdated": "2026-06-20",
     "createdAt": "2026-03-12",
     "category": "sentiment-analysis",
     "tags": [
@@ -744,11 +749,11 @@
     "description": "Open-source AI-first Customer Data Platform for building customizable, self-hosted CDP infrastructure.",
     "descriptionCN": "开源 AI-first 客户数据平台：统一数据采集、实时分析、受众分群、RFM/CLV 预测、个性化营销。",
     "url": "https://github.com/trieu/leo-cdp-framework",
-    "stars": 150,
-    "forks": 40,
+    "stars": 12,
+    "forks": 4,
     "language": "Java",
     "license": "MIT",
-    "lastUpdated": "2026-04-01",
+    "lastUpdated": "2026-06-22",
     "createdAt": "2025-08-13",
     "category": "customer-data-platform",
     "tags": [
@@ -786,11 +791,11 @@
     "description": "E-commerce consumer data analysis: user profiling, behavior analysis, conversion rate comparison.",
     "descriptionCN": "电商消费者数据分析：用户画像、行为分析、转化率对比、运营指标分析，基于某电商平台真实数据。",
     "url": "https://github.com/Wvvi/E-commerce_consumer_analysis",
-    "stars": 25,
-    "forks": 8,
+    "stars": 32,
+    "forks": 9,
     "language": "Python",
     "license": "",
-    "lastUpdated": "2020-08-15",
+    "lastUpdated": "2020-07-31",
     "createdAt": "2020-07-06",
     "category": "user-behavior",
     "tags": [
@@ -830,11 +835,11 @@
     "description": "CAS-theory-driven social behavior prediction engine for content propagation and PMF validation.",
     "descriptionCN": "CAS 理论驱动的社会行为预测引擎：社交媒体内容传播预测 + 产品市场契合度(PMF)验证，支持 8 渠道 5 行业。",
     "url": "https://github.com/kangning-huang/Ripple",
-    "stars": 30,
-    "forks": 5,
+    "stars": 0,
+    "forks": 0,
     "language": "Python",
-    "license": "",
-    "lastUpdated": "2026-04-20",
+    "license": "AGPL-3.0",
+    "lastUpdated": "2026-03-18",
     "createdAt": "2026-04-01",
     "category": "social-media",
     "tags": [
@@ -878,11 +883,11 @@
     "description": "Social content trend research engine: XHS/Douyin data to structured trend signals and decision reports.",
     "descriptionCN": "社交内容趋势研究引擎：小红书/抖音数据→结构化趋势信号+方向聚类+决策报告+交互看板，零依赖。",
     "url": "https://github.com/zinan92/intelligence",
-    "stars": 10,
-    "forks": 2,
+    "stars": 1,
+    "forks": 0,
     "language": "Python",
     "license": "",
-    "lastUpdated": "2026-03-28",
+    "lastUpdated": "2026-03-29",
     "createdAt": "2026-03-23",
     "category": "social-media",
     "tags": [
@@ -924,7 +929,7 @@
     "description": "Real-time consumer intelligence platform tracking fashion, brands, and culture trends.",
     "descriptionCN": "实时消费者情报平台：追踪 TikTok/Twitter/StockX/时装周趋势，时尚品牌与文化趋势分析。",
     "url": "https://github.com/codebyellalesperance/taste-analytics",
-    "stars": 2,
+    "stars": 0,
     "forks": 0,
     "language": "Python",
     "license": "",
@@ -971,11 +976,11 @@
     "description": "Uplift modeling and causal inference with ML algorithms. S-Learner, T-Learner, X-Learner, R-Learner, DR-Learner. Estimation of Conditional Average Treatment Effects (CATE).",
     "descriptionCN": "Uber 开源因果机器学习：Meta-Learner 全家桶（S/T/X/R/DR-Learner），CATE 估计，uplift 建模，arXiv 论文背书。",
     "url": "https://github.com/uber/causalml",
-    "stars": 2200,
-    "forks": 350,
+    "stars": 5881,
+    "forks": 860,
     "language": "Python",
     "license": "Apache-2.0",
-    "lastUpdated": "2026-05-15",
+    "lastUpdated": "2026-06-20",
     "createdAt": "2019-07-09",
     "category": "social-media",
     "tags": [
@@ -1015,11 +1020,11 @@
     "description": "Brand visibility analysis platform for Chinese AI models using parallel universe simulation.",
     "descriptionCN": "品牌在国产大模型（DeepSeek/Kimi/文心一言/豆包）中的可见性分析平台，'平行宇宙'仿真策略。",
     "url": "https://github.com/huanghfzhufeng/GEO-Insight",
-    "stars": 40,
-    "forks": 8,
+    "stars": 24,
+    "forks": 10,
     "language": "Python",
     "license": "",
-    "lastUpdated": "2025-12-15",
+    "lastUpdated": "2025-12-13",
     "createdAt": "2025-12-05",
     "category": "brand-monitoring",
     "tags": [
@@ -1050,7 +1055,8 @@
     "relatedProjects": [
       "social-pulse",
       "amazon-reviews-analytics"
-    ]
+    ],
+    "homepage": "https://geo-insight-mu.vercel.app"
   },
   {
     "id": "social-pulse",
@@ -1059,11 +1065,11 @@
     "description": "Multi-platform sentiment analysis for Amazon and Flipkart with real-time tracking.",
     "descriptionCN": "多平台情感分析工具：Amazon/Flipkart 评论分析，实时追踪、关键词分析、可定制报告。",
     "url": "https://github.com/its-vanshitaaa/SocialPulse",
-    "stars": 5,
+    "stars": 2,
     "forks": 2,
     "language": "Python",
     "license": "",
-    "lastUpdated": "2024-11-15",
+    "lastUpdated": "2026-05-06",
     "createdAt": "2024-10-28",
     "category": "brand-monitoring",
     "tags": [
@@ -1105,11 +1111,11 @@
     "description": "MLOps project on Sentiment Analysis and Aspect Based Sentiment Analysis (ABSA) on Amazon Reviews.",
     "descriptionCN": "Amazon 评论高级分析：BERT 情感分析 + 方面级情感分析(ABSA)，MLOps 全流程（Airflow + MLflow + Docker）。",
     "url": "https://github.com/Saravanan-Arumugam3/Advanced-NLP-Based-Amazon-Reviews-Analytics",
-    "stars": 35,
-    "forks": 10,
+    "stars": 1,
+    "forks": 1,
     "language": "Python",
     "license": "",
-    "lastUpdated": "2024-04-01",
+    "lastUpdated": "2024-04-26",
     "createdAt": "2024-03-10",
     "category": "brand-monitoring",
     "tags": [
@@ -1152,11 +1158,11 @@
     "description": "AI idea validation platform: XHS/Douyin scraping, competitive analysis, AI scoring, MVP landing page generation.",
     "descriptionCN": "AI 需求验证平台：小红书/抖音数据抓取→竞品分析→AI 评分报告→MVP 落地页生成，中英双语。",
     "url": "https://github.com/tangchunwu/IdeaScan",
-    "stars": 20,
-    "forks": 3,
+    "stars": 33,
+    "forks": 5,
     "language": "TypeScript",
     "license": "",
-    "lastUpdated": "2026-02-15",
+    "lastUpdated": "2026-04-07",
     "createdAt": "2026-02-03",
     "category": "demand-validation",
     "tags": [
@@ -1189,7 +1195,8 @@
     "featured": false,
     "relatedProjects": [
       "mk-intel"
-    ]
+    ],
+    "homepage": "https://ideascan.lovable.app"
   },
   {
     "id": "mk-intel",
@@ -1198,7 +1205,7 @@
     "description": "AI-augmented target audience analysis system mapping customer data to U.S. population archetypes.",
     "descriptionCN": "AI 增强目标受众分析：基于美国人口普查 1590 万条记录构建 7 类行为原型，生成带来源标注的受众报告。",
     "url": "https://github.com/MarketKinetics/mk-intel",
-    "stars": 3,
+    "stars": 0,
     "forks": 0,
     "language": "Python",
     "license": "MIT",
@@ -1233,7 +1240,8 @@
     "featured": false,
     "relatedProjects": [
       "ideacan"
-    ]
+    ],
+    "homepage": "https://mk-intel-delta.vercel.app"
   },
   {
     "id": "market-research-stats-toolkit",
@@ -1242,11 +1250,11 @@
     "description": "Free, open-source statistical analysis toolkit with 59 methods for market researchers.",
     "descriptionCN": "59 种统计方法的浏览器端工具箱：t 检验、ANOVA、联合分析、MaxDiff、离散选择建模、LCA 等，纯前端零依赖。",
     "url": "https://github.com/Dekic648/market-research-stats-toolkit",
-    "stars": 8,
-    "forks": 2,
+    "stars": 1,
+    "forks": 0,
     "language": "JavaScript",
     "license": "",
-    "lastUpdated": "2026-03-20",
+    "lastUpdated": "2026-03-27",
     "createdAt": "2026-03-14",
     "category": "statistics-toolkit",
     "tags": [
@@ -1283,11 +1291,11 @@
     "description": "Customer Lifetime Value (CLV) estimation using BG/NBD, Pareto/NBD, and Gamma-Gamma models. Academic-grade BTYD (Buy Till You Die) implementation.",
     "descriptionCN": "学术级 CLV 客户生命周期价值建模：BG/NBD + Pareto/NBD + Gamma-Gamma 模型，Buy Till You Die 方法论，Python 实现。",
     "url": "https://github.com/CamDavidsonPilon/lifetimes",
-    "stars": 1700,
-    "forks": 300,
+    "stars": 1474,
+    "forks": 371,
     "language": "Python",
     "license": "MIT",
-    "lastUpdated": "2025-06-01",
+    "lastUpdated": "2024-06-28",
     "createdAt": "2015-03-01",
     "category": "marketing-mix",
     "tags": [
@@ -1327,11 +1335,11 @@
     "description": "Heterogeneous treatment effect estimation from econometrics and ML. CATE estimation, Double ML, DR-Learner, Orthogonal Forest.",
     "descriptionCN": "微软开源因果机器学习：异质处理效应估计，Double ML / DR-Learner / Orthogonal Forest，KDD/ICML 论文背书。",
     "url": "https://github.com/microsoft/EconML",
-    "stars": 1800,
-    "forks": 280,
+    "stars": 4683,
+    "forks": 813,
     "language": "Python",
     "license": "MIT",
-    "lastUpdated": "2026-04-01",
+    "lastUpdated": "2026-06-15",
     "createdAt": "2019-01-01",
     "category": "marketing-mix",
     "tags": [
@@ -1363,7 +1371,8 @@
       "causalml",
       "dowhy",
       "pymc-marketing"
-    ]
+    ],
+    "homepage": "https://www.microsoft.com/en-us/research/project/alice/"
   },
   {
     "id": "tfcausalimpact",
@@ -1372,8 +1381,8 @@
     "description": "Google's Causal Impact algorithm implemented on TensorFlow Probability. Bayesian structural time series for measuring causal effects of interventions.",
     "descriptionCN": "Google Causal Impact 的 Python 实现：基于贝叶斯结构时间序列，评估营销干预的因果效果（如广告投放、促销活动的真实增量）。",
     "url": "https://github.com/WillianFuks/tfcausalimpact",
-    "stars": 670,
-    "forks": 80,
+    "stars": 673,
+    "forks": 77,
     "language": "Python",
     "license": "Apache-2.0",
     "lastUpdated": "2025-01-13",
