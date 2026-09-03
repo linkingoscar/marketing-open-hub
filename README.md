@@ -8,7 +8,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/linkingoscar/marketing-open-hub/ci.yml?branch=master&label=CI)](https://github.com/linkingoscar/marketing-open-hub/actions)
-[![Vercel](https://img.shields.io/badge/Vercel-deployed-black?logo=vercel)](https://martech-open-hub.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-2ea44f?logo=github)](https://linkingoscar.github.io/marketing-open-hub/)
 
 <!-- 框架与语言 -->
 
@@ -36,7 +36,7 @@
 
 <!-- 特性标签 -->
 
-[![PWA](https://img.shields.io/badge/PWA-supported-5A0FC8)](https://martech-open-hub.vercel.app)
+[![PWA](https://img.shields.io/badge/PWA-supported-5A0FC8)](https://linkingoscar.github.io/marketing-open-hub/)
 [![i18n](https://img.shields.io/badge/i18n-zh%20%7C%20en-blue)](#国际化)
 [![SEO](https://img.shields.io/badge/SEO-JSON--LD%20%2B%20RSC-green)](#技术栈)
 [![Security](https://img.shields.io/badge/Security-AES--GCM%20encrypted-orange)](#安全特性)
@@ -420,6 +420,30 @@ src/lib/i18n/
 - [Consensus](https://consensus.app/) — 学术搜索引擎
 - [Research Rabbit](https://www.researchrabbit.ai/) — 文献发现工具
 - [Scite](https://scite.ai/) — 智能引用分析
+
+---
+
+## 🌟 关注与支持 (Star History)
+
+如果你觉得本项目对你的实证研究、论文写作或数据分析有所启发与帮助，欢迎给它点一个 ⭐ **Star** 支持开源持续维护！
+
+[![Star History Chart](https://api.star-history.com/svg?repos=linkingoscar/marketing-open-hub&type=Date)](https://star-history.com/#linkingoscar/marketing-open-hub&Date)
+
+---
+
+## 📜 学术引用 (Citation)
+
+若你在学术论文、毕业设计、科研课题或行业报告中参考了本项目，或直接导出了符合 APA 规范的三线表，欢迎按以下 BibTeX 格式进行引用标注：
+
+```bibtex
+@software{marketing_open_hub_2026,
+  title = {Marketing Open Hub: A Local-first Marketing & Consumer Research Empirical Workbench},
+  author = {linkingoscar and contributors},
+  year = {2026},
+  url = {https://github.com/linkingoscar/marketing-open-hub},
+  version = {0.2.0}
+}
+```
 
 ---
 

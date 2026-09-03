@@ -8,7 +8,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/linkingoscar/marketing-open-hub/ci.yml?branch=master&label=CI)](https://github.com/linkingoscar/marketing-open-hub/actions)
-[![Vercel](https://img.shields.io/badge/Vercel-deployed-black?logo=vercel)](https://martech-open-hub.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-2ea44f?logo=github)](https://linkingoscar.github.io/marketing-open-hub/)
 
 <!-- Framework & Language -->
 
@@ -39,7 +39,7 @@
 
 <!-- Feature Tags -->
 
-[![PWA](https://img.shields.io/badge/PWA-supported-5A0FC8)](https://martech-open-hub.vercel.app)
+[![PWA](https://img.shields.io/badge/PWA-supported-5A0FC8)](https://linkingoscar.github.io/marketing-open-hub/)
 [![i18n](https://img.shields.io/badge/i18n-zh%20%7C%20en-blue)](#internationalization)
 [![SEO](https://img.shields.io/badge/SEO-JSON--LD%20%2B%20RSC-green)](#tech-stack)
 [![Security](https://img.shields.io/badge/Security-AES--GCM%20encrypted-orange)](#security)
@@ -423,6 +423,30 @@ This platform is built on these excellent open-source projects:
 - [Consensus](https://consensus.app/) — Academic search engine
 - [Research Rabbit](https://www.researchrabbit.ai/) — Literature discovery tool
 - [Scite](https://scite.ai/) — Smart citation analysis
+
+---
+
+## 🌟 Support & Star History
+
+If you find this project valuable for your empirical research, paper writing, or statistical analysis, please consider giving it a ⭐ **Star** on GitHub!
+
+[![Star History Chart](https://api.star-history.com/svg?repos=linkingoscar/marketing-open-hub&type=Date)](https://star-history.com/#linkingoscar/marketing-open-hub&Date)
+
+---
+
+## 📜 Citation
+
+If you use Marketing Open Hub in your research publications, academic papers, master/doctoral dissertations, or industry reports, please cite it using the following BibTeX entry:
+
+```bibtex
+@software{marketing_open_hub_2026,
+  title = {Marketing Open Hub: A Local-first Marketing & Consumer Research Empirical Workbench},
+  author = {linkingoscar and contributors},
+  year = {2026},
+  url = {https://github.com/linkingoscar/marketing-open-hub},
+  version = {0.2.0}
+}
+```
 
 ---
 
