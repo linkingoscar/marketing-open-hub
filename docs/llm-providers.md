@@ -1,6 +1,8 @@
 # Supported LLM Providers & Security Proxy Architecture
 
-Marketing Open Hub supports 11 leading LLM providers for conversational marketing research guidance, literature synthesis, and paper writing polish.
+[English](./llm-providers.md) | [中文](./llm-providers_zh.md)
+
+Marketing Open Hub supports 10 built-in leading LLM providers plus 1 custom OpenAI-compatible endpoint for conversational marketing research guidance, literature synthesis, and paper writing polish.
 
 ---
 

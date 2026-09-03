@@ -1,5 +1,7 @@
 # Privacy Policy & Data Handling
 
+[English](./privacy.md) | [中文](./privacy_zh.md)
+
 Effective Date: September 2026
 
 `marketing-open-hub` is committed to protecting the privacy and confidentiality of academic and commercial researchers. This document details how data is handled across the workbench.

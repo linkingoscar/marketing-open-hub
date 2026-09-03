@@ -1,5 +1,7 @@
 # Contributing to Marketing Open Hub
 
+[English](./CONTRIBUTING.md) | [中文](./CONTRIBUTING_ZH.md)
+
 Thank you for your interest in contributing to `marketing-open-hub`! We welcome contributions from researchers, marketing scientists, and software engineers.
 
 ---

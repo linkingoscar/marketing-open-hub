@@ -1,5 +1,7 @@
 # Good First Issues for New Contributors
 
+[English](./good-first-issues.md) | [中文](./good-first-issues_zh.md)
+
 Welcome! If you are looking to make your first contribution to `marketing-open-hub`, here is a curated list of high-impact, beginner-friendly tasks. Each task has clear scope, low architectural coupling, and well-defined verification steps.
 
 ---

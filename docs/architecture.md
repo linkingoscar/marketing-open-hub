@@ -1,5 +1,7 @@
 # System Architecture & Technical Design
 
+[English](./architecture.md) | [中文](./architecture_zh.md)
+
 `marketing-open-hub` is a **Local-First Marketing Research Workbench** built with Next.js 16 (Turbopack), React 19, and TypeScript.
 
 ---

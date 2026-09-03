@@ -1,5 +1,7 @@
 # Getting Support & Community Channels
 
+[English](./SUPPORT.md) | [中文](./SUPPORT_ZH.md)
+
 We want to make sure you get help quickly and through the appropriate channel.
 
 ---

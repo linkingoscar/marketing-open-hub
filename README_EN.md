@@ -94,7 +94,7 @@ pnpm dev           # Start development server
 pnpm build         # Build production version
 pnpm start         # Start production server
 pnpm lint          # Run code linting
-pnpm test          # Run tests (84 unit and reference tests)
+pnpm test          # Run tests (114 unit, reference benchmark, invariant, and pipeline smoke tests)
 pnpm test:watch    # Run tests in watch mode
 pnpm test:coverage # Generate test coverage report
 ```

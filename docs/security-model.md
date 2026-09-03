@@ -1,5 +1,7 @@
 # Security & Privacy Model
 
+[English](./security-model.md) | [中文](./security-model_zh.md)
+
 ## Overview
 
 `marketing-open-hub` adheres to a local-first, privacy-respecting architecture for academic and commercial marketing analysis.

@@ -91,7 +91,7 @@ pnpm dev           # 启动开发服务器
 pnpm build         # 构建生产版本
 pnpm start         # 启动生产服务器
 pnpm lint          # 代码检查
-pnpm test          # 运行测试（102 个单元、参考对拍、不变量与集成冒烟测试）
+pnpm test          # 运行测试（114 个单元、参考基准、不变量与流程冒烟测试）
 pnpm test:watch    # 监听模式运行测试
 pnpm test:coverage # 生成测试覆盖率报告
 ```
@@ -323,15 +323,15 @@ pnpm test:coverage
 ## 📚 架构与社区指南
 
 - [公开路线图 (Public Roadmap)](./ROADMAP.md)
-- [系统架构设计 (Architecture)](./docs/architecture.md)
-- [统计验证与对拍指南 (Statistics Validation)](./docs/statistics-validation.md)
-- [安全模型与威胁边界 (Security Model)](./docs/security-model.md)
-- [隐私政策与数据边界 (Privacy Policy)](./docs/privacy.md)
-- [大模型适配与安全代理 (LLM Providers)](./docs/llm-providers.md)
-- [新手友好任务指南 (Good First Issues)](./docs/good-first-issues.md)
-- [开源贡献指南 (Contributing)](./CONTRIBUTING.md)
-- [技术支持渠道 (Support)](./SUPPORT.md)
-- [安全政策 (Security Policy)](./SECURITY.md)
+- [系统架构设计 (Architecture)](./docs/architecture_zh.md)
+- [统计基准验证指南 (Statistics Validation)](./docs/statistics-validation_zh.md)
+- [安全模型与威胁边界 (Security Model)](./docs/security-model_zh.md)
+- [隐私政策与数据边界 (Privacy Policy)](./docs/privacy_zh.md)
+- [大模型适配与安全代理 (LLM Providers)](./docs/llm-providers_zh.md)
+- [新手友好任务指南 (Good First Issues)](./docs/good-first-issues_zh.md)
+- [开源贡献指南 (Contributing)](./CONTRIBUTING_ZH.md)
+- [技术支持渠道 (Support)](./SUPPORT_ZH.md)
+- [安全政策 (Security Policy)](./SECURITY_ZH.md)
 - [更新日志 (Changelog)](./CHANGELOG.md)
 
 ---
