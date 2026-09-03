@@ -47,7 +47,10 @@ export function TiltCard({ children, className, intensity = 10 }: TiltCardProps)
       className={cn("relative transition-transform duration-200 ease-out", className)}
       style={{ transformStyle: "preserve-3d" }}
     >
-      <div ref={glowRef} className="absolute inset-0 rounded-[inherit] pointer-events-none opacity-0 transition-opacity duration-300 z-10" />
+      <div
+        ref={glowRef}
+        className="absolute inset-0 rounded-[inherit] pointer-events-none opacity-0 transition-opacity duration-300 z-10"
+      />
       {children}
     </div>
   );

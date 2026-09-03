@@ -105,7 +105,7 @@ export default function DemandValidationPage() {
   "recommendation": "..."
 }`,
 
-    "pricing": `你是一个定价策略专家。为以下产品制定定价方案：
+    pricing: `你是一个定价策略专家。为以下产品制定定价方案：
 
 产品：${idea}
 目标市场：${targetMarket || "未指定"}
@@ -136,7 +136,11 @@ export default function DemandValidationPage() {
     try {
       const res = await callLLM({
         messages: [
-          { role: "system", content: "你是一个专业的市场研究和创业顾问。输出严格 JSON 格式。所有评分基于行业基准，不要过度乐观。" },
+          {
+            role: "system",
+            content:
+              "你是一个专业的市场研究和创业顾问。输出严格 JSON 格式。所有评分基于行业基准，不要过度乐观。",
+          },
           { role: "user", content: PROMPTS[mode] },
         ],
         temperature: 0.3,
@@ -145,7 +149,12 @@ export default function DemandValidationPage() {
         onChunk: (text) => setResult((prev) => prev + text),
       });
       if (!result) setResult(res);
-      addRecord({ tool: "demand-validation", type: MODES.find((m) => m.id === mode)!.label, input: idea, result: res || result });
+      addRecord({
+        tool: "demand-validation",
+        type: MODES.find((m) => m.id === mode)!.label,
+        input: idea,
+        result: res || result,
+      });
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : "分析失败");
     } finally {
@@ -156,31 +165,54 @@ export default function DemandValidationPage() {
   return (
     <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-        <Link href="/workspace" className="inline-flex items-center gap-1 text-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors mb-6">
+        <Link
+          href="/workspace"
+          className="inline-flex items-center gap-1 text-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors mb-6"
+        >
           <ArrowLeft className="w-4 h-4" /> 返回工作台
         </Link>
 
         <div className="flex items-center gap-3 mb-2">
-          <div className="w-10 h-10 rounded-lg bg-[#06B6D4]/10 flex items-center justify-center text-xl">✅</div>
+          <div className="w-10 h-10 rounded-lg bg-[#06B6D4]/10 flex items-center justify-center text-xl">
+            ✅
+          </div>
           <div>
             <h1 className="text-2xl font-bold text-[var(--text-primary)]">需求验证</h1>
-            <p className="text-sm text-[var(--text-muted)]">基于 IdeaScan · MK-Intel · Ripple PMF 方法论</p>
+            <p className="text-sm text-[var(--text-muted)]">
+              基于 IdeaScan · MK-Intel · Ripple PMF 方法论
+            </p>
           </div>
         </div>
-        <p className="text-[var(--text-secondary)] mb-6">输入产品创意，AI 从多维度验证需求真实性、市场时机和 PMF 契合度</p>
+        <p className="text-[var(--text-secondary)] mb-6">
+          输入产品创意，AI 从多维度验证需求真实性、市场时机和 PMF 契合度
+        </p>
 
         {!hasAnyKey() && (
           <div className="glass-card p-4 mb-6 border-[var(--warning)]/30">
-            <p className="text-sm text-[var(--warning)]">⚠️ 尚未配置 API Key。<Link href="/settings" className="underline ml-1">前往设置</Link></p>
+            <p className="text-sm text-[var(--warning)]">
+              ⚠️ 尚未配置 API Key。
+              <Link href="/settings" className="underline ml-1">
+                前往设置
+              </Link>
+            </p>
           </div>
         )}
 
         <div className="flex flex-wrap gap-2 mb-6">
           {MODES.map((m) => (
-            <button key={m.id} onClick={() => { setMode(m.id); setResult(""); }}
-              className={cn("px-3 py-1.5 rounded-full text-sm border transition-colors",
-                mode === m.id ? "border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)]/10" : "border-[var(--border)] text-[var(--text-tertiary)]"
-              )}>
+            <button
+              key={m.id}
+              onClick={() => {
+                setMode(m.id);
+                setResult("");
+              }}
+              className={cn(
+                "px-3 py-1.5 rounded-full text-sm border transition-colors",
+                mode === m.id
+                  ? "border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)]/10"
+                  : "border-[var(--border)] text-[var(--text-tertiary)]"
+              )}
+            >
               {m.label}
             </button>
           ))}
@@ -189,29 +221,56 @@ export default function DemandValidationPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="space-y-4">
             <div>
-              <label className="text-sm text-[var(--text-tertiary)] mb-2 block">产品/创业创意</label>
-              <Textarea rows={5} value={idea} onChange={(e) => setIdea(e.target.value)}
+              <label className="text-sm text-[var(--text-tertiary)] mb-2 block">
+                产品/创业创意
+              </label>
+              <Textarea
+                rows={5}
+                value={idea}
+                onChange={(e) => setIdea(e.target.value)}
                 placeholder="详细描述你的产品创意，例如：&#10;一款 AI 驱动的社媒内容生成工具，帮助中小商家自动生成小红书/抖音图文和短视频脚本，月费 ¥99..."
-                className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)] resize-none" />
+                className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)] resize-none"
+              />
             </div>
             <div>
-              <label className="text-sm text-[var(--text-tertiary)] mb-2 block">目标市场（可选）</label>
-              <Input value={targetMarket} onChange={(e) => setTargetMarket(e.target.value)}
+              <label className="text-sm text-[var(--text-tertiary)] mb-2 block">
+                目标市场（可选）
+              </label>
+              <Input
+                value={targetMarket}
+                onChange={(e) => setTargetMarket(e.target.value)}
                 placeholder="例如：中国一二线城市中小商家、Z世代消费者..."
-                className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)]" />
+                className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)]"
+              />
             </div>
             {mode === "pricing" && (
               <div>
-                <label className="text-sm text-[var(--text-tertiary)] mb-2 block">价格区间参考（可选）</label>
-                <Input value={priceRange} onChange={(e) => setPriceRange(e.target.value)}
+                <label className="text-sm text-[var(--text-tertiary)] mb-2 block">
+                  价格区间参考（可选）
+                </label>
+                <Input
+                  value={priceRange}
+                  onChange={(e) => setPriceRange(e.target.value)}
                   placeholder="例如：¥49-199/月"
-                  className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)]" />
+                  className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)]"
+                />
               </div>
             )}
 
-            <Button onClick={handleRun} disabled={loading || !idea.trim() || !hasAnyKey()}
-              className="w-full h-11 bg-[var(--primary)] text-white hover:opacity-90">
-              {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> 验证中...</> : <><Play className="w-4 h-4 mr-2" /> 开始验证</>}
+            <Button
+              onClick={handleRun}
+              disabled={loading || !idea.trim() || !hasAnyKey()}
+              className="w-full h-11 bg-[var(--primary)] text-white hover:opacity-90"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" /> 验证中...
+                </>
+              ) : (
+                <>
+                  <Play className="w-4 h-4 mr-2" /> 开始验证
+                </>
+              )}
             </Button>
 
             <HistoryPanel tool="demand-validation" />
@@ -221,10 +280,19 @@ export default function DemandValidationPage() {
             <div className="flex items-center justify-between">
               <label className="text-sm text-[var(--text-tertiary)]">验证结果</label>
               {result && (
-                <Button variant="ghost" size="sm" className="h-7 px-2 text-xs" onClick={() => {
-                  const blob = new Blob([result], { type: "text/markdown" }); const url = URL.createObjectURL(blob);
-                  const a = document.createElement("a"); a.href = url; a.download = `validation-${mode}-${Date.now()}.md`; a.click();
-                }}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-7 px-2 text-xs"
+                  onClick={() => {
+                    const blob = new Blob([result], { type: "text/markdown" });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = `validation-${mode}-${Date.now()}.md`;
+                    a.click();
+                  }}
+                >
                   <Download className="w-3 h-3 mr-1" /> 导出
                 </Button>
               )}
@@ -233,7 +301,9 @@ export default function DemandValidationPage() {
               {error ? (
                 <div className="text-[var(--error)] text-sm">{error}</div>
               ) : result ? (
-                <pre className="whitespace-pre-wrap text-sm text-[var(--text-secondary)] font-sans leading-relaxed">{result}</pre>
+                <pre className="whitespace-pre-wrap text-sm text-[var(--text-secondary)] font-sans leading-relaxed">
+                  {result}
+                </pre>
               ) : (
                 <div className="text-[var(--text-muted)] text-sm text-center py-20">
                   <Target className="w-8 h-8 mx-auto mb-3 opacity-30" />

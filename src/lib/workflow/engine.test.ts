@@ -40,7 +40,14 @@ describe("workflow engine", () => {
     });
 
     it("valid step types", () => {
-      const validTypes = ["literature-search", "data-upload", "statistical-test", "visualization", "ai-analysis", "export"];
+      const validTypes = [
+        "literature-search",
+        "data-upload",
+        "statistical-test",
+        "visualization",
+        "ai-analysis",
+        "export",
+      ];
       for (const template of WORKFLOW_TEMPLATES) {
         for (const step of template.steps) {
           expect(validTypes).toContain(step.type);

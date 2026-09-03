@@ -17,26 +17,149 @@ import { cn } from "@/lib/utils";
 type PolishMode = "detect" | "rewrite" | "journal-adapt" | "voice-calibrate" | "section-polish";
 
 const MODES: { id: PolishMode; label: string; icon: string; desc: string; needsInput: string }[] = [
-  { id: "detect", label: "AI 痕迹检测", icon: "🔍", desc: "检测 30+ 种 AI 写作模式，不修改原文", needsInput: "粘贴你的论文段落" },
-  { id: "rewrite", label: "智能润色", icon: "✨", desc: "检测 + 双 Pass 改写，去除 AI 痕迹", needsInput: "粘贴需要润色的段落" },
-  { id: "journal-adapt", label: "期刊适配", icon: "📖", desc: "根据目标期刊风格调整写法", needsInput: "粘贴段落 + 指定目标期刊" },
-  { id: "voice-calibrate", label: "风格校准", icon: "🎭", desc: "上传你过去的写作风格，AI 学习后按你的风格润色", needsInput: "粘贴你过去的论文段落作为风格样本" },
-  { id: "section-polish", label: "逐节精修", icon: "📝", desc: "按 Introduction/Methods/Results/Discussion 的修辞结构精修", needsInput: "选择章节类型 + 粘贴内容" },
+  {
+    id: "detect",
+    label: "AI 痕迹检测",
+    icon: "🔍",
+    desc: "检测 30+ 种 AI 写作模式，不修改原文",
+    needsInput: "粘贴你的论文段落",
+  },
+  {
+    id: "rewrite",
+    label: "智能润色",
+    icon: "✨",
+    desc: "检测 + 双 Pass 改写，去除 AI 痕迹",
+    needsInput: "粘贴需要润色的段落",
+  },
+  {
+    id: "journal-adapt",
+    label: "期刊适配",
+    icon: "📖",
+    desc: "根据目标期刊风格调整写法",
+    needsInput: "粘贴段落 + 指定目标期刊",
+  },
+  {
+    id: "voice-calibrate",
+    label: "风格校准",
+    icon: "🎭",
+    desc: "上传你过去的写作风格，AI 学习后按你的风格润色",
+    needsInput: "粘贴你过去的论文段落作为风格样本",
+  },
+  {
+    id: "section-polish",
+    label: "逐节精修",
+    icon: "📝",
+    desc: "按 Introduction/Methods/Results/Discussion 的修辞结构精修",
+    needsInput: "选择章节类型 + 粘贴内容",
+  },
 ];
 
 const AI_PATTERNS = [
-  { tier: 1, label: "致命痕迹（英文）", color: "#EF4444", patterns: ["delve", "leverage", "tapestry", "landscape", "navigate", "foster", "robust", "pivotal", "transformative", "seamless", "nuanced"] },
-  { tier: 1, label: "致命痕迹（中文）", color: "#EF4444", patterns: ["值得注意的是", "需要指出的是", "不言而喻", "毋庸置疑", "由此可见", "综上所述", "总而言之", "换言之", "具体而言", "在此基础上"] },
-  { tier: 2, label: "可疑痕迹（英文）", color: "#F59E0B", patterns: ["moreover", "furthermore", "additionally", "in terms of", "it is important to note", "plays a crucial role", "serves as", "boasts"] },
-  { tier: 2, label: "可疑痕迹（中文）", color: "#F59E0B", patterns: ["首先.*其次.*最后", "不仅.*而且", "一方面.*另一方面", "具有重要意义", "发挥着重要作用", "提供了新的视角", "为.*奠定了基础", "具有重要的理论和实践意义"] },
-  { tier: 3, label: "弱信号", color: "#64748B", patterns: ["— (em dash clusters)", "rule of three", "hedge stacking", "copula avoidance", "synonym cycling", "过度使用排比句", "三段式并列"] },
+  {
+    tier: 1,
+    label: "致命痕迹（英文）",
+    color: "#EF4444",
+    patterns: [
+      "delve",
+      "leverage",
+      "tapestry",
+      "landscape",
+      "navigate",
+      "foster",
+      "robust",
+      "pivotal",
+      "transformative",
+      "seamless",
+      "nuanced",
+    ],
+  },
+  {
+    tier: 1,
+    label: "致命痕迹（中文）",
+    color: "#EF4444",
+    patterns: [
+      "值得注意的是",
+      "需要指出的是",
+      "不言而喻",
+      "毋庸置疑",
+      "由此可见",
+      "综上所述",
+      "总而言之",
+      "换言之",
+      "具体而言",
+      "在此基础上",
+    ],
+  },
+  {
+    tier: 2,
+    label: "可疑痕迹（英文）",
+    color: "#F59E0B",
+    patterns: [
+      "moreover",
+      "furthermore",
+      "additionally",
+      "in terms of",
+      "it is important to note",
+      "plays a crucial role",
+      "serves as",
+      "boasts",
+    ],
+  },
+  {
+    tier: 2,
+    label: "可疑痕迹（中文）",
+    color: "#F59E0B",
+    patterns: [
+      "首先.*其次.*最后",
+      "不仅.*而且",
+      "一方面.*另一方面",
+      "具有重要意义",
+      "发挥着重要作用",
+      "提供了新的视角",
+      "为.*奠定了基础",
+      "具有重要的理论和实践意义",
+    ],
+  },
+  {
+    tier: 3,
+    label: "弱信号",
+    color: "#64748B",
+    patterns: [
+      "— (em dash clusters)",
+      "rule of three",
+      "hedge stacking",
+      "copula avoidance",
+      "synonym cycling",
+      "过度使用排比句",
+      "三段式并列",
+    ],
+  },
 ];
 
 const SECTION_MOVES: Record<string, { label: string; moves: string[] }> = {
-  introduction: { label: "Introduction", moves: ["Stakes → 问题的重要性", "Problem Gap → 现有研究不足", "Key Abstraction → 核心抽象概念", "Design Intuition → 方法直觉", "Contribution → 贡献声明", "Results Preview → 结果预览"] },
-  methods: { label: "Methods", moves: ["研究设计", "样本与数据收集", "变量测量", "分析方法", "伦理声明"] },
-  results: { label: "Results", moves: ["描述性统计", "假设检验结果", "效应量与置信区间", "补充分析"] },
-  discussion: { label: "Discussion", moves: ["主要发现解读", "与已有文献对比", "理论贡献", "实践启示", "研究局限", "未来方向"] },
+  introduction: {
+    label: "Introduction",
+    moves: [
+      "Stakes → 问题的重要性",
+      "Problem Gap → 现有研究不足",
+      "Key Abstraction → 核心抽象概念",
+      "Design Intuition → 方法直觉",
+      "Contribution → 贡献声明",
+      "Results Preview → 结果预览",
+    ],
+  },
+  methods: {
+    label: "Methods",
+    moves: ["研究设计", "样本与数据收集", "变量测量", "分析方法", "伦理声明"],
+  },
+  results: {
+    label: "Results",
+    moves: ["描述性统计", "假设检验结果", "效应量与置信区间", "补充分析"],
+  },
+  discussion: {
+    label: "Discussion",
+    moves: ["主要发现解读", "与已有文献对比", "理论贡献", "实践启示", "研究局限", "未来方向"],
+  },
 };
 
 export default function WritingPolishPage() {
@@ -65,7 +188,7 @@ export default function WritingPolishPage() {
 
 输出 JSON：
 {
-  "score": 0-100（AI 概率）,
+  "score": 0-100（AI 痕迹疑似度启发式评分，非校准后验概率）,
   "verdict": "human/mixed/ai",
   "issues": [
     {"tier": 1-3, "pattern": "模式名", "quote": "原文片段", "suggestion": "改写建议"}
@@ -147,7 +270,6 @@ ${SECTION_MOVES[sectionType]?.moves.map((m, i) => `${i + 1}. ${m}`).join("\n") |
 
 ## 结构检查
 [每个修辞动作的覆盖情况]`,
-
   };
 
   const handleRun = async () => {
@@ -168,7 +290,12 @@ ${SECTION_MOVES[sectionType]?.moves.map((m, i) => `${i + 1}. ${m}`).join("\n") |
         onChunk: (text) => setResult((prev) => prev + text),
       });
       if (!result) setResult(res);
-      addRecord({ tool: "writing-polish", type: currentMode.label, input: textInput.slice(0, 200), result: res || result });
+      addRecord({
+        tool: "writing-polish",
+        type: currentMode.label,
+        input: textInput.slice(0, 200),
+        result: res || result,
+      });
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : "处理失败");
     } finally {
@@ -176,10 +303,19 @@ ${SECTION_MOVES[sectionType]?.moves.map((m, i) => `${i + 1}. ${m}`).join("\n") |
     }
   };
 
-  const handleCopy = () => { navigator.clipboard.writeText(result); setCopied(true); setTimeout(() => setCopied(false), 2000); };
+  const handleCopy = () => {
+    navigator.clipboard.writeText(result);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
   const handleDownload = () => {
-    const blob = new Blob([result], { type: "text/markdown" }); const url = URL.createObjectURL(blob);
-    const a = document.createElement("a"); a.href = url; a.download = `polish-${mode}-${Date.now()}.md`; a.click(); URL.revokeObjectURL(url);
+    const blob = new Blob([result], { type: "text/markdown" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `polish-${mode}-${Date.now()}.md`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   // Quick pattern detection (client-side, no API needed)
@@ -188,7 +324,16 @@ ${SECTION_MOVES[sectionType]?.moves.map((m, i) => `${i + 1}. ${m}`).join("\n") |
     const found: { tier: number; pattern: string; count: number }[] = [];
     for (const tier of AI_PATTERNS) {
       for (const pattern of tier.patterns) {
-        if (pattern.startsWith("—") || pattern.startsWith("rule") || pattern.startsWith("hedge") || pattern.startsWith("copula") || pattern.startsWith("synonym") || pattern.startsWith("过度") || pattern.startsWith("三段")) continue;
+        if (
+          pattern.startsWith("—") ||
+          pattern.startsWith("rule") ||
+          pattern.startsWith("hedge") ||
+          pattern.startsWith("copula") ||
+          pattern.startsWith("synonym") ||
+          pattern.startsWith("过度") ||
+          pattern.startsWith("三段")
+        )
+          continue;
         // Use word boundaries for English, plain match for Chinese/regex patterns
         const hasChinese = /[\u4e00-\u9fff]/.test(pattern);
         const regex = hasChinese ? new RegExp(pattern, "gi") : new RegExp(`\\b${pattern}\\b`, "gi");
@@ -205,40 +350,65 @@ ${SECTION_MOVES[sectionType]?.moves.map((m, i) => `${i + 1}. ${m}`).join("\n") |
         const tierLabel = f.tier === 1 ? "🔴" : f.tier === 2 ? "🟡" : "⚪";
         return `${tierLabel} "${f.pattern}" — 出现 ${f.count} 次`;
       });
-      setResult(`⚠️ 快速扫描发现 ${found.length} 种 AI 痕迹：\n\n${lines.join("\n")}\n\n建议使用「智能润色」进行完整检测和改写。`);
+      setResult(
+        `⚠️ 快速扫描发现 ${found.length} 种 AI 痕迹：\n\n${lines.join("\n")}\n\n建议使用「智能润色」进行完整检测和改写。`
+      );
     }
   };
 
   return (
     <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-        <Link href="/workspace" className="inline-flex items-center gap-1 text-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors mb-6">
+        <Link
+          href="/workspace"
+          className="inline-flex items-center gap-1 text-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors mb-6"
+        >
           <ArrowLeft className="w-4 h-4" /> 返回工作台
         </Link>
 
         <div className="flex items-center gap-3 mb-2">
-          <div className="w-10 h-10 rounded-lg bg-[#EC4899]/10 flex items-center justify-center text-xl">✨</div>
+          <div className="w-10 h-10 rounded-lg bg-[#EC4899]/10 flex items-center justify-center text-xl">
+            ✨
+          </div>
           <div>
             <h1 className="text-2xl font-bold text-[var(--text-primary)]">论文润色</h1>
-            <p className="text-sm text-[var(--text-muted)]">AI 痕迹检测 · 智能改写 · 期刊适配 · 风格校准 · 逐节精修</p>
+            <p className="text-sm text-[var(--text-muted)]">
+              AI 痕迹检测 · 智能改写 · 期刊适配 · 风格校准 · 逐节精修
+            </p>
           </div>
         </div>
-        <p className="text-[var(--text-secondary)] mb-4">粘贴你的论文段落 → 选择润色模式 → AI 检测并改写 → 复制润色结果</p>
+        <p className="text-[var(--text-secondary)] mb-4">
+          粘贴你的论文段落 → 选择润色模式 → AI 检测并改写 → 复制润色结果
+        </p>
         <ActiveProviderBadge className="mb-6" />
 
         {!hasAnyKey() && (
           <div className="glass-card p-4 mb-6 border-[var(--warning)]/30">
-            <p className="text-sm text-[var(--warning)]">⚠️ 尚未配置 API Key。<a href="/settings" className="underline ml-1">前往设置</a></p>
+            <p className="text-sm text-[var(--warning)]">
+              ⚠️ 尚未配置 API Key。
+              <a href="/settings" className="underline ml-1">
+                前往设置
+              </a>
+            </p>
           </div>
         )}
 
         {/* Mode selector */}
         <div className="flex flex-wrap gap-2 mb-6">
           {MODES.map((m) => (
-            <button key={m.id} onClick={() => { setMode(m.id); setResult(""); }}
-              className={cn("px-3 py-1.5 rounded-full text-sm border transition-colors",
-                mode === m.id ? "border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)]/10" : "border-[var(--border)] text-[var(--text-tertiary)]"
-              )}>
+            <button
+              key={m.id}
+              onClick={() => {
+                setMode(m.id);
+                setResult("");
+              }}
+              className={cn(
+                "px-3 py-1.5 rounded-full text-sm border transition-colors",
+                mode === m.id
+                  ? "border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)]/10"
+                  : "border-[var(--border)] text-[var(--text-tertiary)]"
+              )}
+            >
               {m.icon} {m.label}
             </button>
           ))}
@@ -250,18 +420,27 @@ ${SECTION_MOVES[sectionType]?.moves.map((m, i) => `${i + 1}. ${m}`).join("\n") |
             {mode === "journal-adapt" && (
               <div>
                 <label className="text-sm text-[var(--text-tertiary)] mb-2 block">目标期刊</label>
-                <Input value={journalName} onChange={(e) => setJournalName(e.target.value)}
+                <Input
+                  value={journalName}
+                  onChange={(e) => setJournalName(e.target.value)}
                   placeholder="例如：Nature, Science, Journal of Marketing, 管理世界..."
-                  className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)]" />
+                  className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)]"
+                />
               </div>
             )}
 
             {mode === "voice-calibrate" && (
               <div>
-                <label className="text-sm text-[var(--text-tertiary)] mb-2 block">你的写作风格样本（粘贴你过去的论文段落）</label>
-                <Textarea rows={4} value={voiceSample} onChange={(e) => setVoiceSample(e.target.value)}
+                <label className="text-sm text-[var(--text-tertiary)] mb-2 block">
+                  你的写作风格样本（粘贴你过去的论文段落）
+                </label>
+                <Textarea
+                  rows={4}
+                  value={voiceSample}
+                  onChange={(e) => setVoiceSample(e.target.value)}
                   placeholder="粘贴你过去写的论文段落，AI 会学习你的写作风格..."
-                  className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)] resize-none" />
+                  className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)] resize-none"
+                />
               </div>
             )}
 
@@ -270,10 +449,16 @@ ${SECTION_MOVES[sectionType]?.moves.map((m, i) => `${i + 1}. ${m}`).join("\n") |
                 <label className="text-sm text-[var(--text-tertiary)] mb-2 block">章节类型</label>
                 <div className="flex flex-wrap gap-2">
                   {Object.entries(SECTION_MOVES).map(([key, val]) => (
-                    <button key={key} onClick={() => setSectionType(key)}
-                      className={cn("px-3 py-1.5 rounded-lg text-xs border transition-colors",
-                        sectionType === key ? "border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)]/10" : "border-[var(--border)] text-[var(--text-tertiary)]"
-                      )}>
+                    <button
+                      key={key}
+                      onClick={() => setSectionType(key)}
+                      className={cn(
+                        "px-3 py-1.5 rounded-lg text-xs border transition-colors",
+                        sectionType === key
+                          ? "border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)]/10"
+                          : "border-[var(--border)] text-[var(--text-tertiary)]"
+                      )}
+                    >
                       {val.label}
                     </button>
                   ))}
@@ -282,19 +467,40 @@ ${SECTION_MOVES[sectionType]?.moves.map((m, i) => `${i + 1}. ${m}`).join("\n") |
             )}
 
             <div>
-              <label className="text-sm text-[var(--text-tertiary)] mb-2 block">{currentMode.needsInput}</label>
-              <Textarea rows={10} value={textInput} onChange={(e) => setTextInput(e.target.value)}
+              <label className="text-sm text-[var(--text-tertiary)] mb-2 block">
+                {currentMode.needsInput}
+              </label>
+              <Textarea
+                rows={10}
+                value={textInput}
+                onChange={(e) => setTextInput(e.target.value)}
                 placeholder={currentMode.needsInput}
-                className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)] resize-none" />
+                className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)] resize-none"
+              />
             </div>
 
             <div className="flex gap-2">
-              <Button onClick={handleRun} disabled={loading || !textInput.trim() || !hasAnyKey()}
-                className="flex-1 h-11 bg-[var(--primary)] text-white hover:opacity-90">
-                {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> 处理中...</> : <><Sparkles className="w-4 h-4 mr-2" /> {currentMode.label}</>}
+              <Button
+                onClick={handleRun}
+                disabled={loading || !textInput.trim() || !hasAnyKey()}
+                className="flex-1 h-11 bg-[var(--primary)] text-white hover:opacity-90"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" /> 处理中...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-4 h-4 mr-2" /> {currentMode.label}
+                  </>
+                )}
               </Button>
-              <Button variant="outline" onClick={quickDetect} disabled={!textInput.trim()}
-                className="h-11 border-[var(--border)] text-[var(--text-secondary)]">
+              <Button
+                variant="outline"
+                onClick={quickDetect}
+                disabled={!textInput.trim()}
+                className="h-11 border-[var(--border)] text-[var(--text-secondary)]"
+              >
                 🔍 快速扫描
               </Button>
             </div>
@@ -307,7 +513,9 @@ ${SECTION_MOVES[sectionType]?.moves.map((m, i) => `${i + 1}. ${m}`).join("\n") |
                   <span className="text-[10px] font-medium" style={{ color: tier.color }}>
                     {tier.tier === 1 ? "🔴 致命" : tier.tier === 2 ? "🟡 可疑" : "⚪ 弱信号"}：
                   </span>
-                  <span className="text-[10px] text-[var(--text-muted)] ml-1">{tier.patterns.join(", ")}</span>
+                  <span className="text-[10px] text-[var(--text-muted)] ml-1">
+                    {tier.patterns.join(", ")}
+                  </span>
                 </div>
               ))}
             </div>
@@ -321,23 +529,39 @@ ${SECTION_MOVES[sectionType]?.moves.map((m, i) => `${i + 1}. ${m}`).join("\n") |
               <label className="text-sm text-[var(--text-tertiary)]">结果</label>
               {result && (
                 <div className="flex items-center gap-1">
-                  <Button variant="ghost" size="sm" className="h-7 px-2 text-xs" onClick={handleCopy}>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-7 px-2 text-xs"
+                    onClick={handleCopy}
+                  >
                     {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                   </Button>
-                  <Button variant="ghost" size="sm" className="h-7 px-2 text-xs" onClick={handleDownload}>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-7 px-2 text-xs"
+                    onClick={handleDownload}
+                  >
                     <Download className="w-3 h-3" />
                   </Button>
                 </div>
               )}
             </div>
             <div className="glass-card p-6 min-h-[400px] max-h-[700px] overflow-y-auto">
-              {error ? <div className="text-[var(--error)] text-sm">{error}</div> :
-               result ? <pre className="whitespace-pre-wrap text-sm text-[var(--text-secondary)] font-sans leading-relaxed">{result}</pre> :
-               <div className="text-[var(--text-muted)] text-sm text-center py-20">
-                 <Sparkles className="w-8 h-8 mx-auto mb-3 opacity-30" />
-                 <p>粘贴文本，选择模式，开始润色</p>
-                 <p className="text-xs mt-1">或点击&ldquo;快速扫描&rdquo;进行即时 AI 痕迹检测</p>
-               </div>}
+              {error ? (
+                <div className="text-[var(--error)] text-sm">{error}</div>
+              ) : result ? (
+                <pre className="whitespace-pre-wrap text-sm text-[var(--text-secondary)] font-sans leading-relaxed">
+                  {result}
+                </pre>
+              ) : (
+                <div className="text-[var(--text-muted)] text-sm text-center py-20">
+                  <Sparkles className="w-8 h-8 mx-auto mb-3 opacity-30" />
+                  <p>粘贴文本，选择模式，开始润色</p>
+                  <p className="text-xs mt-1">或点击&ldquo;快速扫描&rdquo;进行即时 AI 痕迹检测</p>
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -1,7 +1,16 @@
 "use client";
 
 import { useMemo } from "react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Cell,
+} from "recharts";
 
 interface DistributionChartProps {
   data: number[];
@@ -10,7 +19,12 @@ interface DistributionChartProps {
   color?: string;
 }
 
-export function DistributionChart({ data, title = "数据分布", bins = 10, color = "#6366F1" }: DistributionChartProps) {
+export function DistributionChart({
+  data,
+  title = "数据分布",
+  bins = 10,
+  color = "#6366F1",
+}: DistributionChartProps) {
   const chartData = useMemo(() => {
     if (data.length === 0) return [];
     const min = Math.min(...data);
@@ -32,10 +46,21 @@ export function DistributionChart({ data, title = "数据分布", bins = 10, col
       <ResponsiveContainer width="100%" height={180}>
         <BarChart data={chartData} margin={{ top: 5, right: 5, bottom: 20, left: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(148,163,184,0.15)" />
-          <XAxis dataKey="range" tick={{ fill: "#64748B", fontSize: 10 }} angle={-45} textAnchor="end" height={40} />
+          <XAxis
+            dataKey="range"
+            tick={{ fill: "#64748B", fontSize: 10 }}
+            angle={-45}
+            textAnchor="end"
+            height={40}
+          />
           <YAxis tick={{ fill: "#64748B", fontSize: 10 }} />
           <Tooltip
-            contentStyle={{ background: "#1A1A24", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, fontSize: 12 }}
+            contentStyle={{
+              background: "#1A1A24",
+              border: "1px solid rgba(255,255,255,0.1)",
+              borderRadius: 8,
+              fontSize: 12,
+            }}
             labelStyle={{ color: "#94A3B8" }}
           />
           <Bar dataKey="count" radius={[4, 4, 0, 0]}>

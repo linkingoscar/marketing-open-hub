@@ -27,8 +27,8 @@ export async function exportAllConfig(): Promise<string> {
   const data: ExportData = {
     version: 1,
     exportedAt: new Date().toISOString(),
-    favorites: favorites ? JSON.parse(favorites)?.state?.favorites ?? [] : [],
-    language: i18n ? JSON.parse(i18n)?.state?.lang ?? "zh" : "zh",
+    favorites: favorites ? (JSON.parse(favorites)?.state?.favorites ?? []) : [],
+    language: i18n ? (JSON.parse(i18n)?.state?.lang ?? "zh") : "zh",
     apiConfigs: apiConfig ? JSON.parse(apiConfig) : {},
   };
 

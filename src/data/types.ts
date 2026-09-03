@@ -10,14 +10,23 @@ export type Category =
   | "customer-data-platform";
 
 export type DataSource =
-  | "xiaohongshu" | "douyin" | "weibo" | "wechat"
-  | "amazon" | "twitter" | "reddit" | "youtube"
-  | "google-play" | "app-store" | "trustpilot"
-  | "stockx" | "tiktok" | "instagram";
+  | "xiaohongshu"
+  | "douyin"
+  | "weibo"
+  | "wechat"
+  | "amazon"
+  | "twitter"
+  | "reddit"
+  | "youtube"
+  | "google-play"
+  | "app-store"
+  | "trustpilot"
+  | "stockx"
+  | "tiktok"
+  | "instagram";
 
 export type AICapability =
-  | "nlp" | "llm" | "traditional-ml" | "pure-stats"
-  | "computer-vision" | "recommendation";
+  "nlp" | "llm" | "traditional-ml" | "pure-stats" | "computer-vision" | "recommendation";
 
 export interface Project {
   id: string;

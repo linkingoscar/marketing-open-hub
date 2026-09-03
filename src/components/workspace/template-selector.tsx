@@ -3,7 +3,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, ChevronRight, ArrowRight, BookOpen, Beaker } from "lucide-react";
-import { MARKETING_TEMPLATES, TEMPLATE_CATEGORIES, type MarketingTemplate } from "@/data/marketing-templates";
+import {
+  MARKETING_TEMPLATES,
+  TEMPLATE_CATEGORIES,
+  type MarketingTemplate,
+} from "@/data/marketing-templates";
 import { cn } from "@/lib/utils";
 
 interface TemplateSelectorProps {
@@ -18,7 +22,11 @@ export function TemplateSelector({ onSelect, className }: TemplateSelectorProps)
 
   const filtered = MARKETING_TEMPLATES.filter((t) => {
     const matchCategory = !selectedCategory || t.category === selectedCategory;
-    const matchSearch = !searchQuery || t.nameCN.includes(searchQuery) || t.name.toLowerCase().includes(searchQuery.toLowerCase()) || t.scenario.includes(searchQuery);
+    const matchSearch =
+      !searchQuery ||
+      t.nameCN.includes(searchQuery) ||
+      t.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      t.scenario.includes(searchQuery);
     return matchCategory && matchSearch;
   });
 
@@ -42,7 +50,9 @@ export function TemplateSelector({ onSelect, className }: TemplateSelectorProps)
           onClick={() => setSelectedCategory(null)}
           className={cn(
             "px-3 py-1.5 rounded-full text-xs border transition-colors",
-            !selectedCategory ? "border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)]/10" : "border-[var(--border)] text-[var(--text-tertiary)] hover:border-[var(--primary)]/50"
+            !selectedCategory
+              ? "border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)]/10"
+              : "border-[var(--border)] text-[var(--text-tertiary)] hover:border-[var(--primary)]/50"
           )}
         >
           全部
@@ -53,7 +63,9 @@ export function TemplateSelector({ onSelect, className }: TemplateSelectorProps)
             onClick={() => setSelectedCategory(selectedCategory === cat ? null : cat)}
             className={cn(
               "px-3 py-1.5 rounded-full text-xs border transition-colors",
-              selectedCategory === cat ? "border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)]/10" : "border-[var(--border)] text-[var(--text-tertiary)] hover:border-[var(--primary)]/50"
+              selectedCategory === cat
+                ? "border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)]/10"
+                : "border-[var(--border)] text-[var(--text-tertiary)] hover:border-[var(--primary)]/50"
             )}
           >
             {cat}
@@ -78,12 +90,23 @@ export function TemplateSelector({ onSelect, className }: TemplateSelectorProps)
                 <span className="text-2xl">{template.icon}</span>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <h3 className="text-sm font-semibold text-[var(--text-primary)]">{template.nameCN}</h3>
-                    <span className="px-2 py-0.5 rounded text-[10px] bg-[var(--primary)]/10 text-[var(--primary)]">{template.category}</span>
+                    <h3 className="text-sm font-semibold text-[var(--text-primary)]">
+                      {template.nameCN}
+                    </h3>
+                    <span className="px-2 py-0.5 rounded text-[10px] bg-[var(--primary)]/10 text-[var(--primary)]">
+                      {template.category}
+                    </span>
                   </div>
-                  <p className="text-xs text-[var(--text-muted)] mt-1 line-clamp-2">{template.scenario}</p>
+                  <p className="text-xs text-[var(--text-muted)] mt-1 line-clamp-2">
+                    {template.scenario}
+                  </p>
                 </div>
-                <ChevronRight className={cn("w-4 h-4 text-[var(--text-muted)] transition-transform", expandedId === template.id && "rotate-90")} />
+                <ChevronRight
+                  className={cn(
+                    "w-4 h-4 text-[var(--text-muted)] transition-transform",
+                    expandedId === template.id && "rotate-90"
+                  )}
+                />
               </div>
 
               <AnimatePresence>
@@ -99,14 +122,20 @@ export function TemplateSelector({ onSelect, className }: TemplateSelectorProps)
 
                       {/* Recommended tests */}
                       <div>
-                        <span className="text-[10px] font-medium text-[var(--accent)] uppercase tracking-wider">推荐方法</span>
+                        <span className="text-[10px] font-medium text-[var(--accent)] uppercase tracking-wider">
+                          推荐方法
+                        </span>
                         <div className="mt-1.5 space-y-1.5">
                           {template.recommendedTests.map((test) => (
                             <div key={test.testId} className="flex items-start gap-2">
                               <Beaker className="w-3 h-3 mt-0.5 text-[var(--primary)] shrink-0" />
                               <div>
-                                <span className="text-xs font-medium text-[var(--text-primary)]">{test.testId}</span>
-                                <span className="text-xs text-[var(--text-muted)] ml-1">— {test.reason}</span>
+                                <span className="text-xs font-medium text-[var(--text-primary)]">
+                                  {test.testId}
+                                </span>
+                                <span className="text-xs text-[var(--text-muted)] ml-1">
+                                  — {test.reason}
+                                </span>
                               </div>
                             </div>
                           ))}
@@ -115,10 +144,15 @@ export function TemplateSelector({ onSelect, className }: TemplateSelectorProps)
 
                       {/* Data structure */}
                       <div>
-                        <span className="text-[10px] font-medium text-[var(--accent)] uppercase tracking-wider">数据结构</span>
+                        <span className="text-[10px] font-medium text-[var(--accent)] uppercase tracking-wider">
+                          数据结构
+                        </span>
                         <div className="mt-1.5 flex flex-wrap gap-1">
                           {template.sampleDataStructure.columns.slice(0, 6).map((col) => (
-                            <span key={col.name} className="px-1.5 py-0.5 rounded bg-[var(--bg-card-hover)] text-[10px] text-[var(--text-muted)] font-mono">
+                            <span
+                              key={col.name}
+                              className="px-1.5 py-0.5 rounded bg-[var(--bg-card-hover)] text-[10px] text-[var(--text-muted)] font-mono"
+                            >
                               {col.name}
                             </span>
                           ))}
@@ -132,12 +166,18 @@ export function TemplateSelector({ onSelect, className }: TemplateSelectorProps)
 
                       {/* Workflow */}
                       <div>
-                        <span className="text-[10px] font-medium text-[var(--accent)] uppercase tracking-wider">推荐流程</span>
+                        <span className="text-[10px] font-medium text-[var(--accent)] uppercase tracking-wider">
+                          推荐流程
+                        </span>
                         <div className="mt-1.5 space-y-1">
                           {template.workflow.map((step) => (
                             <div key={step.step} className="flex items-center gap-2">
-                              <span className="w-4 h-4 rounded-full bg-[var(--primary)]/10 flex items-center justify-center text-[9px] font-bold text-[var(--primary)]">{step.step}</span>
-                              <span className="text-xs text-[var(--text-secondary)]">{step.action}</span>
+                              <span className="w-4 h-4 rounded-full bg-[var(--primary)]/10 flex items-center justify-center text-[9px] font-bold text-[var(--primary)]">
+                                {step.step}
+                              </span>
+                              <span className="text-xs text-[var(--text-secondary)]">
+                                {step.action}
+                              </span>
                             </div>
                           ))}
                         </div>
@@ -145,7 +185,9 @@ export function TemplateSelector({ onSelect, className }: TemplateSelectorProps)
 
                       {/* References */}
                       <div>
-                        <span className="text-[10px] font-medium text-[var(--accent)] uppercase tracking-wider">参考文献</span>
+                        <span className="text-[10px] font-medium text-[var(--accent)] uppercase tracking-wider">
+                          参考文献
+                        </span>
                         <div className="mt-1.5 space-y-1">
                           {template.references.map((ref, i) => (
                             <p key={i} className="text-[10px] text-[var(--text-muted)]">
@@ -157,7 +199,10 @@ export function TemplateSelector({ onSelect, className }: TemplateSelectorProps)
 
                       {/* Action button */}
                       <button
-                        onClick={(e) => { e.stopPropagation(); onSelect(template); }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onSelect(template);
+                        }}
                         className="w-full mt-2 px-4 py-2 rounded-lg bg-[var(--primary)] text-white text-xs font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
                       >
                         <ArrowRight className="w-3 h-3" />

@@ -21,17 +21,14 @@ const MAX_IMAGES = 100;
 const MAX_DATA_AGE = 24 * 60 * 60 * 1000; // 24 hours
 
 // Static assets to pre-cache on install
-const PRECACHE_URLS = [
-  "/",
-  "/manifest.json",
-  "/favicon.svg",
-];
+const PRECACHE_URLS = ["/", "/manifest.json", "/favicon.svg"];
 
 // Patterns for different resource types
 const STATIC_PATTERN = /\.(js|css|woff2?|ttf|eot)(\?.*)?$/;
 const IMAGE_PATTERN = /\.(png|jpg|jpeg|gif|svg|webp|ico)(\?.*)?$/;
 const DATA_PATTERN = /\/data\/.*\.json$/;
-const API_PATTERN = /api\.semanticscholar\.org|api\.openai\.com|api\.anthropic\.com|generativelanguage\.googleapis\.com/;
+const API_PATTERN =
+  /api\.semanticscholar\.org|api\.openai\.com|api\.anthropic\.com|generativelanguage\.googleapis\.com/;
 const EXTERNAL_PATTERN = /^https?:\/\/(?!martech-open-hub\.vercel\.app)/;
 
 // ===== Install =====
@@ -146,12 +143,14 @@ async function staleWhileRevalidate(request, cacheName) {
   const cache = await caches.open(cacheName);
   const cached = await cache.match(request);
 
-  const fetchPromise = fetch(request).then((response) => {
-    if (response.ok) {
-      cache.put(request, response.clone());
-    }
-    return response;
-  }).catch(() => cached);
+  const fetchPromise = fetch(request)
+    .then((response) => {
+      if (response.ok) {
+        cache.put(request, response.clone());
+      }
+      return response;
+    })
+    .catch(() => cached);
 
   // Return cached immediately if available, otherwise wait for network
   return cached || fetchPromise;

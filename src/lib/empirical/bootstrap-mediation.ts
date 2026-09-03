@@ -43,10 +43,10 @@ export interface IndirectEffectReport {
 export interface MediationResult {
   n: number;
   bootstraps: number;
-  totalEffect: EffectReport;      // c
-  directEffect: EffectReport;     // c'
-  pathA: EffectReport;            // a: X -> M
-  pathB: EffectReport;            // b: M -> Y (controlling X)
+  totalEffect: EffectReport; // c
+  directEffect: EffectReport; // c'
+  pathA: EffectReport; // a: X -> M
+  pathB: EffectReport; // b: M -> Y (controlling X)
   indirectEffect: IndirectEffectReport; // ab
   mediationType: "full" | "partial" | "none";
   apaSummary: string;
@@ -64,7 +64,10 @@ export interface MediationResult {
 /**
  * 简单一元线性回归：y = alpha + beta * x
  */
-function simpleRegression(x: number[], y: number[]): {
+function simpleRegression(
+  x: number[],
+  y: number[]
+): {
   intercept: number;
   beta: number;
   se: number;
@@ -78,7 +81,9 @@ function simpleRegression(x: number[], y: number[]): {
   const mx = x.reduce((s, v) => s + v, 0) / n;
   const my = y.reduce((s, v) => s + v, 0) / n;
 
-  let ssxx = 0, ssxy = 0, ssyy = 0;
+  let ssxx = 0,
+    ssxy = 0,
+    ssyy = 0;
   for (let i = 0; i < n; i++) {
     const dx = x[i] - mx;
     const dy = y[i] - my;
@@ -122,7 +127,11 @@ function simpleRegression(x: number[], y: number[]): {
 /**
  * 二元多元线性回归：y = alpha + b1 * x1 + b2 * x2
  */
-function multipleRegression(x1: number[], x2: number[], y: number[]): {
+function multipleRegression(
+  x1: number[],
+  x2: number[],
+  y: number[]
+): {
   intercept: number;
   b1: number;
   b2: number;
@@ -139,7 +148,12 @@ function multipleRegression(x1: number[], x2: number[], y: number[]): {
   const m2 = x2.reduce((s, v) => s + v, 0) / n;
   const my = y.reduce((s, v) => s + v, 0) / n;
 
-  let s11 = 0, s22 = 0, s12 = 0, s1y = 0, s2y = 0, syy = 0;
+  let s11 = 0,
+    s22 = 0,
+    s12 = 0,
+    s1y = 0,
+    s2y = 0,
+    syy = 0;
   for (let i = 0; i < n; i++) {
     const d1 = x1[i] - m1;
     const d2 = x2[i] - m2;
@@ -282,7 +296,9 @@ export function runBootstrapMediation(input: MediationInput): MediationResult {
 
   // 计算 Bootstrap 标准误
   const bootMean = bootEstimates.reduce((s, v) => s + v, 0) / bootstraps;
-  const bootSE = +(Math.sqrt(bootEstimates.reduce((s, v) => s + (v - bootMean) ** 2, 0) / (bootstraps - 1))).toFixed(4);
+  const bootSE = +Math.sqrt(
+    bootEstimates.reduce((s, v) => s + (v - bootMean) ** 2, 0) / (bootstraps - 1)
+  ).toFixed(4);
 
   // 判断中介显著性：95% 置信区间不跨 0 即显著
   const significant = (bootLLCI > 0 && bootULCI > 0) || (bootLLCI < 0 && bootULCI < 0);
@@ -297,7 +313,8 @@ export function runBootstrapMediation(input: MediationInput): MediationResult {
     }
   }
 
-  const ratio = totalEffect.effect !== 0 ? +(indirectPointEstimate / totalEffect.effect).toFixed(4) : 0;
+  const ratio =
+    totalEffect.effect !== 0 ? +(indirectPointEstimate / totalEffect.effect).toFixed(4) : 0;
 
   // 生成 APA 报告文案
   const sigText = significant
@@ -306,10 +323,12 @@ export function runBootstrapMediation(input: MediationInput): MediationResult {
 
   const apaSummary =
     `采用 Hayes (2013) 提出的 PROCESS 宏程序（Model 4）进行中介效应检验，重抽样次数设为 ${bootstraps} 次。` +
-    `分析结果显示，自变量对中介变量的预测效应显著（a = ${pathA.effect.toFixed(3)}, t = ${pathA.t.toFixed(2)}, p ${pathA.p < 0.001 ? "< .001" : `= ${pathA.p.toFixed(3)}`}）；` +
-    `在控制自变量后，中介变量对因变量的预测效应显著（b = ${pathB.effect.toFixed(3)}, t = ${pathB.t.toFixed(2)}, p ${pathB.p < 0.001 ? "< .001" : `= ${pathB.p.toFixed(3)}`}）。` +
+    `分析结果显示，自变量对中介变量的预测效应${pathA.p < 0.05 ? "显著" : "未达显著水平"}（a = ${pathA.effect.toFixed(3)}, t = ${pathA.t.toFixed(2)}, p ${pathA.p < 0.001 ? "< .001" : `= ${pathA.p.toFixed(3)}`}）；` +
+    `在控制自变量后，中介变量对因变量的预测效应${pathB.p < 0.05 ? "显著" : "未达显著水平"}（b = ${pathB.effect.toFixed(3)}, t = ${pathB.t.toFixed(2)}, p ${pathB.p < 0.001 ? "< .001" : `= ${pathB.p.toFixed(3)}`}）。` +
     `间接效应估计值 ab = ${indirectPointEstimate.toFixed(3)}，Boot SE = ${bootSE.toFixed(3)}，${sigText}。` +
-    (significant && totalEffect.effect !== 0 ? ` 间接效应占总效应的比例为 ${(ratio * 100).toFixed(1)}%。` : "");
+    (significant && totalEffect.effect !== 0
+      ? ` 间接效应占总效应的比例为 ${(ratio * 100).toFixed(1)}%。`
+      : "");
 
   const tableData = [
     {

@@ -28,7 +28,9 @@ export function HealthBadge({ projectId, className, showDetails = false }: Healt
         </div>
         <div>
           <div className="flex items-center gap-1.5">
-            <span className="text-xs font-medium" style={{ color: level.color }}>{level.label}</span>
+            <span className="text-xs font-medium" style={{ color: level.color }}>
+              {level.label}
+            </span>
             <span
               className="px-1.5 py-0.5 rounded text-[9px] font-medium text-white"
               style={{ background: status.color }}
@@ -56,14 +58,18 @@ export function HealthBadge({ projectId, className, showDetails = false }: Healt
             const level = getHealthLevel(value);
             return (
               <div key={key} className="flex items-center gap-2">
-                <span className="text-[10px] text-[var(--text-muted)] w-16 shrink-0">{labels[key]}</span>
+                <span className="text-[10px] text-[var(--text-muted)] w-16 shrink-0">
+                  {labels[key]}
+                </span>
                 <div className="flex-1 h-1.5 rounded-full bg-[var(--bg-card-hover)] overflow-hidden">
                   <div
                     className="h-full rounded-full transition-all duration-500"
                     style={{ width: `${value}%`, background: level.color }}
                   />
                 </div>
-                <span className="text-[10px] font-mono text-[var(--text-muted)] w-6 text-right">{value}</span>
+                <span className="text-[10px] font-mono text-[var(--text-muted)] w-6 text-right">
+                  {value}
+                </span>
               </div>
             );
           })}
@@ -76,7 +82,13 @@ export function HealthBadge({ projectId, className, showDetails = false }: Healt
 /**
  * 紧凑型健康度徽章（用于项目卡片）
  */
-export function HealthBadgeCompact({ projectId, className }: { projectId: string; className?: string }) {
+export function HealthBadgeCompact({
+  projectId,
+  className,
+}: {
+  projectId: string;
+  className?: string;
+}) {
   const score = getHealthScore(projectId);
   if (!score) return null;
 

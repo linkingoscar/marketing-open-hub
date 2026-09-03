@@ -182,7 +182,10 @@ export function DocxExport({ title, sections, filename, variant = "outline" }: D
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      const safeName = (filename || `${title.replace(/\s+/g, "-")}-APA-Report`).replace(/\.doc[x]?$/i, "");
+      const safeName = (filename || `${title.replace(/\s+/g, "-")}-APA-Report`).replace(
+        /\.doc[x]?$/i,
+        ""
+      );
       a.download = `${safeName}.doc`;
       a.click();
       URL.revokeObjectURL(url);

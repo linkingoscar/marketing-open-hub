@@ -5,27 +5,32 @@
 [English](./README_EN.md) | [中文](./README.md)
 
 <!-- Core Status -->
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/linkingoscar/marketing-open-hub/update-projects.yml?label=build)](https://github.com/linkingoscar/marketing-open-hub/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/linkingoscar/marketing-open-hub/ci.yml?branch=main&label=CI)](https://github.com/linkingoscar/marketing-open-hub/actions)
 [![Vercel](https://img.shields.io/badge/Vercel-deployed-black?logo=vercel)](https://martech-open-hub.vercel.app)
 
 <!-- Framework & Language -->
+
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38BDF8?logo=tailwindcss)](https://tailwindcss.com/)
 
 <!-- Tools & Libraries -->
+
 [![Zustand](https://img.shields.io/badge/Zustand-5.x-FF6B35?logo=zustand)](https://zustand-demo.pmnd.rs/)
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.x-0055FF?logo=framer)](https://www.framer.com/motion/)
 [![Recharts](https://img.shields.io/badge/Recharts-3.8-FF6B6B)](https://recharts.org/)
 [![Vitest](https://img.shields.io/badge/Vitest-3.2-6E9F18?logo=vitest)](https://vitest.dev/)
 
 <!-- Testing & Quality -->
-[![Tests](https://img.shields.io/badge/Tests-75%20passed-brightgreen)](#testing)
-[![Coverage](https://img.shields.io/badge/Coverage-statistics%20%2B%20workflow%20%2B%20mediation-brightgreen)](#testing)
+
+[![Tests](https://img.shields.io/badge/Tests-102%20passed-brightgreen)](#testing)
+[![Coverage](https://img.shields.io/badge/Coverage-statistics%20%2B%20reference-brightgreen)](#testing)
 
 <!-- GitHub -->
+
 [![GitHub Stars](https://img.shields.io/github/stars/linkingoscar/marketing-open-hub?style=social)](https://github.com/linkingoscar/marketing-open-hub/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/linkingoscar/marketing-open-hub?style=social)](https://github.com/linkingoscar/marketing-open-hub/network/members)
 [![GitHub Issues](https://img.shields.io/github/issues/linkingoscar/marketing-open-hub)](https://github.com/linkingoscar/marketing-open-hub/issues)
@@ -33,22 +38,24 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/linkingoscar/marketing-open-hub/pulls)
 
 <!-- Feature Tags -->
+
 [![PWA](https://img.shields.io/badge/PWA-supported-5A0FC8)](https://martech-open-hub.vercel.app)
 [![i18n](https://img.shields.io/badge/i18n-zh%20%7C%20en-blue)](#internationalization)
 [![SEO](https://img.shields.io/badge/SEO-JSON--LD%20%2B%20RSC-green)](#tech-stack)
 [![Security](https://img.shields.io/badge/Security-AES--GCM%20encrypted-orange)](#security)
 
-31 academic-grade open-source projects · 36 statistical tests · 18 interactive tools · 11 LLM APIs · Client computation & Secure Proxy
+31 curated open-source projects · 36 statistical tests · 18 interactive tools · 11 LLM APIs · Local-first computation & Secure Proxy
 
 ---
 
 ## ✨ Core Features
 
 - **Project Discovery**: 31 marketing research open-source projects, 9 categories, radar chart scoring, health scores
-- **Mediation Analysis**: **Hayes PROCESS Model 4 non-parametric Bootstrap (1,000 resamples)** with 95% confidence intervals [LLCI, ULCI], ratio decomposition, and full/partial mediation detection
-- **Statistical Analysis**: 36 test methods, APA format output, auto-annotation (plain-language explanation + practical advice) and smooth normality approximations
-- **Word Export**: One-click export to native **Microsoft Word (.doc) APA 7th Edition three-line tables**, ready for paper submission
-- **API Gateway**: Built-in same-origin `/api/chat` Route Handler proxy with SSE streaming, eliminating browser CORS restrictions
+- **Mediation Analysis**: **Non-parametric Bootstrap mediation analysis (PROCESS Model 4 framework)** with 95% confidence intervals [LLCI, ULCI], ratio decomposition, and dynamic significance reporting
+- **Statistical Analysis**: 36 test methods, APA format output, auto-annotation (plain-language explanation + practical advice) and exploratory skewness-kurtosis normality heuristic
+- **Reference Benchmarking**: Embedded `tests/reference/` benchmark suite validating core statistical methods against R and SciPy ground truth
+- **Word Export**: One-click export to **Word-compatible (.doc) APA 7th Edition three-line tables**, ready for paper submission
+- **Secure Gateway**: Built-in same-origin `/api/chat` Route Handler proxy with SSRF protection and SSE streaming
 - **Marketing Templates**: 10 preset research scenarios (brand awareness, A/B testing, satisfaction, market segmentation, etc.)
 - **Scenario Comparison**: 7 research scenarios with auto-recommended tools, multi-dimensional radar comparison
 - **Evidence Direction**: Input hypothesis → search literature → support/mixed/oppose percentage visualization
@@ -58,7 +65,7 @@
 - **Paper Writing**: APA format output, paper writing, AI trace detection & polishing
 - **Onboarding**: 6-step guided tour on first visit
 - **Favorites**: One-click project favorites, config export/import support
-- **Data Security**: AES-GCM encrypted API key storage, browser-only computation
+- **Data Security**: Local-first computation, AES-GCM encrypted API key storage (96-bit random IV)
 
 ---
 
@@ -66,8 +73,8 @@
 
 ### Prerequisites
 
-- **Node.js** ≥ 18
-- **pnpm** ≥ 8 (recommended) or npm / yarn
+- **Node.js** ≥ 20
+- **pnpm** ≥ 9 (recommended)
 
 ### Installation & Running
 
@@ -88,12 +95,12 @@ Open browser and visit http://localhost:3000
 ### Other Commands
 
 ```bash
-pnpm dev          # Start development server
-pnpm build        # Build production version
-pnpm start        # Start production server
-pnpm lint         # Run code linting
-pnpm test         # Run tests (60 tests)
-pnpm test:watch   # Run tests in watch mode
+pnpm dev           # Start development server
+pnpm build         # Build production version
+pnpm start         # Start production server
+pnpm lint          # Run code linting
+pnpm test          # Run tests (84 unit and reference tests)
+pnpm test:watch    # Run tests in watch mode
 pnpm test:coverage # Generate test coverage report
 ```
 
@@ -127,11 +134,11 @@ To use AI features (paper writing, sentiment analysis, research assistant, etc.)
 
 **Recommended Providers**:
 
-| Provider | Recommended Model | Price | Notes |
-|----------|------------------|-------|-------|
-| DeepSeek | deepseek-v4-flash | ¥0.14/MTok | Best value |
-| Qwen | qwen3.6-plus | ¥1.60/MTok | Best Chinese |
-| OpenAI | gpt-4.1 | $2.00/MTok | Best English |
+| Provider  | Recommended Model | Price      | Notes                 |
+| --------- | ----------------- | ---------- | --------------------- |
+| DeepSeek  | deepseek-v4-flash | ¥0.14/MTok | Best value            |
+| Qwen      | qwen3.6-plus      | ¥1.60/MTok | Best Chinese          |
+| OpenAI    | gpt-4.1           | $2.00/MTok | Best English          |
 | Anthropic | claude-sonnet-4-6 | $5.00/MTok | Best academic writing |
 
 ### Step 2: Browse Open-Source Projects
@@ -153,20 +160,20 @@ To use AI features (paper writing, sentiment analysis, research assistant, etc.)
 
 **Supported Test Methods**:
 
-| Group | Methods |
-|-------|---------|
-| Descriptive | Descriptive statistics, Likert frequency table |
-| Prerequisites | Normality test, homogeneity of variance |
-| Comparison | t-test, ANOVA, Mann-Whitney U, Wilcoxon |
-| Categorical | Chi-square test, Fisher's exact test |
-| Correlation | Pearson r, Spearman ρ |
-| Regression | Multiple linear regression, Binary logistic |
-| Reliability | Cronbach's α, Item analysis, Split-half reliability |
-| Validity | CR + AVE, HTMT, Common method bias |
-| Factor | EFA, CFA |
-| Mediation/Moderation | Mediation effect, Moderation effect |
-| Bayesian | Bayesian t-test, Bayesian correlation |
-| Power | Power analysis (sample size estimation) |
+| Group                | Methods                                             |
+| -------------------- | --------------------------------------------------- |
+| Descriptive          | Descriptive statistics, Likert frequency table      |
+| Prerequisites        | Normality test, homogeneity of variance             |
+| Comparison           | t-test, ANOVA, Mann-Whitney U, Wilcoxon             |
+| Categorical          | Chi-square test, Fisher's exact test                |
+| Correlation          | Pearson r, Spearman ρ                               |
+| Regression           | Multiple linear regression, Binary logistic         |
+| Reliability          | Cronbach's α, Item analysis, Split-half reliability |
+| Validity             | CR + AVE, HTMT, Common method bias                  |
+| Factor               | EFA, CFA                                            |
+| Mediation/Moderation | Mediation effect, Moderation effect                 |
+| Bayesian             | Bayesian t-test, Bayesian correlation               |
+| Power                | Power analysis (sample size estimation)             |
 
 ### Step 4: Use Marketing Templates
 
@@ -277,21 +284,21 @@ marketing-open-hub/
 
 ## 🔧 Tech Stack
 
-| Layer | Technology | Version |
-|-------|-----------|---------|
-| Framework | Next.js (App Router + RSC) | 16.2.6 |
-| Language | TypeScript (strict) | 5.x |
-| Styling | Tailwind CSS | 4.x |
-| UI Library | shadcn/ui + Radix UI | Latest |
-| Animation | Framer Motion | 12.x |
-| Charts | Recharts | 3.8 |
-| State Management | Zustand (persist) | 5.x |
-| Search | cmdk + Fuse.js | 1.x / 7.x |
-| Testing | Vitest | 3.2.x |
-| Encryption | Web Crypto API (AES-GCM) | Browser native |
-| Analytics | Sentry + PostHog (optional) | - |
-| Literature API | Semantic Scholar | Free |
-| LLM API | 11 providers (OpenAI/Anthropic/Gemini/DeepSeek etc.) | - |
+| Layer            | Technology                                           | Version        |
+| ---------------- | ---------------------------------------------------- | -------------- |
+| Framework        | Next.js (App Router + RSC)                           | 16.2.6         |
+| Language         | TypeScript (strict)                                  | 5.x            |
+| Styling          | Tailwind CSS                                         | 4.x            |
+| UI Library       | shadcn/ui + Radix UI                                 | Latest         |
+| Animation        | Framer Motion                                        | 12.x           |
+| Charts           | Recharts                                             | 3.8            |
+| State Management | Zustand (persist)                                    | 5.x            |
+| Search           | cmdk + Fuse.js                                       | 1.x / 7.x      |
+| Testing          | Vitest                                               | 3.2.x          |
+| Encryption       | Web Crypto API (AES-GCM)                             | Browser native |
+| Analytics        | Sentry + PostHog (optional)                          | -              |
+| Literature API   | Semantic Scholar                                     | Free           |
+| LLM API          | 11 providers (OpenAI/Anthropic/Gemini/DeepSeek etc.) | -              |
 
 ---
 
@@ -308,19 +315,40 @@ pnpm test:watch
 pnpm test:coverage
 ```
 
-**Test Coverage (75 tests all passed)**:
-- `src/lib/empirical/bootstrap-mediation.test.ts` — 2 tests (Hayes Model 4 Bootstrap mediation engine)
-- `src/lib/statistics/math.test.ts` — 13 tests (statistical mathematics library & probability distributions)
+**Test Coverage (102 tests all passed)**:
+
+- `tests/reference/stats-reference.test.ts` — 8 reference benchmark tests (matching R / SciPy ground truth)
+- `tests/invariants.test.ts` — 11 mathematical property and boundary constraint tests
+- `tests/smoke.test.ts` — 7 end-to-end golden path integration tests (including SSRF defense validation)
+- `src/lib/empirical/bootstrap-mediation.test.ts` — 2 tests (Hayes Model 4 framework Bootstrap mediation engine)
+- `src/lib/statistics/math.test.ts` — 14 tests (Gamma functions, incomplete Gamma Chi-square distribution & numerical helpers)
 - `src/lib/statistics/annotations.test.ts` — 44 tests (statistical annotation system)
 - `src/lib/workflow/engine.test.ts` — 16 tests (workflow engine)
 
 ---
 
+## 📚 Architecture & Community Guides
+
+- [Public Roadmap](./ROADMAP.md)
+- [System Architecture](./docs/architecture.md)
+- [Statistical Validation & Benchmarking](./docs/statistics-validation.md)
+- [Security & Privacy Model](./docs/security-model.md)
+- [Privacy Policy & Data Handling](./docs/privacy.md)
+- [Supported LLM Providers & Proxy Architecture](./docs/llm-providers.md)
+- [Good First Issues for Contributors](./docs/good-first-issues.md)
+- [Contributing Guidelines](./CONTRIBUTING.md)
+- [Support & Community Channels](./SUPPORT.md)
+- [Security Policy](./SECURITY.md)
+- [Changelog](./CHANGELOG.md)
+
+---
+
 ## 🔐 Security
 
-- **API Key Encryption**: Encrypted with Web Crypto API (AES-GCM), keys stored in IndexedDB
-- **CSP Headers**: Strict Content-Security-Policy limiting external resource loading
-- **Browser-only Computation**: Statistical data processed locally, never uploaded
+- **API Key Encryption**: AES-GCM 256-bit client-side encryption with freshly generated 96-bit random IVs
+- **Server-side SSRF Defense**: `/api/chat` strictly restricts target endpoints, blocking loopback, private RFC 1918 subnets, and cloud metadata
+- **CSP Headers**: Strict Content-Security-Policy supporting PostHog telemetry and blocking untrusted scripts
+- **Browser-only Computation**: Statistical datasets processed strictly in browser memory, never uploaded
 - **Privacy Analytics**: Sentry/PostHog anonymized by default, supports Do Not Track
 
 ---

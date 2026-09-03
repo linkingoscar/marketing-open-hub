@@ -7,11 +7,11 @@ export interface HealthScore {
   projectId: string;
   overall: number; // 0-100
   dimensions: {
-    activity: number;      // 代码活跃度（最近提交/发布频率）
-    community: number;     // 社区健康度（贡献者数量/响应时间）
+    activity: number; // 代码活跃度（最近提交/发布频率）
+    community: number; // 社区健康度（贡献者数量/响应时间）
     documentation: number; // 文档质量
-    relevance: number;     // 营销研究相关度
-    maintenance: number;   // 维护状态
+    relevance: number; // 营销研究相关度
+    maintenance: number; // 维护状态
   };
   status: "active" | "maintained" | "stale" | "archived";
   lastUpdate: string;
@@ -24,7 +24,7 @@ export interface HealthScore {
 // Simulated health scores for the 31 projects
 // In production, this would come from GitHub API
 export const HEALTH_SCORES: Record<string, HealthScore> = {
-  "sentique": {
+  sentique: {
     projectId: "sentique",
     overall: 85,
     dimensions: { activity: 90, community: 80, documentation: 85, relevance: 95, maintenance: 85 },
@@ -46,7 +46,7 @@ export const HEALTH_SCORES: Record<string, HealthScore> = {
     closedIssues: 35,
     releaseFrequency: "quarterly",
   },
-  "bertopic": {
+  bertopic: {
     projectId: "bertopic",
     overall: 92,
     dimensions: { activity: 95, community: 90, documentation: 95, relevance: 85, maintenance: 95 },
@@ -68,7 +68,7 @@ export const HEALTH_SCORES: Record<string, HealthScore> = {
     closedIssues: 156,
     releaseFrequency: "monthly",
   },
-  "dowhy": {
+  dowhy: {
     projectId: "dowhy",
     overall: 90,
     dimensions: { activity: 88, community: 92, documentation: 90, relevance: 85, maintenance: 90 },
@@ -79,7 +79,7 @@ export const HEALTH_SCORES: Record<string, HealthScore> = {
     closedIssues: 420,
     releaseFrequency: "monthly",
   },
-  "zengrowth": {
+  zengrowth: {
     projectId: "zengrowth",
     overall: 68,
     dimensions: { activity: 60, community: 65, documentation: 75, relevance: 80, maintenance: 65 },
@@ -90,7 +90,7 @@ export const HEALTH_SCORES: Record<string, HealthScore> = {
     closedIssues: 22,
     releaseFrequency: "quarterly",
   },
-  "lifetimes": {
+  lifetimes: {
     projectId: "lifetimes",
     overall: 55,
     dimensions: { activity: 40, community: 50, documentation: 70, relevance: 85, maintenance: 40 },
@@ -101,7 +101,7 @@ export const HEALTH_SCORES: Record<string, HealthScore> = {
     closedIssues: 89,
     releaseFrequency: "yearly",
   },
-  "meridian": {
+  meridian: {
     projectId: "meridian",
     overall: 82,
     dimensions: { activity: 80, community: 75, documentation: 85, relevance: 95, maintenance: 80 },
@@ -112,7 +112,7 @@ export const HEALTH_SCORES: Record<string, HealthScore> = {
     closedIssues: 78,
     releaseFrequency: "monthly",
   },
-  "econml": {
+  econml: {
     projectId: "econml",
     overall: 86,
     dimensions: { activity: 82, community: 88, documentation: 85, relevance: 85, maintenance: 88 },
@@ -159,9 +159,13 @@ export function getHealthLevel(score: number): { label: string; color: string } 
  */
 export function getStatusBadge(status: HealthScore["status"]): { label: string; color: string } {
   switch (status) {
-    case "active": return { label: "活跃", color: "#10B981" };
-    case "maintained": return { label: "维护中", color: "#3B82F6" };
-    case "stale": return { label: "停滞", color: "#F59E0B" };
-    case "archived": return { label: "归档", color: "#6B7280" };
+    case "active":
+      return { label: "活跃", color: "#10B981" };
+    case "maintained":
+      return { label: "维护中", color: "#3B82F6" };
+    case "stale":
+      return { label: "停滞", color: "#F59E0B" };
+    case "archived":
+      return { label: "归档", color: "#6B7280" };
   }
 }

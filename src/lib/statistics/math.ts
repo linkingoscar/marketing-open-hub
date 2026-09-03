@@ -29,15 +29,23 @@ export function se(a: number[]): number {
 }
 
 export function skewness(a: number[]): number {
-  const m = mean(a), s = stddev(a), n = a.length;
+  const m = mean(a),
+    s = stddev(a),
+    n = a.length;
   if (n < 3 || s === 0) return 0;
   return (n / ((n - 1) * (n - 2))) * a.reduce((sum, x) => sum + ((x - m) / s) ** 3, 0);
 }
 
 export function kurtosis(a: number[]): number {
-  const m = mean(a), s = stddev(a), n = a.length;
+  const m = mean(a),
+    s = stddev(a),
+    n = a.length;
   if (n < 4 || s === 0) return 0;
-  return ((n * (n + 1)) / ((n - 1) * (n - 2) * (n - 3))) * a.reduce((sum, x) => sum + ((x - m) / s) ** 4, 0) - (3 * (n - 1) ** 2) / ((n - 2) * (n - 3));
+  return (
+    ((n * (n + 1)) / ((n - 1) * (n - 2) * (n - 3))) *
+      a.reduce((sum, x) => sum + ((x - m) / s) ** 4, 0) -
+    (3 * (n - 1) ** 2) / ((n - 2) * (n - 3))
+  );
 }
 
 export function q(a: number[], p: number): number {
@@ -48,25 +56,92 @@ export function q(a: number[], p: number): number {
 }
 
 export function normalCDF(x: number): number {
-  const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741, a4 = -1.453152027, a5 = 1.061405429, p = 0.3275911;
+  const a1 = 0.254829592,
+    a2 = -0.284496736,
+    a3 = 1.421413741,
+    a4 = -1.453152027,
+    a5 = 1.061405429,
+    p = 0.3275911;
   const s = x < 0 ? -1 : 1;
   const absX = Math.abs(x) / Math.sqrt(2);
   const t = 1 / (1 + p * absX);
-  return 0.5 * (1 + s * (1 - ((((a5 * t + a4) * t + a3) * t + a2) * t + a1) * t * Math.exp(-absX * absX)));
+  return (
+    0.5 *
+    (1 + s * (1 - ((((a5 * t + a4) * t + a3) * t + a2) * t + a1) * t * Math.exp(-absX * absX)))
+  );
 }
 
 export function gammaFn(z: number): number {
   if (z < 0.5) return Math.PI / (Math.sin(Math.PI * z) * gammaFn(1 - z));
   z -= 1;
   const c = [
-    0.99999999999980993, 676.5203681218851, -1259.1392167224028,
-    771.32342877765313, -176.61502916214059, 12.507343278686905,
-    -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7,
+    0.99999999999980993, 676.5203681218851, -1259.1392167224028, 771.32342877765313,
+    -176.61502916214059, 12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6,
+    1.5056327351493116e-7,
   ];
   let x = c[0];
   for (let i = 1; i < 9; i++) x += c[i] / (z + i);
   const t = z + 7.5;
   return Math.sqrt(2 * Math.PI) * t ** (z + 0.5) * Math.exp(-t) * x;
+}
+
+export function logGamma(z: number): number {
+  if (z <= 0) return 0;
+  if (z < 0.5) {
+    return Math.log(Math.PI / Math.sin(Math.PI * z)) - logGamma(1 - z);
+  }
+  const c = [
+    0.99999999999980993, 676.5203681218851, -1259.1392167224028, 771.32342877765313,
+    -176.61502916214059, 12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6,
+    1.5056327351493116e-7,
+  ];
+  const zm1 = z - 1;
+  let x = c[0];
+  for (let i = 1; i < 9; i++) x += c[i] / (zm1 + i);
+  const t = zm1 + 7.5;
+  return 0.5 * Math.log(2 * Math.PI) + (zm1 + 0.5) * Math.log(t) - t + Math.log(x);
+}
+
+/**
+ * 正则化下不完全伽马函数 P(a, x) = gamma(a, x) / Gamma(a)
+ * x < a + 1 时采用级数展开；x >= a + 1 时采用勒让德连分数展开
+ */
+export function regIncGamma(a: number, x: number): number {
+  if (x <= 0 || a <= 0) return 0;
+
+  if (x < a + 1.0) {
+    let sum = 1.0 / a;
+    let del = sum;
+    for (let n = 1; n <= 100; n++) {
+      del *= x / (a + n);
+      sum += del;
+      if (Math.abs(del) < Math.abs(sum) * 1e-14) break;
+    }
+    const result = sum * Math.exp(-x + a * Math.log(x) - logGamma(a));
+    return Math.min(1, Math.max(0, result));
+  } else {
+    const ITMAX = 100;
+    const EPS = 1e-14;
+    const FPMIN = 1e-30;
+    let b = x + 1.0 - a;
+    let c = 1.0 / FPMIN;
+    let d = 1.0 / b;
+    let h = d;
+    for (let i = 1; i <= ITMAX; i++) {
+      const an = -i * (i - a);
+      b += 2.0;
+      d = an * d + b;
+      if (Math.abs(d) < FPMIN) d = FPMIN;
+      c = b + an / c;
+      if (Math.abs(c) < FPMIN) c = FPMIN;
+      d = 1.0 / d;
+      const del = d * c;
+      h *= del;
+      if (Math.abs(del - 1.0) <= EPS) break;
+    }
+    const qVal = Math.exp(-x + a * Math.log(x) - logGamma(a)) * h;
+    return Math.min(1, Math.max(0, 1.0 - qVal));
+  }
 }
 
 export function regIncBeta(x: number, a: number, b: number): number {
@@ -82,6 +157,14 @@ export function regIncBeta(x: number, a: number, b: number): number {
   return Math.min(1, Math.max(0, s / (denom || 1e-12)));
 }
 
+export function tDistCDF(t: number, df: number): number {
+  if (df <= 0) return 0;
+  if (t === 0) return 0.5;
+  const x = df / (df + t * t);
+  const ib = regIncBeta(x, df / 2, 0.5);
+  return t > 0 ? 1 - 0.5 * ib : 0.5 * ib;
+}
+
 export function fDistCDF(f: number, d1: number, d2: number): number {
   if (f <= 0 || d1 <= 0 || d2 <= 0) return 0;
   return regIncBeta((d1 * f) / (d1 * f + d2), d1 / 2, d2 / 2);
@@ -89,7 +172,7 @@ export function fDistCDF(f: number, d1: number, d2: number): number {
 
 export function chiDistCDF(x: number, k: number): number {
   if (x <= 0 || k <= 0) return 0;
-  return regIncBeta(x / (x + k), k / 2, 0.5);
+  return regIncGamma(k / 2, x / 2);
 }
 
 export function pStars(p: number): string {
@@ -119,8 +202,9 @@ export function pearsonCI(r: number, n: number, alpha = 0.05): [number, number] 
   const z = 0.5 * Math.log((1 + clampedR) / (1 - clampedR));
   const se = 1 / Math.sqrt(n - 3);
   const zCrit = alpha === 0.05 ? 1.96 : 2.576;
-  const lo = z - zCrit * se, hi = z + zCrit * se;
-  return [+(Math.tanh(lo)).toFixed(4), +(Math.tanh(hi)).toFixed(4)];
+  const lo = z - zCrit * se,
+    hi = z + zCrit * se;
+  return [+Math.tanh(lo).toFixed(4), +Math.tanh(hi).toFixed(4)];
 }
 
 /**
@@ -144,7 +228,9 @@ export function matVecMul(m: number[][], v: number[]): number[] {
 }
 
 export function matMul(a: number[][], b: number[][]): number[][] {
-  const rA = a.length, cA = a[0].length, cB = b[0].length;
+  const rA = a.length,
+    cA = a[0].length,
+    cB = b[0].length;
   const out: number[][] = Array.from({ length: rA }, () => new Array(cB).fill(0));
   for (let i = 0; i < rA; i++) {
     for (let k = 0; k < cA; k++) {
@@ -158,7 +244,12 @@ export function matMul(a: number[][], b: number[][]): number[][] {
 
 export function matInv(m: number[][]): number[][] {
   const n = m.length;
-  const aug = m.map((r, i) => [...r, ...Array(n).fill(0).map((_, j) => (i === j ? 1 : 0))]);
+  const aug = m.map((r, i) => [
+    ...r,
+    ...Array(n)
+      .fill(0)
+      .map((_, j) => (i === j ? 1 : 0)),
+  ]);
   for (let i = 0; i < n; i++) {
     let maxRow = i;
     for (let k = i + 1; k < n; k++) {
@@ -176,4 +267,58 @@ export function matInv(m: number[][]): number[][] {
     }
   }
   return aug.map((r) => r.slice(n));
+}
+
+export function transpose(m: number[][]): number[][] {
+  if (!m.length || !m[0].length) return [];
+  return m[0].map((_, j) => m.map((r) => r[j]));
+}
+
+export function determinant(matrix: number[][]): number {
+  const n = matrix.length;
+  const a = matrix.map((row) => [...row]);
+  let det = 1;
+  for (let i = 0; i < n; i++) {
+    let pivot = i;
+    for (let r = i + 1; r < n; r++) {
+      if (Math.abs(a[r][i]) > Math.abs(a[pivot][i])) pivot = r;
+    }
+    if (Math.abs(a[pivot][i]) < 1e-12) return 0;
+    if (pivot !== i) {
+      [a[i], a[pivot]] = [a[pivot], a[i]];
+      det *= -1;
+    }
+    det *= a[i][i];
+    for (let r = i + 1; r < n; r++) {
+      const factor = a[r][i] / a[i][i];
+      for (let c = i; c < n; c++) a[r][c] -= factor * a[i][c];
+    }
+  }
+  return det;
+}
+
+export function addRidge(matrix: number[][], ridge = 1e-6): number[][] {
+  return matrix.map((row, i) => row.map((v, j) => v + (i === j ? ridge : 0)));
+}
+
+export function fitLinearModel(x: number[][], y: number[]) {
+  const X = x.map((row) => [1, ...row]);
+  const Xt = transpose(X);
+  const XtX = matMul(Xt, X);
+  const XtXinv = matInv(XtX.map((row, i) => row.map((v, j) => v + (i === j ? 1e-8 : 0))));
+  const Xty = matVecMul(Xt, y);
+  const beta = matVecMul(XtXinv, Xty);
+  const yHat = X.map((row) => row.reduce((s, v, i) => s + v * beta[i], 0));
+  const residuals = y.map((yi, i) => yi - yHat[i]);
+  const sse = residuals.reduce((s, r) => s + r ** 2, 0);
+  const yMean = mean(y);
+  const sst = y.reduce((s, yi) => s + (yi - yMean) ** 2, 0);
+  return {
+    beta,
+    yHat,
+    residuals,
+    sse,
+    dfResidual: Math.max(1, y.length - beta.length),
+    rSquared: sst > 0 ? Math.max(0, 1 - sse / sst) : 0,
+  };
 }

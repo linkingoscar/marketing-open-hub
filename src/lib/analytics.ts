@@ -21,8 +21,36 @@ const ANALYTICS_ENABLED =
 const POSTHOG_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY;
 const POSTHOG_HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://app.posthog.com";
 
-// Sentry DSN（可选）
+// ===== Sentry DSN（可选）=====
 const SENTRY_DSN = process.env.NEXT_PUBLIC_SENTRY_DSN;
+
+interface PostHogClient {
+  init: (key: string, options: Record<string, unknown>) => void;
+  capture: (event: string, properties?: Record<string, unknown>) => void;
+  set_config?: (config: Record<string, unknown>) => void;
+}
+
+interface SentryScope {
+  setExtra: (key: string, value: unknown) => void;
+}
+
+interface SentryClient {
+  init: (options: Record<string, unknown>) => void;
+  BrowserTracing: new () => unknown;
+  withScope: (callback: (scope: SentryScope) => void) => void;
+  captureException: (error: unknown) => void;
+  captureMessage: (message: string, level?: string) => void;
+}
+
+function getPostHog(): PostHogClient | undefined {
+  if (typeof window === "undefined") return undefined;
+  return (window as unknown as { posthog?: PostHogClient }).posthog;
+}
+
+function getSentry(): SentryClient | undefined {
+  if (typeof window === "undefined") return undefined;
+  return (window as unknown as { Sentry?: SentryClient }).Sentry;
+}
 
 // ===== PostHog =====
 
@@ -40,17 +68,20 @@ export function initPostHog() {
     script.src = "https://app.posthog.com/static/array.js";
     script.async = true;
     script.onload = () => {
-      if (typeof window !== "undefined" && (window as any).posthog) {
-        (window as any).posthog.init(POSTHOG_KEY, {
+      const ph = getPostHog();
+      if (ph) {
+        ph.init(POSTHOG_KEY, {
           api_host: POSTHOG_HOST,
           capture_pageview: false, // We'll handle manually
           capture_pageleave: false,
           autocapture: false, // Privacy: only track what we explicitly send
           persistence: "localStorage",
           opt_out_capturing_by_default: false,
-          loaded: (ph: any) => {
+          loaded: (client: PostHogClient) => {
             // Anonymize IP
-            ph.set_config({ ip: false });
+            if (client.set_config) {
+              client.set_config({ ip: false });
+            }
             posthogInitialized = true;
             console.debug("[Analytics] PostHog initialized");
           },
@@ -70,8 +101,9 @@ export function trackEvent(event: string, properties?: Record<string, unknown>) 
   if (!ANALYTICS_ENABLED) return;
 
   try {
-    if (typeof window !== "undefined" && (window as any).posthog) {
-      (window as any).posthog.capture(event, {
+    const ph = getPostHog();
+    if (ph) {
+      ph.capture(event, {
         ...properties,
         $current_url: window.location.pathname, // Don't send full URL for privacy
       });
@@ -109,17 +141,16 @@ export function initSentry() {
     script.src = "https://browser.sentry-cdn.com/8.0.0/bundle.min.js";
     script.crossOrigin = "anonymous";
     script.onload = () => {
-      if (typeof window !== "undefined" && (window as any).Sentry) {
-        (window as any).Sentry.init({
+      const sentry = getSentry();
+      if (sentry) {
+        sentry.init({
           dsn: SENTRY_DSN,
           environment: process.env.NODE_ENV,
           tracesSampleRate: 0.1, // 10% of transactions
           replaysSessionSampleRate: 0,
           replaysOnErrorSampleRate: 0,
-          integrations: [
-            new (window as any).Sentry.BrowserTracing(),
-          ],
-          beforeSend(event: any) {
+          integrations: [new sentry.BrowserTracing()],
+          beforeSend(event: { request?: { headers?: Record<string, string> } }) {
             // Don't send events from localhost
             if (window.location.hostname.includes("localhost")) return null;
             // Scrub any accidentally captured API keys
@@ -149,14 +180,15 @@ export function captureError(error: Error, context?: Record<string, unknown>) {
   if (!SENTRY_DSN) return;
 
   try {
-    if (typeof window !== "undefined" && (window as any).Sentry) {
-      (window as any).Sentry.withScope((scope: any) => {
+    const sentry = getSentry();
+    if (sentry) {
+      sentry.withScope((scope: SentryScope) => {
         if (context) {
           Object.entries(context).forEach(([key, value]) => {
             scope.setExtra(key, value);
           });
         }
-        (window as any).Sentry.captureException(error);
+        sentry.captureException(error);
       });
     }
   } catch {
@@ -171,8 +203,9 @@ export function captureMessage(message: string, level: "info" | "warning" = "inf
   if (!SENTRY_DSN) return;
 
   try {
-    if (typeof window !== "undefined" && (window as any).Sentry) {
-      (window as any).Sentry.captureMessage(message, level);
+    const sentry = getSentry();
+    if (sentry) {
+      sentry.captureMessage(message, level);
     }
   } catch {
     // Silently fail

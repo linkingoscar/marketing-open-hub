@@ -123,7 +123,9 @@ export class MockDatabase implements DatabaseInterface {
     return history.slice(0, limit);
   }
 
-  async addAnalysisRecord(record: Omit<AnalysisRecord, "id" | "createdAt">): Promise<AnalysisRecord> {
+  async addAnalysisRecord(
+    record: Omit<AnalysisRecord, "id" | "createdAt">
+  ): Promise<AnalysisRecord> {
     const history = getFromStorage<AnalysisRecord[]>(KEYS.history(record.userId)) ?? [];
     const newRecord: AnalysisRecord = {
       ...record,
@@ -162,7 +164,9 @@ export class MockDatabase implements DatabaseInterface {
     return getFromStorage<APIConfig[]>(KEYS.apiConfigs(userId)) ?? [];
   }
 
-  async saveAPIConfig(config: Omit<APIConfig, "id" | "createdAt" | "updatedAt">): Promise<APIConfig> {
+  async saveAPIConfig(
+    config: Omit<APIConfig, "id" | "createdAt" | "updatedAt">
+  ): Promise<APIConfig> {
     const configs = await this.getAPIConfigs(config.userId);
     const existingIndex = configs.findIndex((c) => c.provider === config.provider);
     const now = new Date().toISOString();
@@ -222,7 +226,10 @@ export class MockDatabase implements DatabaseInterface {
     return newRecord;
   }
 
-  async getUsageSummary(userId: string, days = 30): Promise<{
+  async getUsageSummary(
+    userId: string,
+    days = 30
+  ): Promise<{
     totalRequests: number;
     totalTokens: number;
     estimatedCost: number;
@@ -256,7 +263,9 @@ export class MockDatabase implements DatabaseInterface {
     return null;
   }
 
-  async saveWorkflow(workflow: Omit<WorkflowRecord, "createdAt" | "updatedAt">): Promise<WorkflowRecord> {
+  async saveWorkflow(
+    workflow: Omit<WorkflowRecord, "createdAt" | "updatedAt">
+  ): Promise<WorkflowRecord> {
     const workflows = await this.getWorkflows(workflow.userId);
     const existingIndex = workflows.findIndex((w) => w.id === workflow.id);
     const now = new Date().toISOString();

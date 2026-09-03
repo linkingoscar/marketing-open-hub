@@ -26,7 +26,14 @@ export interface ProcessTemplate {
   nameCN: string;
   description: string;
   modelNumber: number;
-  category: "mediation" | "moderation" | "mediated-moderation" | "moderated-mediation" | "serial" | "parallel" | "custom";
+  category:
+    | "mediation"
+    | "moderation"
+    | "mediated-moderation"
+    | "moderated-mediation"
+    | "serial"
+    | "parallel"
+    | "custom";
   slots: FrameworkSlot[];
   paths: PathDefinition[];
   interpretation: string;
@@ -52,7 +59,8 @@ export const PROCESS_TEMPLATES: ProcessTemplate[] = [
       { from: "w", to: "y", label: "c₂" },
       { from: "x", to: "y", label: "c₃ (X×W)" },
     ],
-    interpretation: "关注交互项 X×W 的系数 c₃ 是否显著。若显著，说明 W 调节了 X 对 Y 的影响。需做简单斜率分析。",
+    interpretation:
+      "关注交互项 X×W 的系数 c₃ 是否显著。若显著，说明 W 调节了 X 对 Y 的影响。需做简单斜率分析。",
     useCase: "价格对购买意愿的影响是否受到促销类型的调节",
   },
   {
@@ -97,7 +105,8 @@ export const PROCESS_TEMPLATES: ProcessTemplate[] = [
       { from: "x", to: "y", label: "c (总效应)" },
       { from: "x", to: "y", label: "c' (直接效应)" },
     ],
-    interpretation: "间接效应 ab 的 Bootstrap CI 不包含 0 则中介显著。c' 不显著为完全中介，c' 显著但 |c'|<|c| 为部分中介。",
+    interpretation:
+      "间接效应 ab 的 Bootstrap CI 不包含 0 则中介显著。c' 不显著为完全中介，c' 显著但 |c'|<|c| 为部分中介。",
     useCase: "品牌信任通过感知价值影响购买意愿",
   },
   {

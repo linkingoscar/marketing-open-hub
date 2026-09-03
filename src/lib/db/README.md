@@ -101,48 +101,48 @@ interface WorkflowRecord {
 
 ### 用户操作
 
-| 方法 | 说明 |
-|------|------|
-| `getUser(userId)` | 获取用户信息 |
-| `createUser(user)` | 创建新用户 |
-| `updateUser(userId, updates)` | 更新用户信息 |
-| `deleteUser(userId)` | 删除用户及所有关联数据 |
+| 方法                          | 说明                   |
+| ----------------------------- | ---------------------- |
+| `getUser(userId)`             | 获取用户信息           |
+| `createUser(user)`            | 创建新用户             |
+| `updateUser(userId, updates)` | 更新用户信息           |
+| `deleteUser(userId)`          | 删除用户及所有关联数据 |
 
 ### 收藏操作
 
-| 方法 | 说明 |
-|------|------|
-| `getFavorites(userId)` | 获取用户所有收藏 |
-| `addFavorite(userId, projectId)` | 添加收藏 |
-| `removeFavorite(userId, projectId)` | 移除收藏 |
-| `isFavorite(userId, projectId)` | 检查是否已收藏 |
+| 方法                                | 说明             |
+| ----------------------------------- | ---------------- |
+| `getFavorites(userId)`              | 获取用户所有收藏 |
+| `addFavorite(userId, projectId)`    | 添加收藏         |
+| `removeFavorite(userId, projectId)` | 移除收藏         |
+| `isFavorite(userId, projectId)`     | 检查是否已收藏   |
 
 ### 分析历史
 
-| 方法 | 说明 |
-|------|------|
+| 方法                                 | 说明         |
+| ------------------------------------ | ------------ |
 | `getAnalysisHistory(userId, limit?)` | 获取分析历史 |
-| `addAnalysisRecord(record)` | 添加分析记录 |
-| `deleteAnalysisRecord(recordId)` | 删除单条记录 |
-| `clearAnalysisHistory(userId)` | 清空历史 |
+| `addAnalysisRecord(record)`          | 添加分析记录 |
+| `deleteAnalysisRecord(recordId)`     | 删除单条记录 |
+| `clearAnalysisHistory(userId)`       | 清空历史     |
 
 ### API 配置
 
-| 方法 | 说明 |
-|------|------|
-| `getAPIConfigs(userId)` | 获取所有 API 配置 |
-| `saveAPIConfig(config)` | 保存 API 配置 |
-| `deleteAPIConfig(configId)` | 删除 API 配置 |
-| `getPreferredConfig(userId)` | 获取首选配置 |
+| 方法                         | 说明              |
+| ---------------------------- | ----------------- |
+| `getAPIConfigs(userId)`      | 获取所有 API 配置 |
+| `saveAPIConfig(config)`      | 保存 API 配置     |
+| `deleteAPIConfig(configId)`  | 删除 API 配置     |
+| `getPreferredConfig(userId)` | 获取首选配置      |
 
 ### 工作流
 
-| 方法 | 说明 |
-|------|------|
-| `getWorkflows(userId)` | 获取所有工作流 |
-| `getWorkflow(workflowId)` | 获取单个工作流 |
-| `saveWorkflow(workflow)` | 保存工作流 |
-| `deleteWorkflow(workflowId)` | 删除工作流 |
+| 方法                         | 说明           |
+| ---------------------------- | -------------- |
+| `getWorkflows(userId)`       | 获取所有工作流 |
+| `getWorkflow(workflowId)`    | 获取单个工作流 |
+| `saveWorkflow(workflow)`     | 保存工作流     |
+| `deleteWorkflow(workflowId)` | 删除工作流     |
 
 ## 接入新后端
 
@@ -162,11 +162,7 @@ export class SupabaseDatabase implements DatabaseInterface {
   }
 
   async getUser(userId: string): Promise<UserProfile | null> {
-    const { data } = await this.supabase
-      .from("users")
-      .select("*")
-      .eq("id", userId)
-      .single();
+    const { data } = await this.supabase.from("users").select("*").eq("id", userId).single();
     return data;
   }
 

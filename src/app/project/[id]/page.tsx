@@ -11,13 +11,23 @@ export function generateStaticParams() {
 }
 
 // ===== Dynamic SEO Metadata =====
-export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
   const { id } = await params;
   const project = projects.find((p) => p.id === id);
   if (!project) return { title: "项目未找到" };
 
   const cat = getCategoryById(project.category);
-  const avgScore = (project.scores.features + project.scores.easeOfUse + project.scores.documentation + project.scores.community + project.scores.performance) / 5;
+  const avgScore =
+    (project.scores.features +
+      project.scores.easeOfUse +
+      project.scores.documentation +
+      project.scores.community +
+      project.scores.performance) /
+    5;
 
   return {
     title: `${project.name} — ${cat?.nameCN ?? "营销工具"}`,
@@ -42,8 +52,21 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 }
 
 // ===== Helper =====
-function avgScore(scores: { features: number; easeOfUse: number; documentation: number; community: number; performance: number }) {
-  return (scores.features + scores.easeOfUse + scores.documentation + scores.community + scores.performance) / 5;
+function avgScore(scores: {
+  features: number;
+  easeOfUse: number;
+  documentation: number;
+  community: number;
+  performance: number;
+}) {
+  return (
+    (scores.features +
+      scores.easeOfUse +
+      scores.documentation +
+      scores.community +
+      scores.performance) /
+    5
+  );
 }
 
 // ===== Server Component =====

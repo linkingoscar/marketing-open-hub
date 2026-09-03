@@ -21,6 +21,9 @@ export const commonTranslations: Record<string, Record<string, string>> = {
 
   // 404
   "notfound.title": { zh: "页面未找到", en: "Page Not Found" },
-  "notfound.desc": { zh: "你访问的页面不存在，可能已被移动或删除。", en: "The page you're looking for doesn't exist or has been moved." },
+  "notfound.desc": {
+    zh: "你访问的页面不存在，可能已被移动或删除。",
+    en: "The page you're looking for doesn't exist or has been moved.",
+  },
   "notfound.home": { zh: "返回首页", en: "Go Home" },
 };

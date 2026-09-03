@@ -28,7 +28,8 @@ export async function searchPapers(
   const params = new URLSearchParams({
     query,
     limit: String(limit),
-    fields: "paperId,title,abstract,year,citationCount,authors,venue,url,fieldsOfStudy,isOpenAccess,openAccessPdf",
+    fields:
+      "paperId,title,abstract,year,citationCount,authors,venue,url,fieldsOfStudy,isOpenAccess,openAccessPdf",
   });
   if (year) params.set("year", year);
   if (fieldsOfStudy?.length) params.set("fieldsOfStudy", fieldsOfStudy.join(","));

@@ -8,8 +8,16 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description: "汇聚市场营销 × 消费者行为研究的开源项目，支持搜索、对比和快速上手。",
     keywords: [
-      "市场营销", "开源", "消费者行为", "情感分析", "用户画像",
-      "营销分析", "NLP", "AI", "market research", "open source",
+      "市场营销",
+      "开源",
+      "消费者行为",
+      "情感分析",
+      "用户画像",
+      "营销分析",
+      "NLP",
+      "AI",
+      "market research",
+      "open source",
     ],
     authors: [{ name: "MarTech Open Hub" }],
     openGraph: {

@@ -1,26 +1,26 @@
 "use client";
 
 /**
- * Web Crypto API based encryption for API keys stored in localStorage.
+ * 浏览器端 API Key 本地静态加密存储适配器 (AES-GCM 256-bit)
  *
- * Architecture:
- * - On first use, generates a random 256-bit AES-GCM key + IV prefix
- * - Stores the key material in IndexedDB (non-extractable)
- * - Encrypts values before writing to localStorage
- * - Decrypts values after reading from localStorage
- * - Falls back to plaintext if crypto is unavailable (SSR / old browsers)
+ * 威胁模型与安全边界说明 (Threat Model):
+ * - 本模块提供 browser-side encrypted-at-rest 本地静止加密存储，防止开发者工具、本地备份或一般物理接触直接查看 localStorage 明文 API Key；
+ * - 安全边界说明：本机制无法完全防御同源上下文下的恶意 XSS 脚本执行（同源脚本拥有相同的 IndexedDB 访问权限）；
+ * - 每次加密均采用 Web Crypto 随机生成的 96-bit (12 bytes) IV，严禁时间戳派生；
+ * - 若加密失败，绝不执行静默明文降级写入。
  */
 
 const DB_NAME = "martech-crypto";
 const STORE_NAME = "keys";
 const KEY_ID = "encryption-key";
-const SALT_ID = "encryption-salt";
 
 function isCryptoAvailable(): boolean {
-  return typeof globalThis !== "undefined"
-    && typeof globalThis.crypto !== "undefined"
-    && typeof globalThis.crypto.subtle !== "undefined"
-    && typeof indexedDB !== "undefined";
+  return (
+    typeof globalThis !== "undefined" &&
+    typeof globalThis.crypto !== "undefined" &&
+    typeof globalThis.crypto.subtle !== "undefined" &&
+    typeof indexedDB !== "undefined"
+  );
 }
 
 /** Open IndexedDB or return null */
@@ -70,13 +70,10 @@ async function getEncryptionKey(): Promise<CryptoKey | null> {
   const existingKeyData = await idbGet(KEY_ID);
   if (existingKeyData) {
     try {
-      return await crypto.subtle.importKey(
-        "raw",
-        existingKeyData,
-        { name: "AES-GCM" },
-        false,
-        ["encrypt", "decrypt"]
-      );
+      return await crypto.subtle.importKey("raw", existingKeyData, { name: "AES-GCM" }, false, [
+        "encrypt",
+        "decrypt",
+      ]);
     } catch {
       // Key corrupted, generate new one
     }
@@ -85,7 +82,7 @@ async function getEncryptionKey(): Promise<CryptoKey | null> {
   // Generate new 256-bit key
   const key = await crypto.subtle.generateKey(
     { name: "AES-GCM", length: 256 },
-    true, // extractable so we can store it
+    true, // extractable to persist raw bytes into IndexedDB
     ["encrypt", "decrypt"]
   );
 
@@ -96,53 +93,31 @@ async function getEncryptionKey(): Promise<CryptoKey | null> {
   return key;
 }
 
-/** Get or create a random salt for IV generation */
-async function getSalt(): Promise<Uint8Array> {
-  const existing = await idbGet(SALT_ID);
-  if (existing) return new Uint8Array(existing);
-
-  const salt = crypto.getRandomValues(new Uint8Array(16));
-  await idbSet(SALT_ID, salt.buffer);
-  return salt;
-}
-
-/** Generate a deterministic IV from the salt + a counter (to avoid storing IVs) */
-function generateIV(salt: Uint8Array, counter: number): Uint8Array {
-  const iv = new Uint8Array(12);
-  iv.set(salt.slice(0, 8));
-  // Encode counter in last 4 bytes
-  iv[8] = (counter >>> 24) & 0xff;
-  iv[9] = (counter >>> 16) & 0xff;
-  iv[10] = (counter >>> 8) & 0xff;
-  iv[11] = counter & 0xff;
-  return iv;
-}
-
-/** Encrypt a string value */
+/** Encrypt a string value using random 96-bit IV */
 export async function encrypt(plaintext: string): Promise<string> {
-  if (!isCryptoAvailable()) return plaintext;
-
-  try {
-    const key = await getEncryptionKey();
-    if (!key) return plaintext;
-
-    const salt = await getSalt();
-    const iv = generateIV(salt, Date.now());
-    const encoded = new TextEncoder().encode(plaintext);
-
-    const ciphertext = await crypto.subtle.encrypt(
-      { name: "AES-GCM", iv: iv as unknown as BufferSource },
-      key,
-      encoded
-    );
-
-    // Prefix with IV (base64) so we can decrypt later
-    const ivB64 = btoa(String.fromCharCode(...iv));
-    const ctB64 = btoa(String.fromCharCode(...new Uint8Array(ciphertext)));
-    return `enc:${ivB64}:${ctB64}`;
-  } catch {
-    return plaintext;
+  if (!isCryptoAvailable()) {
+    throw new Error("Web Crypto API is not supported in this environment");
   }
+
+  const key = await getEncryptionKey();
+  if (!key) {
+    throw new Error("Unable to initialize encryption key");
+  }
+
+  // Cryptographically random 96-bit (12-byte) IV for AES-GCM
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const encoded = new TextEncoder().encode(plaintext);
+
+  const ciphertext = await crypto.subtle.encrypt(
+    { name: "AES-GCM", iv: iv as unknown as BufferSource },
+    key,
+    encoded
+  );
+
+  // Prefix with IV (base64) so we can decrypt later
+  const ivB64 = btoa(String.fromCharCode(...iv));
+  const ctB64 = btoa(String.fromCharCode(...new Uint8Array(ciphertext)));
+  return `enc:${ivB64}:${ctB64}`;
 }
 
 /** Decrypt an encrypted value */
@@ -195,8 +170,12 @@ export function createEncryptedStorage<T>() {
     },
     setItem: async (name: string, value: T): Promise<void> => {
       const json = JSON.stringify(value);
-      const encrypted = await encrypt(json);
-      localStorage.setItem(name, encrypted);
+      try {
+        const encrypted = await encrypt(json);
+        localStorage.setItem(name, encrypted);
+      } catch (err) {
+        console.error(`[Crypto] Failed to encrypt ${name}, refusing to store in plaintext:`, err);
+      }
     },
     removeItem: (name: string): void => {
       localStorage.removeItem(name);

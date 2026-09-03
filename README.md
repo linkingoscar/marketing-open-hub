@@ -5,27 +5,29 @@
 [English](./README_EN.md) | [中文](./README.md)
 
 <!-- 核心状态 -->
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/linkingoscar/marketing-open-hub/update-projects.yml?label=build)](https://github.com/linkingoscar/marketing-open-hub/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/linkingoscar/marketing-open-hub/ci.yml?branch=main&label=CI)](https://github.com/linkingoscar/marketing-open-hub/actions)
 [![Vercel](https://img.shields.io/badge/Vercel-deployed-black?logo=vercel)](https://martech-open-hub.vercel.app)
 
 <!-- 框架与语言 -->
+
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38BDF8?logo=tailwindcss)](https://tailwindcss.com/)
 
 <!-- 工具与库 -->
+
 [![Zustand](https://img.shields.io/badge/Zustand-5.x-FF6B35?logo=zustand)](https://zustand-demo.pmnd.rs/)
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.x-0055FF?logo=framer)](https://www.framer.com/motion/)
 [![Recharts](https://img.shields.io/badge/Recharts-3.8-FF6B6B)](https://recharts.org/)
 [![Vitest](https://img.shields.io/badge/Vitest-3.2-6E9F18?logo=vitest)](https://vitest.dev/)
-
-<!-- 测试与质量 -->
-[![Tests](https://img.shields.io/badge/Tests-75%20passed-brightgreen)](#测试)
-[![Coverage](https://img.shields.io/badge/Coverage-statistics%20%2B%20workflow%20%2B%20mediation-brightgreen)](#测试)
+[![Tests](https://img.shields.io/badge/Tests-102%20passed-brightgreen)](#测试)
+[![Coverage](https://img.shields.io/badge/Coverage-statistics%20%2B%20reference-brightgreen)](#测试)
 
 <!-- GitHub 互动 -->
+
 [![GitHub Stars](https://img.shields.io/github/stars/linkingoscar/marketing-open-hub?style=social)](https://github.com/linkingoscar/marketing-open-hub/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/linkingoscar/marketing-open-hub?style=social)](https://github.com/linkingoscar/marketing-open-hub/network/members)
 [![GitHub Issues](https://img.shields.io/github/issues/linkingoscar/marketing-open-hub)](https://github.com/linkingoscar/marketing-open-hub/issues)
@@ -33,22 +35,25 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/linkingoscar/marketing-open-hub/pulls)
 
 <!-- 特性标签 -->
+
 [![PWA](https://img.shields.io/badge/PWA-supported-5A0FC8)](https://martech-open-hub.vercel.app)
 [![i18n](https://img.shields.io/badge/i18n-zh%20%7C%20en-blue)](#国际化)
 [![SEO](https://img.shields.io/badge/SEO-JSON--LD%20%2B%20RSC-green)](#技术栈)
 [![Security](https://img.shields.io/badge/Security-AES--GCM%20encrypted-orange)](#安全特性)
 
-31 个学术级开源项目 · 36 种统计检验 · 18 个交互式工具 · 11 家 LLM API · 纯浏览器端计算与安全代理
+31 个精选开源项目 · 36 种统计检验 · 18 个交互式工具 · 11 家 LLM API · 本地优先计算与安全代理
 
 ---
 
 ## ✨ 核心特性
 
 - **项目发现**：31 个营销研究开源项目，9 大分类，评分雷达图，健康度评分
-- **中介效应**：支持 **Hayes PROCESS Model 4 非参数 Bootstrap（1000 次重抽样）**，计算间接效应 95% 置信区间 [LLCI, ULCI]、效应占比与中介类型判定
-- **统计分析**：36 种检验方法，APA 格式输出，结果自动注释（通俗解释 + 应用建议）与平滑化正态性检验
-- **Word 导出**：一键导出原生 **Microsoft Word (.doc) APA 第 7 版标准三线表**报告，双击即可无缝贴入论文
-- **API 网关**：内置同源服务端 `/api/chat` Route Handler 代理，支持流式 SSE 输出，彻底杜绝浏览器 CORS 跨域报错
+- **中介效应**：支持 **非参数 Bootstrap 中介分析（参考 PROCESS Model 4 框架）**，计算间接效应 95% 置信区间 [LLCI, ULCI]、效应占比与动态显著性判定
+- **统计分析**：36 种检验方法，APA 格式输出，结果自动注释（通俗解释 + 应用建议）与偏度-峰度探索性正态检验
+- **参考对拍**：内置 `tests/reference/` 基准验证套件，核心方法（t 检验、ANOVA、卡方检验、相关分析、非参数检验）与 R / SciPy 严格对拍
+- **数学不变量**：内置 `tests/invariants.test.ts` 数学属性与边界约束校验，保障极端/退化数据下的算法稳定性
+- **Word 导出**：一键导出 **Word 兼容格式 (.doc) APA 第 7 版标准三线表**报告，双击即可无缝贴入论文
+- **安全代理**：内置同源服务端 `/api/chat` Route Handler 代理，内嵌防 SSRF 保护与超时控制，支持流式 SSE 输出
 - **营销模板**：10 个预设研究场景（品牌认知、A/B 测试、满意度、市场细分等）
 - **场景对比**：7 大研究场景自动推荐相关工具，多维度雷达图对比
 - **证据方向**：输入假设 → 搜索文献 → 支持/混合/反对百分比可视化
@@ -58,7 +63,7 @@
 - **论文辅助**：APA 格式输出、论文写作、AI 痕迹检测与润色
 - **新手引导**：首次访问自动弹出 6 步引导流程
 - **收藏功能**：一键收藏项目，支持导出/导入配置
-- **数据安全**：API Key 加密存储（AES-GCM），纯浏览器端计算
+- **数据安全**：API Key 本地加密存储（AES-GCM 96-bit 随机 IV），纯浏览器端本地优先计算
 
 ---
 
@@ -66,8 +71,8 @@
 
 ### 环境要求
 
-- **Node.js** ≥ 18
-- **pnpm** ≥ 8（推荐）或 npm / yarn
+- **Node.js** ≥ 20
+- **pnpm** ≥ 9（推荐）
 
 ### 安装与运行
 
@@ -88,12 +93,12 @@ pnpm dev
 ### 其他命令
 
 ```bash
-pnpm dev          # 启动开发服务器
-pnpm build        # 构建生产版本
-pnpm start        # 启动生产服务器
-pnpm lint         # 代码检查
-pnpm test         # 运行测试（60 个）
-pnpm test:watch   # 监听模式运行测试
+pnpm dev           # 启动开发服务器
+pnpm build         # 构建生产版本
+pnpm start         # 启动生产服务器
+pnpm lint          # 代码检查
+pnpm test          # 运行测试（102 个单元、参考对拍、不变量与集成冒烟测试）
+pnpm test:watch    # 监听模式运行测试
 pnpm test:coverage # 生成测试覆盖率报告
 ```
 
@@ -127,11 +132,11 @@ node scripts/update-projects.js --dry-run
 
 **推荐提供商**：
 
-| 提供商 | 推荐模型 | 价格 | 说明 |
-|--------|---------|------|------|
-| DeepSeek | deepseek-v4-flash | ¥0.14/MTok | 性价比最高 |
-| 通义千问 | qwen3.6-plus | ¥1.60/MTok | 中文效果好 |
-| OpenAI | gpt-4.1 | $2.00/MTok | 英文最强 |
+| 提供商    | 推荐模型          | 价格       | 说明         |
+| --------- | ----------------- | ---------- | ------------ |
+| DeepSeek  | deepseek-v4-flash | ¥0.14/MTok | 性价比最高   |
+| 通义千问  | qwen3.6-plus      | ¥1.60/MTok | 中文效果好   |
+| OpenAI    | gpt-4.1           | $2.00/MTok | 英文最强     |
 | Anthropic | claude-sonnet-4-6 | $5.00/MTok | 学术写作优秀 |
 
 ### 第二步：浏览开源项目
@@ -153,20 +158,20 @@ node scripts/update-projects.js --dry-run
 
 **支持的检验方法**：
 
-| 分组 | 方法 |
-|------|------|
-| 描述 | 描述性统计、Likert 频率表 |
-| 前提 | 正态性检验、方差齐性 |
-| 比较 | t 检验、ANOVA、Mann-Whitney U、Wilcoxon |
-| 分类 | 卡方检验、Fisher 精确检验 |
-| 相关 | Pearson r、Spearman ρ |
-| 回归 | 多元线性回归、二元 Logistic |
-| 信度 | Cronbach's α、项目分析、分半信度 |
-| 效度 | CR + AVE、HTMT、共同方法偏差 |
-| 因子 | EFA、CFA |
-| 中介调节 | 中介效应、调节效应 |
-| 贝叶斯 | 贝叶斯 t 检验、贝叶斯相关 |
-| 功效 | 功效分析（样本量估算） |
+| 分组     | 方法                                    |
+| -------- | --------------------------------------- |
+| 描述     | 描述性统计、Likert 频率表               |
+| 前提     | 正态性检验、方差齐性                    |
+| 比较     | t 检验、ANOVA、Mann-Whitney U、Wilcoxon |
+| 分类     | 卡方检验、Fisher 精确检验               |
+| 相关     | Pearson r、Spearman ρ                   |
+| 回归     | 多元线性回归、二元 Logistic             |
+| 信度     | Cronbach's α、项目分析、分半信度        |
+| 效度     | CR + AVE、HTMT、共同方法偏差            |
+| 因子     | EFA、CFA                                |
+| 中介调节 | 中介效应、调节效应                      |
+| 贝叶斯   | 贝叶斯 t 检验、贝叶斯相关               |
+| 功效     | 功效分析（样本量估算）                  |
 
 ### 第四步：使用营销模板
 
@@ -277,21 +282,21 @@ marketing-open-hub/
 
 ## 🔧 技术栈
 
-| 层 | 技术 | 版本 |
-|---|------|------|
-| 框架 | Next.js (App Router + RSC) | 16.2.6 |
-| 语言 | TypeScript (strict) | 5.x |
-| 样式 | Tailwind CSS | 4.x |
-| 组件库 | shadcn/ui + Radix UI | Latest |
-| 动画 | Framer Motion | 12.x |
-| 图表 | Recharts | 3.8 |
-| 状态管理 | Zustand (persist) | 5.x |
-| 搜索 | cmdk + Fuse.js | 1.x / 7.x |
-| 测试 | Vitest | 3.2.x |
-| 加密 | Web Crypto API (AES-GCM) | 浏览器原生 |
-| 分析 | Sentry + PostHog（可选） | - |
-| 文献 API | Semantic Scholar | Free |
-| LLM API | 11 家（OpenAI/Anthropic/Gemini/DeepSeek 等） | - |
+| 层       | 技术                                         | 版本       |
+| -------- | -------------------------------------------- | ---------- |
+| 框架     | Next.js (App Router + RSC)                   | 16.2.6     |
+| 语言     | TypeScript (strict)                          | 5.x        |
+| 样式     | Tailwind CSS                                 | 4.x        |
+| 组件库   | shadcn/ui + Radix UI                         | Latest     |
+| 动画     | Framer Motion                                | 12.x       |
+| 图表     | Recharts                                     | 3.8        |
+| 状态管理 | Zustand (persist)                            | 5.x        |
+| 搜索     | cmdk + Fuse.js                               | 1.x / 7.x  |
+| 测试     | Vitest                                       | 3.2.x      |
+| 加密     | Web Crypto API (AES-GCM)                     | 浏览器原生 |
+| 分析     | Sentry + PostHog（可选）                     | -          |
+| 文献 API | Semantic Scholar                             | Free       |
+| LLM API  | 11 家（OpenAI/Anthropic/Gemini/DeepSeek 等） | -          |
 
 ---
 
@@ -308,19 +313,40 @@ pnpm test:watch
 pnpm test:coverage
 ```
 
-**测试覆盖（75 个测试全部通过）**：
-- `src/lib/empirical/bootstrap-mediation.test.ts` — 2 个测试（Hayes Model 4 Bootstrap 中介引擎）
-- `src/lib/statistics/math.test.ts` — 13 个测试（统计数学基础库与概率分布检验）
+**测试覆盖（102 个测试全部通过）**：
+
+- `tests/reference/stats-reference.test.ts` — 8 个基准测试（R / SciPy ground truth 对拍）
+- `tests/invariants.test.ts` — 11 个数学属性与边界约束测试（方差非负、CDF 边界、平移不变性）
+- `tests/smoke.test.ts` — 7 个核心业务黄金路径集成测试（含 SSRF 拦截防御测试）
+- `src/lib/empirical/bootstrap-mediation.test.ts` — 2 个测试（Hayes Model 4 框架 Bootstrap 中介引擎）
+- `src/lib/statistics/math.test.ts` — 14 个测试（Gamma 函数、不完全 Gamma 卡方分布与概率分布）
 - `src/lib/statistics/annotations.test.ts` — 44 个测试（统计注释系统）
 - `src/lib/workflow/engine.test.ts` — 16 个测试（工作流引擎）
 
 ---
 
+## 📚 架构与社区指南
+
+- [公开路线图 (Public Roadmap)](./ROADMAP.md)
+- [系统架构设计 (Architecture)](./docs/architecture.md)
+- [统计验证与对拍指南 (Statistics Validation)](./docs/statistics-validation.md)
+- [安全模型与威胁边界 (Security Model)](./docs/security-model.md)
+- [隐私政策与数据边界 (Privacy Policy)](./docs/privacy.md)
+- [大模型适配与安全代理 (LLM Providers)](./docs/llm-providers.md)
+- [新手友好任务指南 (Good First Issues)](./docs/good-first-issues.md)
+- [开源贡献指南 (Contributing)](./CONTRIBUTING.md)
+- [技术支持渠道 (Support)](./SUPPORT.md)
+- [安全政策 (Security Policy)](./SECURITY.md)
+- [更新日志 (Changelog)](./CHANGELOG.md)
+
+---
+
 ## 🔐 安全特性
 
-- **API Key 加密**：使用 Web Crypto API (AES-GCM) 加密后存储，密钥保存在 IndexedDB
-- **CSP 安全头**：严格的 Content-Security-Policy，限制外部资源加载
-- **纯前端计算**：统计数据在浏览器本地处理，不上传到任何服务器
+- **API Key 加密**：使用 Web Crypto API (AES-GCM 256-bit + 96-bit 随机 IV) 加密后存储在浏览器端
+- **服务端防 SSRF**：`/api/chat` 代理严格限制出站域名，拦截环回地址、私网网段与云元数据端点
+- **CSP 安全头**：严格的 Content-Security-Policy，限制外部资源加载并支持 PostHog 遥测
+- **纯前端计算**：统计数据完全在浏览器内存处理，不上传到任何后端服务器
 - **隐私分析**：Sentry/PostHog 默认匿名化，支持 Do Not Track
 
 ---

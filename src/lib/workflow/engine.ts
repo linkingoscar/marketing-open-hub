@@ -5,7 +5,13 @@
 
 export interface WorkflowStep {
   id: string;
-  type: "literature-search" | "data-upload" | "statistical-test" | "visualization" | "ai-analysis" | "export";
+  type:
+    | "literature-search"
+    | "data-upload"
+    | "statistical-test"
+    | "visualization"
+    | "ai-analysis"
+    | "export";
   label: string;
   description: string;
   config: Record<string, unknown>;
@@ -291,7 +297,9 @@ export const WORKFLOW_TEMPLATES: Omit<Workflow, "id" | "createdAt" | "updatedAt"
 /**
  * 创建新工作流
  */
-export function createWorkflow(template: Omit<Workflow, "id" | "createdAt" | "updatedAt" | "status">): Workflow {
+export function createWorkflow(
+  template: Omit<Workflow, "id" | "createdAt" | "updatedAt" | "status">
+): Workflow {
   return {
     ...template,
     steps: template.steps.map((step) => ({ ...step })),
@@ -318,7 +326,11 @@ export function getExecutableSteps(workflow: Workflow): WorkflowStep[] {
 /**
  * 获取工作流进度
  */
-export function getWorkflowProgress(workflow: Workflow): { completed: number; total: number; percentage: number } {
+export function getWorkflowProgress(workflow: Workflow): {
+  completed: number;
+  total: number;
+  percentage: number;
+} {
   const completed = workflow.steps.filter((s) => s.status === "completed").length;
   const total = workflow.steps.length;
   return { completed, total, percentage: total > 0 ? Math.round((completed / total) * 100) : 0 };

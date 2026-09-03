@@ -13,7 +13,8 @@ import { ActiveProviderBadge } from "@/components/workspace/active-provider";
 import { HistoryPanel } from "@/components/workspace/history-panel";
 import { cn } from "@/lib/utils";
 
-type SectionType = "methodology" | "results" | "discussion" | "abstract" | "literature-context" | "limitations";
+type SectionType =
+  "methodology" | "results" | "discussion" | "abstract" | "literature-context" | "limitations";
 
 const SECTIONS: { id: SectionType; label: string; icon: string; desc: string }[] = [
   { id: "methodology", label: "方法描述", icon: "📝", desc: "基于研究设计生成方法论章节" },
@@ -71,7 +72,12 @@ export default function PaperWriterPage() {
         onChunk: (text) => setResult((prev) => prev + text),
       });
       if (!result) setResult(res);
-      addRecord({ tool: "paper-writer", type: currentSection.label, input: researchInfo.slice(0, 200), result: res || result });
+      addRecord({
+        tool: "paper-writer",
+        type: currentSection.label,
+        input: researchInfo.slice(0, 200),
+        result: res || result,
+      });
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : "生成失败");
     } finally {
@@ -79,42 +85,74 @@ export default function PaperWriterPage() {
     }
   };
 
-  const handleCopy = () => { navigator.clipboard.writeText(result); setCopied(true); setTimeout(() => setCopied(false), 2000); };
+  const handleCopy = () => {
+    navigator.clipboard.writeText(result);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
   const handleDownload = () => {
-    const blob = new Blob([result], { type: "text/markdown" }); const url = URL.createObjectURL(blob);
-    const a = document.createElement("a"); a.href = url; a.download = `paper-${section}-${Date.now()}.md`; a.click(); URL.revokeObjectURL(url);
+    const blob = new Blob([result], { type: "text/markdown" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `paper-${section}-${Date.now()}.md`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
     <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-        <Link href="/workspace" className="inline-flex items-center gap-1 text-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors mb-6">
+        <Link
+          href="/workspace"
+          className="inline-flex items-center gap-1 text-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors mb-6"
+        >
           <ArrowLeft className="w-4 h-4" /> 返回工作台
         </Link>
 
         <div className="flex items-center gap-3 mb-2">
-          <div className="w-10 h-10 rounded-lg bg-[#EC4899]/10 flex items-center justify-center text-xl">✍️</div>
+          <div className="w-10 h-10 rounded-lg bg-[#EC4899]/10 flex items-center justify-center text-xl">
+            ✍️
+          </div>
           <div>
             <h1 className="text-2xl font-bold text-[var(--text-primary)]">论文写作辅助</h1>
-            <p className="text-sm text-[var(--text-muted)]">AI 驱动 · 基于分析结果自动生成学术论文段落</p>
+            <p className="text-sm text-[var(--text-muted)]">
+              AI 驱动 · 基于分析结果自动生成学术论文段落
+            </p>
           </div>
         </div>
-        <p className="text-[var(--text-secondary)] mb-4">粘贴研究信息和分析结果 → 选择章节类型 → AI 生成规范的学术段落</p>
+        <p className="text-[var(--text-secondary)] mb-4">
+          粘贴研究信息和分析结果 → 选择章节类型 → AI 生成规范的学术段落
+        </p>
         <ActiveProviderBadge className="mb-6" />
 
         {!hasAnyKey() && (
           <div className="glass-card p-4 mb-6 border-[var(--warning)]/30">
-            <p className="text-sm text-[var(--warning)]">⚠️ 尚未配置 API Key。<Link href="/settings" className="underline ml-1">前往设置</Link></p>
+            <p className="text-sm text-[var(--warning)]">
+              ⚠️ 尚未配置 API Key。
+              <Link href="/settings" className="underline ml-1">
+                前往设置
+              </Link>
+            </p>
           </div>
         )}
 
         {/* Section selector */}
         <div className="flex flex-wrap gap-2 mb-6">
           {SECTIONS.map((s) => (
-            <button key={s.id} onClick={() => { setSection(s.id); setResult(""); }}
-              className={cn("px-3 py-1.5 rounded-full text-sm border transition-colors",
-                section === s.id ? "border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)]/10" : "border-[var(--border)] text-[var(--text-tertiary)]"
-              )}>
+            <button
+              key={s.id}
+              onClick={() => {
+                setSection(s.id);
+                setResult("");
+              }}
+              className={cn(
+                "px-3 py-1.5 rounded-full text-sm border transition-colors",
+                section === s.id
+                  ? "border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)]/10"
+                  : "border-[var(--border)] text-[var(--text-tertiary)]"
+              )}
+            >
               {s.icon} {s.label}
             </button>
           ))}
@@ -123,20 +161,48 @@ export default function PaperWriterPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="space-y-4">
             <div>
-              <label className="text-sm text-[var(--text-tertiary)] mb-2 block">研究信息（研究问题、方法、样本等）</label>
-              <Textarea rows={6} value={researchInfo} onChange={(e) => setResearchInfo(e.target.value)}
-                placeholder={"例：\n研究问题：社交媒体营销对消费者购买意愿的影响\n方法：问卷调查，Likert 7 级量表\n样本：300 名 18-35 岁消费者\n分析方法：SEM 结构方程模型"}
-                className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)] resize-none" />
+              <label className="text-sm text-[var(--text-tertiary)] mb-2 block">
+                研究信息（研究问题、方法、样本等）
+              </label>
+              <Textarea
+                rows={6}
+                value={researchInfo}
+                onChange={(e) => setResearchInfo(e.target.value)}
+                placeholder={
+                  "例：\n研究问题：社交媒体营销对消费者购买意愿的影响\n方法：问卷调查，Likert 7 级量表\n样本：300 名 18-35 岁消费者\n分析方法：SEM 结构方程模型"
+                }
+                className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)] resize-none"
+              />
             </div>
             <div>
-              <label className="text-sm text-[var(--text-tertiary)] mb-2 block">分析结果（粘贴统计输出，可选）</label>
-              <Textarea rows={6} value={analysisResults} onChange={(e) => setAnalysisResults(e.target.value)}
-                placeholder={"例：\nt(298) = 3.45, p < .001, d = 0.40\nβ = 0.35, SE = 0.08, p < .001\nR² = 0.28, F(3, 296) = 38.7, p < .001"}
-                className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)] resize-none font-mono text-sm" />
+              <label className="text-sm text-[var(--text-tertiary)] mb-2 block">
+                分析结果（粘贴统计输出，可选）
+              </label>
+              <Textarea
+                rows={6}
+                value={analysisResults}
+                onChange={(e) => setAnalysisResults(e.target.value)}
+                placeholder={
+                  "例：\nt(298) = 3.45, p < .001, d = 0.40\nβ = 0.35, SE = 0.08, p < .001\nR² = 0.28, F(3, 296) = 38.7, p < .001"
+                }
+                className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)] resize-none font-mono text-sm"
+              />
             </div>
-            <Button onClick={handleGenerate} disabled={loading || !researchInfo.trim() || !hasAnyKey()}
-              className="w-full h-11 bg-[var(--primary)] text-white hover:opacity-90">
-              {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> 生成中...</> : <><PenTool className="w-4 h-4 mr-2" /> 生成 {SECTIONS.find((s) => s.id === section)?.label}</>}
+            <Button
+              onClick={handleGenerate}
+              disabled={loading || !researchInfo.trim() || !hasAnyKey()}
+              className="w-full h-11 bg-[var(--primary)] text-white hover:opacity-90"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" /> 生成中...
+                </>
+              ) : (
+                <>
+                  <PenTool className="w-4 h-4 mr-2" /> 生成{" "}
+                  {SECTIONS.find((s) => s.id === section)?.label}
+                </>
+              )}
             </Button>
             <HistoryPanel tool="paper-writer" />
           </div>
@@ -146,10 +212,20 @@ export default function PaperWriterPage() {
               <label className="text-sm text-[var(--text-tertiary)]">生成结果</label>
               {result && (
                 <div className="flex items-center gap-1">
-                  <Button variant="ghost" size="sm" className="h-7 px-2 text-xs" onClick={handleCopy}>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-7 px-2 text-xs"
+                    onClick={handleCopy}
+                  >
                     {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                   </Button>
-                  <Button variant="ghost" size="sm" className="h-7 px-2 text-xs" onClick={handleDownload}>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-7 px-2 text-xs"
+                    onClick={handleDownload}
+                  >
                     <Download className="w-3 h-3" />
                   </Button>
                 </div>
@@ -159,7 +235,9 @@ export default function PaperWriterPage() {
               {error ? (
                 <div className="text-[var(--error)] text-sm">{error}</div>
               ) : result ? (
-                <pre className="whitespace-pre-wrap text-sm text-[var(--text-secondary)] font-sans leading-relaxed">{result}</pre>
+                <pre className="whitespace-pre-wrap text-sm text-[var(--text-secondary)] font-sans leading-relaxed">
+                  {result}
+                </pre>
               ) : (
                 <div className="text-[var(--text-muted)] text-sm text-center py-20">
                   <Sparkles className="w-8 h-8 mx-auto mb-3 opacity-30" />

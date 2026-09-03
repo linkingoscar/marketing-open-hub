@@ -14,22 +14,10 @@
     "lastUpdated": "2026-08-31",
     "createdAt": "2022-03-07",
     "category": "marketing-mix",
-    "tags": [
-      "bayesian",
-      "mmm",
-      "clv",
-      "marketing-analytics",
-      "pymc"
-    ],
-    "scenarios": [
-      "广告归因分析",
-      "营销预算分配",
-      "客户生命周期预测"
-    ],
+    "tags": ["bayesian", "mmm", "clv", "marketing-analytics", "pymc"],
+    "scenarios": ["广告归因分析", "营销预算分配", "客户生命周期预测"],
     "dataSources": [],
-    "aiCapabilities": [
-      "traditional-ml"
-    ],
+    "aiCapabilities": ["traditional-ml"],
     "scores": {
       "features": 9,
       "easeOfUse": 7,
@@ -39,10 +27,7 @@
     },
     "icon": "📈",
     "featured": true,
-    "relatedProjects": [
-      "oransim",
-      "meridian"
-    ]
+    "relatedProjects": ["oransim", "meridian"]
   },
   {
     "id": "meridian",
@@ -59,22 +44,10 @@
     "lastUpdated": "2026-08-31",
     "createdAt": "2025-01-29",
     "category": "marketing-mix",
-    "tags": [
-      "bayesian",
-      "mmm",
-      "roi",
-      "budget-optimization",
-      "google"
-    ],
-    "scenarios": [
-      "营销组合建模",
-      "广告 ROI 评估",
-      "预算分配优化"
-    ],
+    "tags": ["bayesian", "mmm", "roi", "budget-optimization", "google"],
+    "scenarios": ["营销组合建模", "广告 ROI 评估", "预算分配优化"],
     "dataSources": [],
-    "aiCapabilities": [
-      "traditional-ml"
-    ],
+    "aiCapabilities": ["traditional-ml"],
     "scores": {
       "features": 9,
       "easeOfUse": 7,
@@ -84,11 +57,7 @@
     },
     "icon": "📈",
     "featured": true,
-    "relatedProjects": [
-      "pymc-marketing",
-      "oransim",
-      "econml"
-    ]
+    "relatedProjects": ["pymc-marketing", "oransim", "econml"]
   },
   {
     "id": "oransim",
@@ -104,25 +73,10 @@
     "lastUpdated": "2026-07-17",
     "createdAt": "2026-04-18",
     "category": "marketing-mix",
-    "tags": [
-      "causal-inference",
-      "digital-twin",
-      "counterfactual",
-      "xiaohongshu",
-      "hawkes-process"
-    ],
-    "scenarios": [
-      "KOL 投放预测",
-      "营销 ROI 预估",
-      "反事实分析"
-    ],
-    "dataSources": [
-      "xiaohongshu"
-    ],
-    "aiCapabilities": [
-      "llm",
-      "traditional-ml"
-    ],
+    "tags": ["causal-inference", "digital-twin", "counterfactual", "xiaohongshu", "hawkes-process"],
+    "scenarios": ["KOL 投放预测", "营销 ROI 预估", "反事实分析"],
+    "dataSources": ["xiaohongshu"],
+    "aiCapabilities": ["llm", "traditional-ml"],
     "scores": {
       "features": 8,
       "easeOfUse": 5,
@@ -132,9 +86,7 @@
     },
     "icon": "📈",
     "featured": false,
-    "relatedProjects": [
-      "pymc-marketing"
-    ],
+    "relatedProjects": ["pymc-marketing"],
     "homepage": "https://oran.cn"
   },
   {
@@ -151,22 +103,10 @@
     "lastUpdated": "2026-02-14",
     "createdAt": "2026-02-14",
     "category": "ai-simulation",
-    "tags": [
-      "llm",
-      "survey",
-      "synthetic-data",
-      "ssr",
-      "purchase-intent"
-    ],
-    "scenarios": [
-      "产品概念测试",
-      "定价策略研究",
-      "购买意向评估"
-    ],
+    "tags": ["llm", "survey", "synthetic-data", "ssr", "purchase-intent"],
+    "scenarios": ["产品概念测试", "定价策略研究", "购买意向评估"],
     "dataSources": [],
-    "aiCapabilities": [
-      "llm"
-    ],
+    "aiCapabilities": ["llm"],
     "scores": {
       "features": 7,
       "easeOfUse": 9,
@@ -176,11 +116,7 @@
     },
     "icon": "🧪",
     "featured": true,
-    "relatedProjects": [
-      "microcrowd",
-      "tunnel",
-      "persona"
-    ]
+    "relatedProjects": ["microcrowd", "tunnel", "persona"]
   },
   {
     "id": "microcrowd",
@@ -196,21 +132,10 @@
     "lastUpdated": "2025-06-12",
     "createdAt": "2025-06-06",
     "category": "ai-simulation",
-    "tags": [
-      "focus-group",
-      "persona",
-      "simulation",
-      "market-research"
-    ],
-    "scenarios": [
-      "产品测试",
-      "品牌感知研究",
-      "用户分群验证"
-    ],
+    "tags": ["focus-group", "persona", "simulation", "market-research"],
+    "scenarios": ["产品测试", "品牌感知研究", "用户分群验证"],
     "dataSources": [],
-    "aiCapabilities": [
-      "llm"
-    ],
+    "aiCapabilities": ["llm"],
     "scores": {
       "features": 7,
       "easeOfUse": 8,
@@ -220,11 +145,7 @@
     },
     "icon": "🧪",
     "featured": false,
-    "relatedProjects": [
-      "synthetic-market-research",
-      "tunnel",
-      "persona"
-    ]
+    "relatedProjects": ["synthetic-market-research", "tunnel", "persona"]
   },
   {
     "id": "tunnel",
@@ -240,22 +161,10 @@
     "lastUpdated": "2025-10-04",
     "createdAt": "2025-09-13",
     "category": "ai-simulation",
-    "tags": [
-      "ai-agents",
-      "voice",
-      "simulation",
-      "persona",
-      "3d-visualization"
-    ],
-    "scenarios": [
-      "产品创意验证",
-      "焦点小组模拟",
-      "全球市场测试"
-    ],
+    "tags": ["ai-agents", "voice", "simulation", "persona", "3d-visualization"],
+    "scenarios": ["产品创意验证", "焦点小组模拟", "全球市场测试"],
     "dataSources": [],
-    "aiCapabilities": [
-      "llm"
-    ],
+    "aiCapabilities": ["llm"],
     "scores": {
       "features": 7,
       "easeOfUse": 6,
@@ -265,11 +174,7 @@
     },
     "icon": "🧪",
     "featured": false,
-    "relatedProjects": [
-      "synthetic-market-research",
-      "microcrowd",
-      "persona"
-    ],
+    "relatedProjects": ["synthetic-market-research", "microcrowd", "persona"],
     "homepage": "https://tunnel-sigma-six.vercel.app"
   },
   {
@@ -286,22 +191,10 @@
     "lastUpdated": "2026-08-31",
     "createdAt": "2018-10-01",
     "category": "ai-simulation",
-    "tags": [
-      "causal-inference",
-      "do-calculus",
-      "dag",
-      "counterfactual",
-      "microsoft"
-    ],
-    "scenarios": [
-      "因果效应估计",
-      "混杂变量控制",
-      "反事实分析"
-    ],
+    "tags": ["causal-inference", "do-calculus", "dag", "counterfactual", "microsoft"],
+    "scenarios": ["因果效应估计", "混杂变量控制", "反事实分析"],
     "dataSources": [],
-    "aiCapabilities": [
-      "traditional-ml"
-    ],
+    "aiCapabilities": ["traditional-ml"],
     "scores": {
       "features": 9,
       "easeOfUse": 6,
@@ -311,11 +204,7 @@
     },
     "icon": "🧪",
     "featured": false,
-    "relatedProjects": [
-      "causalml",
-      "pymc-marketing",
-      "oransim"
-    ],
+    "relatedProjects": ["causalml", "pymc-marketing", "oransim"],
     "homepage": "https://www.pywhy.org/dowhy"
   },
   {
@@ -333,29 +222,10 @@
     "lastUpdated": "2025-11-02",
     "createdAt": "2025-02-22",
     "category": "sentiment-analysis",
-    "tags": [
-      "bert",
-      "rag",
-      "multi-platform",
-      "feedback-analysis",
-      "nlp"
-    ],
-    "scenarios": [
-      "产品反馈分析",
-      "竞品口碑监测",
-      "用户情感趋势"
-    ],
-    "dataSources": [
-      "app-store",
-      "google-play",
-      "trustpilot",
-      "reddit",
-      "twitter"
-    ],
-    "aiCapabilities": [
-      "nlp",
-      "llm"
-    ],
+    "tags": ["bert", "rag", "multi-platform", "feedback-analysis", "nlp"],
+    "scenarios": ["产品反馈分析", "竞品口碑监测", "用户情感趋势"],
+    "dataSources": ["app-store", "google-play", "trustpilot", "reddit", "twitter"],
+    "aiCapabilities": ["nlp", "llm"],
     "scores": {
       "features": 8,
       "easeOfUse": 7,
@@ -365,11 +235,7 @@
     },
     "icon": "💬",
     "featured": true,
-    "relatedProjects": [
-      "customer-insight",
-      "customer-sentiment",
-      "sentiment-research-report"
-    ]
+    "relatedProjects": ["customer-insight", "customer-sentiment", "sentiment-research-report"]
   },
   {
     "id": "customer-insight",
@@ -385,23 +251,10 @@
     "lastUpdated": "2026-06-16",
     "createdAt": "2024-11-20",
     "category": "sentiment-analysis",
-    "tags": [
-      "bert",
-      "topic-modeling",
-      "anomaly-detection",
-      "chinese-nlp",
-      "streamlit"
-    ],
-    "scenarios": [
-      "中文评论分析",
-      "产品口碑监测",
-      "异常评论检测"
-    ],
+    "tags": ["bert", "topic-modeling", "anomaly-detection", "chinese-nlp", "streamlit"],
+    "scenarios": ["中文评论分析", "产品口碑监测", "异常评论检测"],
     "dataSources": [],
-    "aiCapabilities": [
-      "nlp",
-      "traditional-ml"
-    ],
+    "aiCapabilities": ["nlp", "traditional-ml"],
     "scores": {
       "features": 8,
       "easeOfUse": 8,
@@ -411,11 +264,7 @@
     },
     "icon": "💬",
     "featured": false,
-    "relatedProjects": [
-      "sentique",
-      "customer-sentiment",
-      "brand-sentiment-monitoring"
-    ],
+    "relatedProjects": ["sentique", "customer-sentiment", "brand-sentiment-monitoring"],
     "homepage": "https://chanmeng666-customerinsight-app-oeiu2h.streamlit.app/"
   },
   {
@@ -432,23 +281,10 @@
     "lastUpdated": "2026-08-31",
     "createdAt": "2020-12-01",
     "category": "sentiment-analysis",
-    "tags": [
-      "bert",
-      "topic-modeling",
-      "embeddings",
-      "clustering",
-      "nlp"
-    ],
-    "scenarios": [
-      "消费者评论主题提取",
-      "社媒话题发现",
-      "品牌叙事分析"
-    ],
+    "tags": ["bert", "topic-modeling", "embeddings", "clustering", "nlp"],
+    "scenarios": ["消费者评论主题提取", "社媒话题发现", "品牌叙事分析"],
     "dataSources": [],
-    "aiCapabilities": [
-      "nlp",
-      "traditional-ml"
-    ],
+    "aiCapabilities": ["nlp", "traditional-ml"],
     "scores": {
       "features": 9,
       "easeOfUse": 7,
@@ -458,11 +294,7 @@
     },
     "icon": "💬",
     "featured": true,
-    "relatedProjects": [
-      "sentique",
-      "customer-insight",
-      "sentiment-research-report"
-    ],
+    "relatedProjects": ["sentique", "customer-insight", "sentiment-research-report"],
     "homepage": "https://maartengr.github.io/BERTopic/"
   },
   {
@@ -479,22 +311,10 @@
     "lastUpdated": "2026-03-10",
     "createdAt": "2019-05-01",
     "category": "sentiment-analysis",
-    "tags": [
-      "uplift",
-      "causal-inference",
-      "treatment-effect",
-      "marketing",
-      "scikit-learn"
-    ],
-    "scenarios": [
-      "营销活动增量效果评估",
-      "优惠券发放优化",
-      "用户干预效果建模"
-    ],
+    "tags": ["uplift", "causal-inference", "treatment-effect", "marketing", "scikit-learn"],
+    "scenarios": ["营销活动增量效果评估", "优惠券发放优化", "用户干预效果建模"],
     "dataSources": [],
-    "aiCapabilities": [
-      "traditional-ml"
-    ],
+    "aiCapabilities": ["traditional-ml"],
     "scores": {
       "features": 8,
       "easeOfUse": 8,
@@ -504,10 +324,7 @@
     },
     "icon": "💬",
     "featured": false,
-    "relatedProjects": [
-      "pymc-marketing",
-      "oransim"
-    ]
+    "relatedProjects": ["pymc-marketing", "oransim"]
   },
   {
     "id": "amazon-behavior-analyzer",
@@ -523,25 +340,10 @@
     "lastUpdated": "2026-03-10",
     "createdAt": "2026-03-08",
     "category": "sentiment-analysis",
-    "tags": [
-      "amazon",
-      "sentiment",
-      "anomaly-detection",
-      "plotly",
-      "scoring"
-    ],
-    "scenarios": [
-      "Amazon 产品分析",
-      "消费者行为分群",
-      "异常产品检测"
-    ],
-    "dataSources": [
-      "amazon"
-    ],
-    "aiCapabilities": [
-      "nlp",
-      "traditional-ml"
-    ],
+    "tags": ["amazon", "sentiment", "anomaly-detection", "plotly", "scoring"],
+    "scenarios": ["Amazon 产品分析", "消费者行为分群", "异常产品检测"],
+    "dataSources": ["amazon"],
+    "aiCapabilities": ["nlp", "traditional-ml"],
     "scores": {
       "features": 7,
       "easeOfUse": 8,
@@ -551,10 +353,7 @@
     },
     "icon": "💬",
     "featured": false,
-    "relatedProjects": [
-      "sentique",
-      "customer-insight"
-    ]
+    "relatedProjects": ["sentique", "customer-insight"]
   },
   {
     "id": "sentiment-research-report",
@@ -570,27 +369,10 @@
     "lastUpdated": "2026-08-24",
     "createdAt": "2026-04-06",
     "category": "sentiment-analysis",
-    "tags": [
-      "sentiment",
-      "theme-extraction",
-      "report-generation",
-      "multi-platform",
-      "llm"
-    ],
-    "scenarios": [
-      "品牌情感研究",
-      "消费者洞察报告",
-      "竞品分析"
-    ],
-    "dataSources": [
-      "reddit",
-      "youtube",
-      "twitter"
-    ],
-    "aiCapabilities": [
-      "nlp",
-      "llm"
-    ],
+    "tags": ["sentiment", "theme-extraction", "report-generation", "multi-platform", "llm"],
+    "scenarios": ["品牌情感研究", "消费者洞察报告", "竞品分析"],
+    "dataSources": ["reddit", "youtube", "twitter"],
+    "aiCapabilities": ["nlp", "llm"],
     "scores": {
       "features": 8,
       "easeOfUse": 6,
@@ -600,11 +382,7 @@
     },
     "icon": "💬",
     "featured": false,
-    "relatedProjects": [
-      "sentique",
-      "customer-insight",
-      "google-social-pulse"
-    ]
+    "relatedProjects": ["sentique", "customer-insight", "google-social-pulse"]
   },
   {
     "id": "google-social-pulse",
@@ -620,25 +398,10 @@
     "lastUpdated": "2026-06-20",
     "createdAt": "2026-03-12",
     "category": "sentiment-analysis",
-    "tags": [
-      "gemini",
-      "youtube",
-      "google-cloud",
-      "sentiment",
-      "bigquery"
-    ],
-    "scenarios": [
-      "YouTube 内容分析",
-      "广告主情感监测",
-      "竞品社媒分析"
-    ],
-    "dataSources": [
-      "youtube"
-    ],
-    "aiCapabilities": [
-      "llm",
-      "nlp"
-    ],
+    "tags": ["gemini", "youtube", "google-cloud", "sentiment", "bigquery"],
+    "scenarios": ["YouTube 内容分析", "广告主情感监测", "竞品社媒分析"],
+    "dataSources": ["youtube"],
+    "aiCapabilities": ["llm", "nlp"],
     "scores": {
       "features": 7,
       "easeOfUse": 6,
@@ -648,10 +411,7 @@
     },
     "icon": "💬",
     "featured": false,
-    "relatedProjects": [
-      "sentiment-research-report",
-      "brand-sentiment-monitoring"
-    ]
+    "relatedProjects": ["sentiment-research-report", "brand-sentiment-monitoring"]
   },
   {
     "id": "zengrowth",
@@ -667,23 +427,10 @@
     "lastUpdated": "2025-09-04",
     "createdAt": "2025-08-11",
     "category": "user-behavior",
-    "tags": [
-      "crewai",
-      "ga4",
-      "multi-agent",
-      "user-analytics",
-      "streamlit"
-    ],
-    "scenarios": [
-      "用户行为分析",
-      "转化漏斗优化",
-      "留存率提升"
-    ],
+    "tags": ["crewai", "ga4", "multi-agent", "user-analytics", "streamlit"],
+    "scenarios": ["用户行为分析", "转化漏斗优化", "留存率提升"],
     "dataSources": [],
-    "aiCapabilities": [
-      "llm",
-      "traditional-ml"
-    ],
+    "aiCapabilities": ["llm", "traditional-ml"],
     "scores": {
       "features": 8,
       "easeOfUse": 6,
@@ -693,10 +440,7 @@
     },
     "icon": "📊",
     "featured": false,
-    "relatedProjects": [
-      "istari",
-      "ecommerce-consumer-analysis"
-    ]
+    "relatedProjects": ["istari", "ecommerce-consumer-analysis"]
   },
   {
     "id": "istari",
@@ -712,22 +456,10 @@
     "lastUpdated": "2025-12-16",
     "createdAt": "2025-12-15",
     "category": "user-behavior",
-    "tags": [
-      "intent-inference",
-      "behavioral-events",
-      "clarity",
-      "state-machine",
-      "explainability"
-    ],
-    "scenarios": [
-      "用户意图识别",
-      "会话行为分析",
-      "CRO 优化"
-    ],
+    "tags": ["intent-inference", "behavioral-events", "clarity", "state-machine", "explainability"],
+    "scenarios": ["用户意图识别", "会话行为分析", "CRO 优化"],
     "dataSources": [],
-    "aiCapabilities": [
-      "traditional-ml"
-    ],
+    "aiCapabilities": ["traditional-ml"],
     "scores": {
       "features": 7,
       "easeOfUse": 6,
@@ -737,10 +469,7 @@
     },
     "icon": "📊",
     "featured": false,
-    "relatedProjects": [
-      "zengrowth",
-      "ecommerce-consumer-analysis"
-    ]
+    "relatedProjects": ["zengrowth", "ecommerce-consumer-analysis"]
   },
   {
     "id": "leo-cdp",
@@ -756,23 +485,10 @@
     "lastUpdated": "2026-08-22",
     "createdAt": "2025-08-13",
     "category": "customer-data-platform",
-    "tags": [
-      "cdp",
-      "customer-data",
-      "segmentation",
-      "rfm",
-      "personalization"
-    ],
-    "scenarios": [
-      "客户数据统一",
-      "用户分群营销",
-      "个性化推荐"
-    ],
+    "tags": ["cdp", "customer-data", "segmentation", "rfm", "personalization"],
+    "scenarios": ["客户数据统一", "用户分群营销", "个性化推荐"],
     "dataSources": [],
-    "aiCapabilities": [
-      "traditional-ml",
-      "recommendation"
-    ],
+    "aiCapabilities": ["traditional-ml", "recommendation"],
     "scores": {
       "features": 8,
       "easeOfUse": 5,
@@ -798,22 +514,10 @@
     "lastUpdated": "2020-07-31",
     "createdAt": "2020-07-06",
     "category": "user-behavior",
-    "tags": [
-      "ecommerce",
-      "user-profiling",
-      "conversion",
-      "eda",
-      "pandas"
-    ],
-    "scenarios": [
-      "电商用户画像",
-      "转化率分析",
-      "运营指标监控"
-    ],
+    "tags": ["ecommerce", "user-profiling", "conversion", "eda", "pandas"],
+    "scenarios": ["电商用户画像", "转化率分析", "运营指标监控"],
     "dataSources": [],
-    "aiCapabilities": [
-      "traditional-ml"
-    ],
+    "aiCapabilities": ["traditional-ml"],
     "scores": {
       "features": 6,
       "easeOfUse": 7,
@@ -823,10 +527,7 @@
     },
     "icon": "📊",
     "featured": false,
-    "relatedProjects": [
-      "zengrowth",
-      "istari"
-    ]
+    "relatedProjects": ["zengrowth", "istari"]
   },
   {
     "id": "ripple",
@@ -842,26 +543,10 @@
     "lastUpdated": "2026-03-18",
     "createdAt": "2026-04-01",
     "category": "social-media",
-    "tags": [
-      "cas-theory",
-      "pmf",
-      "content-propagation",
-      "xiaohongshu",
-      "multi-agent"
-    ],
-    "scenarios": [
-      "内容传播预测",
-      "PMF 验证",
-      "渠道策略评估"
-    ],
-    "dataSources": [
-      "xiaohongshu",
-      "douyin",
-      "weibo"
-    ],
-    "aiCapabilities": [
-      "llm"
-    ],
+    "tags": ["cas-theory", "pmf", "content-propagation", "xiaohongshu", "multi-agent"],
+    "scenarios": ["内容传播预测", "PMF 验证", "渠道策略评估"],
+    "dataSources": ["xiaohongshu", "douyin", "weibo"],
+    "aiCapabilities": ["llm"],
     "scores": {
       "features": 8,
       "easeOfUse": 5,
@@ -871,10 +556,7 @@
     },
     "icon": "📱",
     "featured": true,
-    "relatedProjects": [
-      "intelligence",
-      "taste-analytics"
-    ]
+    "relatedProjects": ["intelligence", "taste-analytics"]
   },
   {
     "id": "intelligence",
@@ -890,22 +572,9 @@
     "lastUpdated": "2026-03-29",
     "createdAt": "2026-03-23",
     "category": "social-media",
-    "tags": [
-      "trend-analysis",
-      "xiaohongshu",
-      "douyin",
-      "content-analysis",
-      "zero-dependency"
-    ],
-    "scenarios": [
-      "社媒趋势研究",
-      "品类趋势分析",
-      "内容策略制定"
-    ],
-    "dataSources": [
-      "xiaohongshu",
-      "douyin"
-    ],
+    "tags": ["trend-analysis", "xiaohongshu", "douyin", "content-analysis", "zero-dependency"],
+    "scenarios": ["社媒趋势研究", "品类趋势分析", "内容策略制定"],
+    "dataSources": ["xiaohongshu", "douyin"],
     "aiCapabilities": [],
     "scores": {
       "features": 7,
@@ -916,11 +585,7 @@
     },
     "icon": "📱",
     "featured": false,
-    "relatedProjects": [
-      "ripple",
-      "taste-analytics",
-      "deepfeelings"
-    ]
+    "relatedProjects": ["ripple", "taste-analytics", "deepfeelings"]
   },
   {
     "id": "taste-analytics",
@@ -936,23 +601,9 @@
     "lastUpdated": "2026-02-06",
     "createdAt": "2026-02-06",
     "category": "social-media",
-    "tags": [
-      "fashion",
-      "tiktok",
-      "stockx",
-      "trend-tracking",
-      "consumer-intelligence"
-    ],
-    "scenarios": [
-      "时尚趋势预测",
-      "品牌热度监测",
-      "消费文化研究"
-    ],
-    "dataSources": [
-      "tiktok",
-      "twitter",
-      "stockx"
-    ],
+    "tags": ["fashion", "tiktok", "stockx", "trend-tracking", "consumer-intelligence"],
+    "scenarios": ["时尚趋势预测", "品牌热度监测", "消费文化研究"],
+    "dataSources": ["tiktok", "twitter", "stockx"],
     "aiCapabilities": [],
     "scores": {
       "features": 6,
@@ -963,11 +614,7 @@
     },
     "icon": "📱",
     "featured": false,
-    "relatedProjects": [
-      "ripple",
-      "intelligence",
-      "deepfeelings"
-    ]
+    "relatedProjects": ["ripple", "intelligence", "deepfeelings"]
   },
   {
     "id": "causalml",
@@ -983,22 +630,10 @@
     "lastUpdated": "2026-08-20",
     "createdAt": "2019-07-09",
     "category": "social-media",
-    "tags": [
-      "causal-inference",
-      "uplift",
-      "cate",
-      "meta-learner",
-      "marketing"
-    ],
-    "scenarios": [
-      "营销增量效果评估",
-      "优惠券精准投放",
-      "A/B 测试分析"
-    ],
+    "tags": ["causal-inference", "uplift", "cate", "meta-learner", "marketing"],
+    "scenarios": ["营销增量效果评估", "优惠券精准投放", "A/B 测试分析"],
     "dataSources": [],
-    "aiCapabilities": [
-      "traditional-ml"
-    ],
+    "aiCapabilities": ["traditional-ml"],
     "scores": {
       "features": 9,
       "easeOfUse": 7,
@@ -1008,10 +643,7 @@
     },
     "icon": "📱",
     "featured": true,
-    "relatedProjects": [
-      "pymc-marketing",
-      "oransim"
-    ]
+    "relatedProjects": ["pymc-marketing", "oransim"]
   },
   {
     "id": "geo-insight",
@@ -1027,22 +659,10 @@
     "lastUpdated": "2025-12-15",
     "createdAt": "2025-12-05",
     "category": "brand-monitoring",
-    "tags": [
-      "geo",
-      "brand-visibility",
-      "deepseek",
-      "kimi",
-      "langgraph"
-    ],
-    "scenarios": [
-      "AI 品牌可见性",
-      "竞品 AI 表现对比",
-      "内容优化策略"
-    ],
+    "tags": ["geo", "brand-visibility", "deepseek", "kimi", "langgraph"],
+    "scenarios": ["AI 品牌可见性", "竞品 AI 表现对比", "内容优化策略"],
     "dataSources": [],
-    "aiCapabilities": [
-      "llm"
-    ],
+    "aiCapabilities": ["llm"],
     "scores": {
       "features": 8,
       "easeOfUse": 6,
@@ -1052,10 +672,7 @@
     },
     "icon": "🏷️",
     "featured": true,
-    "relatedProjects": [
-      "social-pulse",
-      "amazon-reviews-analytics"
-    ]
+    "relatedProjects": ["social-pulse", "amazon-reviews-analytics"]
   },
   {
     "id": "social-pulse",
@@ -1071,24 +688,10 @@
     "lastUpdated": "2026-05-06",
     "createdAt": "2024-10-28",
     "category": "brand-monitoring",
-    "tags": [
-      "sentiment",
-      "amazon",
-      "flipkart",
-      "real-time",
-      "streamlit"
-    ],
-    "scenarios": [
-      "电商口碑监测",
-      "品牌情感追踪",
-      "产品评论分析"
-    ],
-    "dataSources": [
-      "amazon"
-    ],
-    "aiCapabilities": [
-      "nlp"
-    ],
+    "tags": ["sentiment", "amazon", "flipkart", "real-time", "streamlit"],
+    "scenarios": ["电商口碑监测", "品牌情感追踪", "产品评论分析"],
+    "dataSources": ["amazon"],
+    "aiCapabilities": ["nlp"],
     "scores": {
       "features": 6,
       "easeOfUse": 7,
@@ -1098,10 +701,7 @@
     },
     "icon": "🏷️",
     "featured": false,
-    "relatedProjects": [
-      "geo-insight",
-      "amazon-reviews-analytics"
-    ]
+    "relatedProjects": ["geo-insight", "amazon-reviews-analytics"]
   },
   {
     "id": "amazon-reviews-analytics",
@@ -1117,25 +717,10 @@
     "lastUpdated": "2024-04-26",
     "createdAt": "2024-03-10",
     "category": "brand-monitoring",
-    "tags": [
-      "absa",
-      "bert",
-      "mlops",
-      "amazon",
-      "airflow"
-    ],
-    "scenarios": [
-      "产品方面级分析",
-      "评论情感挖掘",
-      "MLOps 流水线"
-    ],
-    "dataSources": [
-      "amazon"
-    ],
-    "aiCapabilities": [
-      "nlp",
-      "traditional-ml"
-    ],
+    "tags": ["absa", "bert", "mlops", "amazon", "airflow"],
+    "scenarios": ["产品方面级分析", "评论情感挖掘", "MLOps 流水线"],
+    "dataSources": ["amazon"],
+    "aiCapabilities": ["nlp", "traditional-ml"],
     "scores": {
       "features": 8,
       "easeOfUse": 5,
@@ -1145,10 +730,7 @@
     },
     "icon": "🏷️",
     "featured": false,
-    "relatedProjects": [
-      "geo-insight",
-      "social-pulse"
-    ]
+    "relatedProjects": ["geo-insight", "social-pulse"]
   },
   {
     "id": "ideacan",
@@ -1164,25 +746,10 @@
     "lastUpdated": "2026-04-07",
     "createdAt": "2026-02-03",
     "category": "demand-validation",
-    "tags": [
-      "idea-validation",
-      "xiaohongshu",
-      "douyin",
-      "mvp",
-      "competitive-analysis"
-    ],
-    "scenarios": [
-      "创业点子验证",
-      "市场需求评估",
-      "竞品分析"
-    ],
-    "dataSources": [
-      "xiaohongshu",
-      "douyin"
-    ],
-    "aiCapabilities": [
-      "llm"
-    ],
+    "tags": ["idea-validation", "xiaohongshu", "douyin", "mvp", "competitive-analysis"],
+    "scenarios": ["创业点子验证", "市场需求评估", "竞品分析"],
+    "dataSources": ["xiaohongshu", "douyin"],
+    "aiCapabilities": ["llm"],
     "scores": {
       "features": 8,
       "easeOfUse": 7,
@@ -1192,9 +759,7 @@
     },
     "icon": "✅",
     "featured": false,
-    "relatedProjects": [
-      "mk-intel"
-    ],
+    "relatedProjects": ["mk-intel"],
     "homepage": "https://ideascan.lovable.app"
   },
   {
@@ -1211,23 +776,10 @@
     "lastUpdated": "2026-04-30",
     "createdAt": "2026-04-01",
     "category": "demand-validation",
-    "tags": [
-      "audience-analysis",
-      "archetypes",
-      "census-data",
-      "llm",
-      "fastapi"
-    ],
-    "scenarios": [
-      "目标受众分析",
-      "营销策略制定",
-      "用户画像构建"
-    ],
+    "tags": ["audience-analysis", "archetypes", "census-data", "llm", "fastapi"],
+    "scenarios": ["目标受众分析", "营销策略制定", "用户画像构建"],
     "dataSources": [],
-    "aiCapabilities": [
-      "llm",
-      "traditional-ml"
-    ],
+    "aiCapabilities": ["llm", "traditional-ml"],
     "scores": {
       "features": 7,
       "easeOfUse": 5,
@@ -1237,9 +789,7 @@
     },
     "icon": "✅",
     "featured": false,
-    "relatedProjects": [
-      "ideacan"
-    ],
+    "relatedProjects": ["ideacan"],
     "homepage": "https://mk-intel-delta.vercel.app"
   },
   {
@@ -1256,22 +806,10 @@
     "lastUpdated": "2026-03-27",
     "createdAt": "2026-03-14",
     "category": "statistics-toolkit",
-    "tags": [
-      "statistics",
-      "conjoint",
-      "maxdiff",
-      "ab-testing",
-      "browser-based"
-    ],
-    "scenarios": [
-      "问卷数据分析",
-      "A/B 测试评估",
-      "联合分析"
-    ],
+    "tags": ["statistics", "conjoint", "maxdiff", "ab-testing", "browser-based"],
+    "scenarios": ["问卷数据分析", "A/B 测试评估", "联合分析"],
     "dataSources": [],
-    "aiCapabilities": [
-      "pure-stats"
-    ],
+    "aiCapabilities": ["pure-stats"],
     "scores": {
       "features": 9,
       "easeOfUse": 9,
@@ -1297,23 +835,10 @@
     "lastUpdated": "2024-06-28",
     "createdAt": "2015-03-01",
     "category": "marketing-mix",
-    "tags": [
-      "clv",
-      "btyd",
-      "bg-nbd",
-      "pareto-nbd",
-      "gamma-gamma",
-      "customer-lifetime-value"
-    ],
-    "scenarios": [
-      "客户生命周期价值预测",
-      "客户分群",
-      "复购行为建模"
-    ],
+    "tags": ["clv", "btyd", "bg-nbd", "pareto-nbd", "gamma-gamma", "customer-lifetime-value"],
+    "scenarios": ["客户生命周期价值预测", "客户分群", "复购行为建模"],
     "dataSources": [],
-    "aiCapabilities": [
-      "traditional-ml"
-    ],
+    "aiCapabilities": ["traditional-ml"],
     "scores": {
       "features": 8,
       "easeOfUse": 7,
@@ -1323,9 +848,7 @@
     },
     "icon": "📈",
     "featured": false,
-    "relatedProjects": [
-      "pymc-marketing"
-    ]
+    "relatedProjects": ["pymc-marketing"]
   },
   {
     "id": "econml",
@@ -1341,22 +864,10 @@
     "lastUpdated": "2026-08-24",
     "createdAt": "2019-01-01",
     "category": "marketing-mix",
-    "tags": [
-      "causal-inference",
-      "cate",
-      "double-ml",
-      "treatment-effect",
-      "microsoft"
-    ],
-    "scenarios": [
-      "异质处理效应估计",
-      "营销策略个性化",
-      "政策效果评估"
-    ],
+    "tags": ["causal-inference", "cate", "double-ml", "treatment-effect", "microsoft"],
+    "scenarios": ["异质处理效应估计", "营销策略个性化", "政策效果评估"],
     "dataSources": [],
-    "aiCapabilities": [
-      "traditional-ml"
-    ],
+    "aiCapabilities": ["traditional-ml"],
     "scores": {
       "features": 9,
       "easeOfUse": 6,
@@ -1366,11 +877,7 @@
     },
     "icon": "📈",
     "featured": true,
-    "relatedProjects": [
-      "causalml",
-      "dowhy",
-      "pymc-marketing"
-    ],
+    "relatedProjects": ["causalml", "dowhy", "pymc-marketing"],
     "homepage": "https://www.microsoft.com/en-us/research/project/alice/"
   },
   {
@@ -1387,22 +894,10 @@
     "lastUpdated": "2025-01-13",
     "createdAt": "2020-08-17",
     "category": "marketing-mix",
-    "tags": [
-      "causal-inference",
-      "time-series",
-      "bayesian",
-      "intervention",
-      "google"
-    ],
-    "scenarios": [
-      "广告投放增量评估",
-      "促销活动因果效果",
-      "品牌危机影响量化"
-    ],
+    "tags": ["causal-inference", "time-series", "bayesian", "intervention", "google"],
+    "scenarios": ["广告投放增量评估", "促销活动因果效果", "品牌危机影响量化"],
     "dataSources": [],
-    "aiCapabilities": [
-      "traditional-ml"
-    ],
+    "aiCapabilities": ["traditional-ml"],
     "scores": {
       "features": 8,
       "easeOfUse": 7,
@@ -1412,9 +907,6 @@
     },
     "icon": "📈",
     "featured": false,
-    "relatedProjects": [
-      "pymc-marketing",
-      "econml"
-    ]
+    "relatedProjects": ["pymc-marketing", "econml"]
   }
 ]

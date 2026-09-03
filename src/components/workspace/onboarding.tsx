@@ -2,7 +2,17 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronRight, ChevronLeft, Rocket, Key, BookOpen, BarChart3, FileText, CheckCircle } from "lucide-react";
+import {
+  X,
+  ChevronRight,
+  ChevronLeft,
+  Rocket,
+  Key,
+  BookOpen,
+  BarChart3,
+  FileText,
+  CheckCircle,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useOnboardingStore, ONBOARDING_STEPS } from "@/lib/stores/workspace";
 import { useAPIStore } from "@/lib/api/config";
@@ -115,20 +125,22 @@ export function OnboardingOverlay() {
             </p>
 
             {/* Title */}
-            <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-3">
-              {step.title}
-            </h2>
+            <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-3">{step.title}</h2>
 
             {/* Description */}
-            <p className="text-[var(--text-secondary)] leading-relaxed mb-6">
-              {step.description}
-            </p>
+            <p className="text-[var(--text-secondary)] leading-relaxed mb-6">{step.description}</p>
 
             {/* API status hint */}
             {step.id === "api-setup" && (
-              <div className={`p-3 rounded-lg mb-6 ${apiConfigured ? "bg-[var(--success)]/10 border border-[var(--success)]/20" : "bg-[var(--warning)]/10 border border-[var(--warning)]/20"}`}>
-                <p className={`text-sm ${apiConfigured ? "text-[var(--success)]" : "text-[var(--warning)]"}`}>
-                  {apiConfigured ? "✓ API 已配置，AI 工具可直接使用" : "尚未配置 API Key，推荐 DeepSeek（性价比最高）"}
+              <div
+                className={`p-3 rounded-lg mb-6 ${apiConfigured ? "bg-[var(--success)]/10 border border-[var(--success)]/20" : "bg-[var(--warning)]/10 border border-[var(--warning)]/20"}`}
+              >
+                <p
+                  className={`text-sm ${apiConfigured ? "text-[var(--success)]" : "text-[var(--warning)]"}`}
+                >
+                  {apiConfigured
+                    ? "✓ API 已配置，AI 工具可直接使用"
+                    : "尚未配置 API Key，推荐 DeepSeek（性价比最高）"}
                 </p>
               </div>
             )}
@@ -158,7 +170,12 @@ export function OnboardingOverlay() {
               </div>
 
               <div className="flex gap-2">
-                <Button variant="ghost" size="sm" onClick={handleClose} className="text-[var(--text-muted)]">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleClose}
+                  className="text-[var(--text-muted)]"
+                >
                   跳过
                 </Button>
 
@@ -191,8 +208,8 @@ export function OnboardingOverlay() {
                   i === currentStep
                     ? "bg-[var(--primary)]"
                     : i < currentStep
-                    ? "bg-[var(--primary)]/40"
-                    : "bg-[var(--bg-tertiary)]"
+                      ? "bg-[var(--primary)]/40"
+                      : "bg-[var(--bg-tertiary)]"
                 }`}
               />
             ))}

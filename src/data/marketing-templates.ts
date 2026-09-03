@@ -37,12 +37,29 @@ export const MARKETING_TEMPLATES: MarketingTemplate[] = [
     icon: "🏷️",
     category: "品牌",
     scenario: "评估广告活动前后品牌认知度变化，或比较不同品牌的认知度差异",
-    description: "通过前后测设计或组间比较，量化品牌认知度、品牌回忆率和品牌联想的变化。适用于广告效果评估、品牌定位研究。",
+    description:
+      "通过前后测设计或组间比较，量化品牌认知度、品牌回忆率和品牌联想的变化。适用于广告效果评估、品牌定位研究。",
     recommendedTests: [
-      { testId: "paired-ttest", reason: "前后测设计比较同一组被试的认知度变化", whenToUse: "有广告前后的配对数据" },
-      { testId: "ttest", reason: "比较实验组与对照组的品牌认知度差异", whenToUse: "有独立的两组数据" },
-      { testId: "cronbach", reason: "检验品牌认知量表的内部一致性", whenToUse: "使用多题项量表测量认知度" },
-      { testId: "descriptive", reason: "了解各维度的基本分布情况", whenToUse: "任何情况，作为第一步" },
+      {
+        testId: "paired-ttest",
+        reason: "前后测设计比较同一组被试的认知度变化",
+        whenToUse: "有广告前后的配对数据",
+      },
+      {
+        testId: "ttest",
+        reason: "比较实验组与对照组的品牌认知度差异",
+        whenToUse: "有独立的两组数据",
+      },
+      {
+        testId: "cronbach",
+        reason: "检验品牌认知量表的内部一致性",
+        whenToUse: "使用多题项量表测量认知度",
+      },
+      {
+        testId: "descriptive",
+        reason: "了解各维度的基本分布情况",
+        whenToUse: "任何情况，作为第一步",
+      },
     ],
     sampleDataStructure: {
       columns: [
@@ -59,12 +76,30 @@ export const MARKETING_TEMPLATES: MarketingTemplate[] = [
     },
     interpretationGuide: {
       keyMetrics: ["Cohen's d（效应量）", "p 值（显著性）", "均值差", "置信区间"],
-      whatToLookFor: ["前后测均值是否有显著差异", "效应量是否达到中等以上（d>0.5）", "置信区间是否不包含0"],
-      commonPitfalls: ["混淆统计显著性与实际意义", "忽略效应量只看 p 值", "样本量过小导致检验力不足"],
+      whatToLookFor: [
+        "前后测均值是否有显著差异",
+        "效应量是否达到中等以上（d>0.5）",
+        "置信区间是否不包含0",
+      ],
+      commonPitfalls: [
+        "混淆统计显著性与实际意义",
+        "忽略效应量只看 p 值",
+        "样本量过小导致检验力不足",
+      ],
     },
     references: [
-      { title: "Measuring Brand Awareness", authors: "Aaker, D.A.", year: 1996, journal: "Journal of Marketing Research" },
-      { title: "The Effect of Advertising on Brand Awareness", authors: "Keller, K.L.", year: 2001, journal: "Journal of Consumer Psychology" },
+      {
+        title: "Measuring Brand Awareness",
+        authors: "Aaker, D.A.",
+        year: 1996,
+        journal: "Journal of Marketing Research",
+      },
+      {
+        title: "The Effect of Advertising on Brand Awareness",
+        authors: "Keller, K.L.",
+        year: 2001,
+        journal: "Journal of Consumer Psychology",
+      },
     ],
     workflow: [
       { step: 1, action: "清洗数据，检查缺失值", tool: "/workspace/data-clean" },
@@ -82,11 +117,24 @@ export const MARKETING_TEMPLATES: MarketingTemplate[] = [
     icon: "⭐",
     category: "消费者",
     scenario: "测量客户对产品/服务的满意度水平，计算 NPS 净推荐值，识别满意度驱动因素",
-    description: "使用 NPS（净推荐值）和 CSAT（客户满意度评分）量化客户体验，通过回归分析识别影响满意度的关键因素。",
+    description:
+      "使用 NPS（净推荐值）和 CSAT（客户满意度评分）量化客户体验，通过回归分析识别影响满意度的关键因素。",
     recommendedTests: [
-      { testId: "descriptive", reason: "了解满意度评分的整体分布", whenToUse: "任何情况，作为第一步" },
-      { testId: "likert-freq", reason: "查看各满意度等级的频率分布", whenToUse: "使用 Likert 量表时" },
-      { testId: "regression", reason: "识别影响满意度的关键驱动因素", whenToUse: "有多个预测变量时" },
+      {
+        testId: "descriptive",
+        reason: "了解满意度评分的整体分布",
+        whenToUse: "任何情况，作为第一步",
+      },
+      {
+        testId: "likert-freq",
+        reason: "查看各满意度等级的频率分布",
+        whenToUse: "使用 Likert 量表时",
+      },
+      {
+        testId: "regression",
+        reason: "识别影响满意度的关键驱动因素",
+        whenToUse: "有多个预测变量时",
+      },
       { testId: "pearson", reason: "检验各因素与满意度的相关性", whenToUse: "初步探索关系时" },
     ],
     sampleDataStructure: {
@@ -103,12 +151,30 @@ export const MARKETING_TEMPLATES: MarketingTemplate[] = [
     },
     interpretationGuide: {
       keyMetrics: ["NPS 值（推荐者%-贬损者%）", "CSAT 均值", "回归系数 β", "R²"],
-      whatToLookFor: ["NPS 是否为正数（>0 为良好）", "哪个因素的 β 系数最大（最强驱动因素）", "R² 解释了多少变异"],
-      commonPitfalls: ["NPS 的行业基准差异很大", "满意度数据通常偏态，需注意正态性假设", "相关不等于因果"],
+      whatToLookFor: [
+        "NPS 是否为正数（>0 为良好）",
+        "哪个因素的 β 系数最大（最强驱动因素）",
+        "R² 解释了多少变异",
+      ],
+      commonPitfalls: [
+        "NPS 的行业基准差异很大",
+        "满意度数据通常偏态，需注意正态性假设",
+        "相关不等于因果",
+      ],
     },
     references: [
-      { title: "The One Number You Need to Grow", authors: "Reichheld, F.F.", year: 2003, journal: "Harvard Business Review" },
-      { title: "Customer Satisfaction and Stock Prices", authors: "Fornell, C. et al.", year: 2006, journal: "Journal of Marketing" },
+      {
+        title: "The One Number You Need to Grow",
+        authors: "Reichheld, F.F.",
+        year: 2003,
+        journal: "Harvard Business Review",
+      },
+      {
+        title: "Customer Satisfaction and Stock Prices",
+        authors: "Fornell, C. et al.",
+        year: 2006,
+        journal: "Journal of Marketing",
+      },
     ],
     workflow: [
       { step: 1, action: "上传满意度调查数据", tool: "/workspace/statistics" },
@@ -125,10 +191,19 @@ export const MARKETING_TEMPLATES: MarketingTemplate[] = [
     icon: "🧪",
     category: "产品",
     scenario: "比较两个或多个版本（网页、广告、定价）的效果差异，确定最优方案",
-    description: "通过随机对照实验设计，量化不同版本之间的转化率、点击率或收入差异。适用于 UI 优化、广告创意测试、定价实验。",
+    description:
+      "通过随机对照实验设计，量化不同版本之间的转化率、点击率或收入差异。适用于 UI 优化、广告创意测试、定价实验。",
     recommendedTests: [
-      { testId: "chi-square", reason: "比较两组的转化率差异（分类数据）", whenToUse: "结果是转化/未转化" },
-      { testId: "ttest", reason: "比较两组的连续指标差异（如停留时间）", whenToUse: "结果是连续数值" },
+      {
+        testId: "chi-square",
+        reason: "比较两组的转化率差异（分类数据）",
+        whenToUse: "结果是转化/未转化",
+      },
+      {
+        testId: "ttest",
+        reason: "比较两组的连续指标差异（如停留时间）",
+        whenToUse: "结果是连续数值",
+      },
       { testId: "fisher", reason: "小样本时的精确检验", whenToUse: "样本量<30 或期望频数<5" },
       { testId: "power", reason: "计算所需样本量", whenToUse: "实验设计阶段" },
     ],
@@ -145,12 +220,30 @@ export const MARKETING_TEMPLATES: MarketingTemplate[] = [
     },
     interpretationGuide: {
       keyMetrics: ["转化率差异", "χ² 值", "p 值", "Cramér's V（效应量）", "置信区间"],
-      whatToLookFor: ["两组转化率是否有显著差异", "效应量大小（Cramér's V > 0.1 为小效应）", "实际业务意义（提升 X% 转化率值多少收入）"],
-      commonPitfalls: ["多次检验需要 Bonferroni 校正", "样本量不均衡影响检验力", "不要提前停止实验（peeking problem）"],
+      whatToLookFor: [
+        "两组转化率是否有显著差异",
+        "效应量大小（Cramér's V > 0.1 为小效应）",
+        "实际业务意义（提升 X% 转化率值多少收入）",
+      ],
+      commonPitfalls: [
+        "多次检验需要 Bonferroni 校正",
+        "样本量不均衡影响检验力",
+        "不要提前停止实验（peeking problem）",
+      ],
     },
     references: [
-      { title: "Trustworthy Online Controlled Experiments", authors: "Kohavi, R. et al.", year: 2020, journal: "Cambridge University Press" },
-      { title: "A/B Testing: The Most Powerful Way to Turn Clicks Into Customers", authors: "Siroker, D. & Koomen, P.", year: 2013, journal: "Wiley" },
+      {
+        title: "Trustworthy Online Controlled Experiments",
+        authors: "Kohavi, R. et al.",
+        year: 2020,
+        journal: "Cambridge University Press",
+      },
+      {
+        title: "A/B Testing: The Most Powerful Way to Turn Clicks Into Customers",
+        authors: "Siroker, D. & Koomen, P.",
+        year: 2013,
+        journal: "Wiley",
+      },
     ],
     workflow: [
       { step: 1, action: "确认实验设计（样本量、随机化）", tool: "/workspace/statistics" },
@@ -171,8 +264,16 @@ export const MARKETING_TEMPLATES: MarketingTemplate[] = [
     recommendedTests: [
       { testId: "efa", reason: "提取消费者态度的潜在维度", whenToUse: "有大量态度题项需要降维" },
       { testId: "cronbach", reason: "检验各维度量表的信度", whenToUse: "确认量表可靠性" },
-      { testId: "anova", reason: "比较不同细分群体在各维度上的差异", whenToUse: "已确定细分群体后" },
-      { testId: "chi-square", reason: "检验细分群体与人口统计变量的关联", whenToUse: "分析群体特征时" },
+      {
+        testId: "anova",
+        reason: "比较不同细分群体在各维度上的差异",
+        whenToUse: "已确定细分群体后",
+      },
+      {
+        testId: "chi-square",
+        reason: "检验细分群体与人口统计变量的关联",
+        whenToUse: "分析群体特征时",
+      },
     ],
     sampleDataStructure: {
       columns: [
@@ -189,11 +290,24 @@ export const MARKETING_TEMPLATES: MarketingTemplate[] = [
     },
     interpretationGuide: {
       keyMetrics: ["KMO 值（>0.7 适合因子分析）", "Bartlett 检验 p 值", "方差解释率", "因子载荷"],
-      whatToLookFor: ["KMO 是否大于 0.7", "提取的因子能解释多少总方差", "各题项在目标因子上的载荷是否大于 0.5"],
-      commonPitfalls: ["因子数量选择需结合碎石图和理论", "旋转方法选择影响解释", "样本量至少是题项数的 5 倍"],
+      whatToLookFor: [
+        "KMO 是否大于 0.7",
+        "提取的因子能解释多少总方差",
+        "各题项在目标因子上的载荷是否大于 0.5",
+      ],
+      commonPitfalls: [
+        "因子数量选择需结合碎石图和理论",
+        "旋转方法选择影响解释",
+        "样本量至少是题项数的 5 倍",
+      ],
     },
     references: [
-      { title: "Market Segmentation", authors: "Wedel, M. & Kamakura, W.A.", year: 2000, journal: "Springer" },
+      {
+        title: "Market Segmentation",
+        authors: "Wedel, M. & Kamakura, W.A.",
+        year: 2000,
+        journal: "Springer",
+      },
       { title: "Consumer Behavior", authors: "Solomon, M.R.", year: 2019, journal: "Pearson" },
     ],
     workflow: [
@@ -213,7 +327,11 @@ export const MARKETING_TEMPLATES: MarketingTemplate[] = [
     scenario: "确定消费者对价格的敏感程度，找到最优定价点",
     description: "使用 Van Westendorp 价格敏感度模型或联合分析，量化消费者对不同价格水平的接受度。",
     recommendedTests: [
-      { testId: "conjoint", reason: "联合分析评估价格与其他属性的权衡", whenToUse: "需要考虑多属性决策时" },
+      {
+        testId: "conjoint",
+        reason: "联合分析评估价格与其他属性的权衡",
+        whenToUse: "需要考虑多属性决策时",
+      },
       { testId: "descriptive", reason: "了解价格接受度的基本分布", whenToUse: "任何情况" },
       { testId: "regression", reason: "分析价格对购买意愿的影响", whenToUse: "有连续价格数据时" },
       { testId: "anova", reason: "比较不同价格水平的购买意愿差异", whenToUse: "有多个价格水平时" },
@@ -231,12 +349,30 @@ export const MARKETING_TEMPLATES: MarketingTemplate[] = [
     },
     interpretationGuide: {
       keyMetrics: ["最优价格点（PMC）", "可接受价格范围", "价格弹性系数"],
-      whatToLookFor: ["PMC（Point of Marginal Cheapness）在哪里", "PME（Point of Marginal Expensiveness）在哪里", "可接受价格范围是否足够宽"],
-      commonPitfalls: ["假设消费者能准确报告价格偏好", "忽略竞争产品价格", "价格敏感度因细分群体而异"],
+      whatToLookFor: [
+        "PMC（Point of Marginal Cheapness）在哪里",
+        "PME（Point of Marginal Expensiveness）在哪里",
+        "可接受价格范围是否足够宽",
+      ],
+      commonPitfalls: [
+        "假设消费者能准确报告价格偏好",
+        "忽略竞争产品价格",
+        "价格敏感度因细分群体而异",
+      ],
     },
     references: [
-      { title: "Measuring Price Sensitivity", authors: "Van Westendorp, P.", year: 1976, journal: "ESOMAR Congress" },
-      { title: "Conjoint Analysis in Marketing", authors: "Green, P.E. & Srinivasan, V.", year: 1990, journal: "Journal of Marketing" },
+      {
+        title: "Measuring Price Sensitivity",
+        authors: "Van Westendorp, P.",
+        year: 1976,
+        journal: "ESOMAR Congress",
+      },
+      {
+        title: "Conjoint Analysis in Marketing",
+        authors: "Green, P.E. & Srinivasan, V.",
+        year: 1990,
+        journal: "Journal of Marketing",
+      },
     ],
     workflow: [
       { step: 1, action: "上传价格调查数据", tool: "/workspace/statistics" },
@@ -254,10 +390,26 @@ export const MARKETING_TEMPLATES: MarketingTemplate[] = [
     scenario: "评估广告活动的传播效果、态度影响和行为转化",
     description: "综合评估广告的注意力、记忆度、态度改变和购买行为，建立广告效果的因果链条。",
     recommendedTests: [
-      { testId: "mediation", reason: "检验广告→态度→购买的中介路径", whenToUse: "有理论假设的中介效应" },
-      { testId: "moderation", reason: "检验不同人群的广告效果差异", whenToUse: "假设效果因人群而异" },
-      { testId: "repeated-anova", reason: "比较广告暴露前后的态度变化", whenToUse: "有多时间点的测量" },
-      { testId: "regression", reason: "分析广告频次对购买意愿的影响", whenToUse: "有连续的广告暴露数据" },
+      {
+        testId: "mediation",
+        reason: "检验广告→态度→购买的中介路径",
+        whenToUse: "有理论假设的中介效应",
+      },
+      {
+        testId: "moderation",
+        reason: "检验不同人群的广告效果差异",
+        whenToUse: "假设效果因人群而异",
+      },
+      {
+        testId: "repeated-anova",
+        reason: "比较广告暴露前后的态度变化",
+        whenToUse: "有多时间点的测量",
+      },
+      {
+        testId: "regression",
+        reason: "分析广告频次对购买意愿的影响",
+        whenToUse: "有连续的广告暴露数据",
+      },
     ],
     sampleDataStructure: {
       columns: [
@@ -274,12 +426,26 @@ export const MARKETING_TEMPLATES: MarketingTemplate[] = [
     },
     interpretationGuide: {
       keyMetrics: ["中介效应大小", "间接效应置信区间", "调节效应交互项 p 值", "简单斜率"],
-      whatToLookFor: ["间接效应的置信区间是否不包含0", "调节效应是否显著（交互项 p<.05）", "不同组别的简单斜率方向和大小"],
+      whatToLookFor: [
+        "间接效应的置信区间是否不包含0",
+        "调节效应是否显著（交互项 p<.05）",
+        "不同组别的简单斜率方向和大小",
+      ],
       commonPitfalls: ["中介效应需要理论支撑", "样本量要求较高（>200）", "调节效应需要中心化处理"],
     },
     references: [
-      { title: "Introduction to Mediation, Moderation, and Conditional Process Analysis", authors: "Hayes, A.F.", year: 2022, journal: "Guilford Press" },
-      { title: "Advertising Effectiveness", authors: "Tellis, G.J.", year: 2004, journal: "Journal of Advertising Research" },
+      {
+        title: "Introduction to Mediation, Moderation, and Conditional Process Analysis",
+        authors: "Hayes, A.F.",
+        year: 2022,
+        journal: "Guilford Press",
+      },
+      {
+        title: "Advertising Effectiveness",
+        authors: "Tellis, G.J.",
+        year: 2004,
+        journal: "Journal of Advertising Research",
+      },
     ],
     workflow: [
       { step: 1, action: "上传广告实验数据", tool: "/workspace/statistics" },
@@ -298,7 +464,11 @@ export const MARKETING_TEMPLATES: MarketingTemplate[] = [
     scenario: "分析消费者从认知到购买的行为转化路径",
     description: "构建 AIDA（注意→兴趣→欲望→行动）漏斗，识别各阶段的转化率和流失原因。",
     recommendedTests: [
-      { testId: "chi-square", reason: "检验各阶段转化率的差异", whenToUse: "比较不同渠道/人群的转化率" },
+      {
+        testId: "chi-square",
+        reason: "检验各阶段转化率的差异",
+        whenToUse: "比较不同渠道/人群的转化率",
+      },
       { testId: "logistic", reason: "预测哪些因素影响转化", whenToUse: "有多个预测变量" },
       { testId: "regression", reason: "分析各阶段的影响因素", whenToUse: "结果是连续变量" },
       { testId: "descriptive", reason: "了解各阶段的基本情况", whenToUse: "任何情况" },
@@ -317,12 +487,26 @@ export const MARKETING_TEMPLATES: MarketingTemplate[] = [
     },
     interpretationGuide: {
       keyMetrics: ["各阶段转化率", "流失率", "OR 值（优势比）", "转化时间中位数"],
-      whatToLookFor: ["哪个阶段流失最严重", "哪些因素显著影响转化（OR>1）", "不同渠道的转化路径差异"],
+      whatToLookFor: [
+        "哪个阶段流失最严重",
+        "哪些因素显著影响转化（OR>1）",
+        "不同渠道的转化路径差异",
+      ],
       commonPitfalls: ["漏斗数据可能存在选择偏差", "忽略时间因素", "多触点归因问题"],
     },
     references: [
-      { title: "Consumer Behavior: Buying, Having, and Being", authors: "Solomon, M.R.", year: 2019, journal: "Pearson" },
-      { title: "Marketing Funnel Optimization", authors: "Court, D. et al.", year: 2009, journal: "McKinsey Quarterly" },
+      {
+        title: "Consumer Behavior: Buying, Having, and Being",
+        authors: "Solomon, M.R.",
+        year: 2019,
+        journal: "Pearson",
+      },
+      {
+        title: "Marketing Funnel Optimization",
+        authors: "Court, D. et al.",
+        year: 2009,
+        journal: "McKinsey Quarterly",
+      },
     ],
     workflow: [
       { step: 1, action: "上传行为数据", tool: "/workspace/statistics" },
@@ -345,7 +529,11 @@ export const MARKETING_TEMPLATES: MarketingTemplate[] = [
       { testId: "cronbach", reason: "检验内部一致性信度", whenToUse: "任何阶段" },
       { testId: "cr-ave", reason: "检验收敛效度（CR>0.7, AVE>0.5）", whenToUse: "验证阶段" },
       { testId: "htmt", reason: "检验区别效度（HTMT<0.85）", whenToUse: "有多个构念时" },
-      { testId: "item-analysis", reason: "题项分析（鉴别度、item-total 相关）", whenToUse: "筛选题项时" },
+      {
+        testId: "item-analysis",
+        reason: "题项分析（鉴别度、item-total 相关）",
+        whenToUse: "筛选题项时",
+      },
     ],
     sampleDataStructure: {
       columns: [
@@ -361,7 +549,11 @@ export const MARKETING_TEMPLATES: MarketingTemplate[] = [
     interpretationGuide: {
       keyMetrics: ["KMO 值", "Cronbach's α", "CR", "AVE", "HTMT", "因子载荷"],
       whatToLookFor: ["KMO>0.7", "α>0.7", "CR>0.7", "AVE>0.5", "HTMT<0.85", "因子载荷>0.5"],
-      commonPitfalls: ["EFA 和 CFA 需要不同样本", "样本量至少是题项数的 10 倍", "反向题需要先反向编码"],
+      commonPitfalls: [
+        "EFA 和 CFA 需要不同样本",
+        "样本量至少是题项数的 10 倍",
+        "反向题需要先反向编码",
+      ],
     },
     references: [
       { title: "Scale Development", authors: "DeVellis, R.F.", year: 2016, journal: "SAGE" },
@@ -404,11 +596,25 @@ export const MARKETING_TEMPLATES: MarketingTemplate[] = [
     interpretationGuide: {
       keyMetrics: ["情感分数均值", "正面/负面比例", "情感极性分布"],
       whatToLookFor: ["情感分数是否显著偏向正面或负面", "不同平台的情感差异", "负面评论的主要主题"],
-      commonPitfalls: ["NLP 模型对中文的支持可能不够好", "讽刺和反语难以识别", "样本可能不代表整体"],
+      commonPitfalls: [
+        "NLP 模型对中文的支持可能不够好",
+        "讽刺和反语难以识别",
+        "样本可能不代表整体",
+      ],
     },
     references: [
-      { title: "Sentiment Analysis and Opinion Mining", authors: "Liu, B.", year: 2012, journal: "Morgan & Claypool" },
-      { title: "Social Media Analytics", authors: "Zeng, D. et al.", year: 2010, journal: "IEEE Intelligent Systems" },
+      {
+        title: "Sentiment Analysis and Opinion Mining",
+        authors: "Liu, B.",
+        year: 2012,
+        journal: "Morgan & Claypool",
+      },
+      {
+        title: "Social Media Analytics",
+        authors: "Zeng, D. et al.",
+        year: 2010,
+        journal: "IEEE Intelligent Systems",
+      },
     ],
     workflow: [
       { step: 1, action: "上传社媒评论数据", tool: "/workspace/sentiment" },
@@ -448,8 +654,18 @@ export const MARKETING_TEMPLATES: MarketingTemplate[] = [
       commonPitfalls: ["正交设计需要专业设置", "假设属性效用可加", "忽略交互效应"],
     },
     references: [
-      { title: "Conjoint Analysis in Marketing", authors: "Green, P.E. & Srinivasan, V.", year: 1990, journal: "Journal of Marketing" },
-      { title: "MaxDiff Analysis", authors: "Orme, B.K.", year: 2010, journal: "Sawtooth Software" },
+      {
+        title: "Conjoint Analysis in Marketing",
+        authors: "Green, P.E. & Srinivasan, V.",
+        year: 1990,
+        journal: "Journal of Marketing",
+      },
+      {
+        title: "MaxDiff Analysis",
+        authors: "Orme, B.K.",
+        year: 2010,
+        journal: "Sawtooth Software",
+      },
     ],
     workflow: [
       { step: 1, action: "设计正交实验", tool: "外部工具" },

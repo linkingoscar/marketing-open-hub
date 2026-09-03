@@ -26,12 +26,19 @@ export function Heatmap({ matrix, rowLabels, colLabels, title, min = -1, max = 1
     <div className="w-full">
       {title && <p className="text-xs text-[var(--text-muted)] mb-2">{title}</p>}
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse" style={{ minWidth: `${colLabels.length * 52 + 60}px` }}>
+        <table
+          className="w-full border-collapse"
+          style={{ minWidth: `${colLabels.length * 52 + 60}px` }}
+        >
           <thead>
             <tr>
               <th className="w-14"></th>
               {colLabels.map((label, i) => (
-                <th key={i} className="text-center py-1 px-1 text-[10px] text-[var(--text-muted)] font-medium" style={{ width: 52 }}>
+                <th
+                  key={i}
+                  className="text-center py-1 px-1 text-[10px] text-[var(--text-muted)] font-medium"
+                  style={{ width: 52 }}
+                >
                   {label.length > 6 ? label.slice(0, 5) + "…" : label}
                 </th>
               ))}
@@ -62,7 +69,12 @@ export function Heatmap({ matrix, rowLabels, colLabels, title, min = -1, max = 1
       {/* Color legend */}
       <div className="flex items-center justify-center gap-2 mt-2">
         <span className="text-[10px] text-[var(--text-muted)]">{min.toFixed(1)}</span>
-        <div className="w-32 h-2 rounded-full" style={{ background: `linear-gradient(to right, rgba(239,68,68,0.6), rgba(148,163,184,0.3), rgba(99,102,241,0.8))` }} />
+        <div
+          className="w-32 h-2 rounded-full"
+          style={{
+            background: `linear-gradient(to right, rgba(239,68,68,0.6), rgba(148,163,184,0.3), rgba(99,102,241,0.8))`,
+          }}
+        />
         <span className="text-[10px] text-[var(--text-muted)]">{max.toFixed(1)}</span>
       </div>
     </div>

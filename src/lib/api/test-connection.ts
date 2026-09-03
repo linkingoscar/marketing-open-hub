@@ -14,7 +14,13 @@ export async function testConnection(providerId: string): Promise<ConnectionTest
   const store = useAPIStore.getState();
   const config = store.configs[providerId];
   if (!config?.apiKey) {
-    return { provider: providerId, success: false, latencyMs: 0, model: "", error: "未配置 API Key" };
+    return {
+      provider: providerId,
+      success: false,
+      latencyMs: 0,
+      model: "",
+      error: "未配置 API Key",
+    };
   }
 
   const provider = API_PROVIDERS.find((p) => p.id === providerId);
@@ -43,21 +49,18 @@ export async function testConnection(providerId: string): Promise<ConnectionTest
       });
     } else if (providerId === "gemini") {
       // Gemini generateContent API
-      res = await fetch(
-        `${baseUrl}/models/${model}:generateContent`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-goog-api-key": config.apiKey,
-          },
-          body: JSON.stringify({
-            contents: [{ role: "user", parts: [{ text: "Reply with only: OK" }] }],
-            generationConfig: { maxOutputTokens: 10 },
-          }),
-          signal: AbortSignal.timeout(15000),
-        }
-      );
+      res = await fetch(`${baseUrl}/models/${model}:generateContent`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-goog-api-key": config.apiKey,
+        },
+        body: JSON.stringify({
+          contents: [{ role: "user", parts: [{ text: "Reply with only: OK" }] }],
+          generationConfig: { maxOutputTokens: 10 },
+        }),
+        signal: AbortSignal.timeout(15000),
+      });
     } else {
       // OpenAI-compatible API (OpenAI, DeepSeek, MiMo, Qwen, Kimi, Doubao, Spark, Zhipu, custom)
       const headers: Record<string, string> = { "Content-Type": "application/json" };
@@ -83,7 +86,13 @@ export async function testConnection(providerId: string): Promise<ConnectionTest
 
     if (!res.ok) {
       const errText = await res.text().catch(() => "");
-      return { provider: providerId, success: false, latencyMs, model, error: `HTTP ${res.status}: ${errText.slice(0, 100)}` };
+      return {
+        provider: providerId,
+        success: false,
+        latencyMs,
+        model,
+        error: `HTTP ${res.status}: ${errText.slice(0, 100)}`,
+      };
     }
 
     return { provider: providerId, success: true, latencyMs, model };

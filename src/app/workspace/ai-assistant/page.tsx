@@ -11,7 +11,11 @@ import { useAPIStore } from "@/lib/api/config";
 import { ActiveProviderBadge } from "@/components/workspace/active-provider";
 import { cn } from "@/lib/utils";
 
-interface Message { role: "user" | "assistant"; content: string; tool?: string }
+interface Message {
+  role: "user" | "assistant";
+  content: string;
+  tool?: string;
+}
 
 const QUICK_ACTIONS = [
   { label: "帮我分析这组数据的中介效应", tool: "empirical" },
@@ -75,7 +79,10 @@ export default function AIAssistantPage() {
     setLoading(true);
 
     try {
-      const allMessages = [...messages, userMsg].map((m) => ({ role: m.role as "user" | "assistant", content: m.content }));
+      const allMessages = [...messages, userMsg].map((m) => ({
+        role: m.role as "user" | "assistant",
+        content: m.content,
+      }));
       const res = await callLLM({
         messages: [{ role: "system", content: SYSTEM_PROMPT }, ...allMessages],
         temperature: 0.5,
@@ -90,18 +97,30 @@ export default function AIAssistantPage() {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSend(); }
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
   };
 
   return (
     <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto flex flex-col">
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col h-[calc(100vh-4rem)]">
-        <Link href="/workspace" className="inline-flex items-center gap-1 text-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors mb-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex flex-col h-[calc(100vh-4rem)]"
+      >
+        <Link
+          href="/workspace"
+          className="inline-flex items-center gap-1 text-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors mb-4"
+        >
           <ArrowLeft className="w-4 h-4" /> 返回工作台
         </Link>
 
         <div className="flex items-center gap-3 mb-2">
-          <div className="w-10 h-10 rounded-lg bg-[#6366F1]/10 flex items-center justify-center text-xl">🤖</div>
+          <div className="w-10 h-10 rounded-lg bg-[#6366F1]/10 flex items-center justify-center text-xl">
+            🤖
+          </div>
           <div>
             <h1 className="text-2xl font-bold text-[var(--text-primary)]">AI 研究助手</h1>
             <p className="text-sm text-[var(--text-muted)]">对话式分析 · 自动推荐工具 · 结果解读</p>
@@ -111,7 +130,12 @@ export default function AIAssistantPage() {
 
         {!hasAnyKey() && (
           <div className="glass-card p-4 mb-4 border-[var(--warning)]/30">
-            <p className="text-sm text-[var(--warning)]">⚠️ 尚未配置 API Key。<Link href="/settings" className="underline ml-1">前往设置</Link></p>
+            <p className="text-sm text-[var(--warning)]">
+              ⚠️ 尚未配置 API Key。
+              <Link href="/settings" className="underline ml-1">
+                前往设置
+              </Link>
+            </p>
           </div>
         )}
 
@@ -120,12 +144,19 @@ export default function AIAssistantPage() {
           {messages.length === 0 && (
             <div className="text-center py-12">
               <Sparkles className="w-12 h-12 mx-auto mb-4 text-[var(--text-muted)] opacity-30" />
-              <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-2">你好，我是你的研究助手</h2>
-              <p className="text-sm text-[var(--text-secondary)] mb-6">告诉我你的研究需求，我会推荐最合适的工具和分析方法</p>
+              <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-2">
+                你好，我是你的研究助手
+              </h2>
+              <p className="text-sm text-[var(--text-secondary)] mb-6">
+                告诉我你的研究需求，我会推荐最合适的工具和分析方法
+              </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-lg mx-auto">
                 {QUICK_ACTIONS.map((action) => (
-                  <button key={action.label} onClick={() => handleSend(action.label)}
-                    className="p-3 rounded-lg border border-[var(--border)] text-left text-xs text-[var(--text-secondary)] hover:border-[var(--primary)]/30 hover:bg-[var(--bg-card)] transition-all">
+                  <button
+                    key={action.label}
+                    onClick={() => handleSend(action.label)}
+                    className="p-3 rounded-lg border border-[var(--border)] text-left text-xs text-[var(--text-secondary)] hover:border-[var(--primary)]/30 hover:bg-[var(--bg-card)] transition-all"
+                  >
                     <Wrench className="w-3.5 h-3.5 mb-1 text-[var(--primary)]" />
                     {action.label}
                   </button>
@@ -135,18 +166,25 @@ export default function AIAssistantPage() {
           )}
 
           {messages.map((msg, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-              className={cn("flex gap-3", msg.role === "user" ? "justify-end" : "justify-start")}>
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={cn("flex gap-3", msg.role === "user" ? "justify-end" : "justify-start")}
+            >
               {msg.role === "assistant" && (
                 <div className="w-8 h-8 rounded-full bg-[var(--primary)]/10 flex items-center justify-center shrink-0">
                   <Bot className="w-4 h-4 text-[var(--primary)]" />
                 </div>
               )}
-              <div className={cn("max-w-[80%] p-3 rounded-2xl text-sm leading-relaxed",
-                msg.role === "user"
-                  ? "bg-[var(--primary)] text-white rounded-br-md"
-                  : "bg-[var(--bg-card)] text-[var(--text-secondary)] rounded-bl-md border border-[var(--border)]"
-              )}>
+              <div
+                className={cn(
+                  "max-w-[80%] p-3 rounded-2xl text-sm leading-relaxed",
+                  msg.role === "user"
+                    ? "bg-[var(--primary)] text-white rounded-br-md"
+                    : "bg-[var(--bg-card)] text-[var(--text-secondary)] rounded-bl-md border border-[var(--border)]"
+                )}
+              >
                 <pre className="whitespace-pre-wrap font-sans">{msg.content}</pre>
               </div>
               {msg.role === "user" && (
@@ -181,8 +219,11 @@ export default function AIAssistantPage() {
             disabled={loading || !hasAnyKey()}
             className="h-12 bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)]"
           />
-          <Button onClick={() => handleSend()} disabled={loading || !input.trim() || !hasAnyKey()}
-            className="h-12 px-5 bg-[var(--primary)] text-white">
+          <Button
+            onClick={() => handleSend()}
+            disabled={loading || !input.trim() || !hasAnyKey()}
+            className="h-12 px-5 bg-[var(--primary)] text-white"
+          >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
           </Button>
         </div>

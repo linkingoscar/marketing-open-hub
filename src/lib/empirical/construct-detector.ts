@@ -30,8 +30,16 @@ export interface Construct {
 
 // 构念颜色池
 const CONSTRUCT_COLORS = [
-  "#6366F1", "#06B6D4", "#F59E0B", "#EC4899", "#10B981",
-  "#EF4444", "#8B5CF6", "#14B8A6", "#F97316", "#3B82F6",
+  "#6366F1",
+  "#06B6D4",
+  "#F59E0B",
+  "#EC4899",
+  "#10B981",
+  "#EF4444",
+  "#8B5CF6",
+  "#14B8A6",
+  "#F97316",
+  "#3B82F6",
 ];
 
 // 人口统计学关键词
@@ -82,7 +90,12 @@ function calcStats(values: number[]): { mean: number; sd: number; min: number; m
   if (n === 0) return { mean: 0, sd: 0, min: 0, max: 0 };
   const m = values.reduce((s, v) => s + v, 0) / n;
   const sd = Math.sqrt(values.reduce((s, v) => s + (v - m) ** 2, 0) / Math.max(1, n - 1));
-  return { mean: +m.toFixed(2), sd: +sd.toFixed(2), min: values.reduce((min, v) => Math.min(min, v), Infinity), max: values.reduce((max, v) => Math.max(max, v), -Infinity) };
+  return {
+    mean: +m.toFixed(2),
+    sd: +sd.toFixed(2),
+    min: values.reduce((min, v) => Math.min(min, v), Infinity),
+    max: values.reduce((max, v) => Math.max(max, v), -Infinity),
+  };
 }
 
 export function autoDetectConstructs(
@@ -118,10 +131,11 @@ export function autoDetectConstructs(
     const items: VariableItem[] = cols.map((col) => {
       const values = rows.map((r) => r[col]).filter((v): v is number => typeof v === "number");
       const stats = calcStats(values);
-      const isLikert = values.length > 0 && values.every((v) => Number.isInteger(v) && v >= 1 && v <= 7);
+      const isLikert =
+        values.length > 0 && values.every((v) => Number.isInteger(v) && v >= 1 && v <= 7);
       return {
         name: col,
-        type: isLikert ? "ordinal" as const : "continuous" as const,
+        type: isLikert ? ("ordinal" as const) : ("continuous" as const),
         values,
         ...stats,
         missing: rows.length - values.length,
@@ -134,8 +148,9 @@ export function autoDetectConstructs(
       displayName: prettifyName(name),
       items,
       color: CONSTRUCT_COLORS[colorIdx % CONSTRUCT_COLORS.length],
-      meanScore: Array.from({ length: rows.length }, (_, i) =>
-        items.reduce((s, item) => s + (item.values[i] ?? 0), 0) / items.length
+      meanScore: Array.from(
+        { length: rows.length },
+        (_, i) => items.reduce((s, item) => s + (item.values[i] ?? 0), 0) / items.length
       ),
     });
     colorIdx++;
@@ -144,16 +159,27 @@ export function autoDetectConstructs(
   const demographics: VariableItem[] = demoCols.map((col) => {
     const values = rows.map((r) => r[col]).filter((v): v is number => typeof v === "number");
     const stats = calcStats(values);
-    return { name: col, type: "demographic", values, ...stats, missing: rows.length - values.length };
+    return {
+      name: col,
+      type: "demographic",
+      values,
+      ...stats,
+      missing: rows.length - values.length,
+    };
   });
 
   const ungrouped: VariableItem[] = ungroupedCols.map((col) => {
     const values = rows.map((r) => r[col]).filter((v): v is number => typeof v === "number");
     const stats = calcStats(values);
-    const isLikert = values.length > 0 && values.every((v) => Number.isInteger(v) && v >= 1 && v <= 7);
+    const isLikert =
+      values.length > 0 && values.every((v) => Number.isInteger(v) && v >= 1 && v <= 7);
     return {
       name: col,
-      type: isLikert ? "ordinal" as const : values.length > 0 ? "continuous" as const : "categorical" as const,
+      type: isLikert
+        ? ("ordinal" as const)
+        : values.length > 0
+          ? ("continuous" as const)
+          : ("categorical" as const),
       values,
       ...stats,
       missing: rows.length - values.length,

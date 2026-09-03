@@ -20,7 +20,11 @@ export function StackedCards() {
         滚动浏览，逐张展开每个精选项目
       </p>
 
-      <div ref={sectionRef} className="relative" style={{ minHeight: `${featured.length * 200 + 400}px` }}>
+      <div
+        ref={sectionRef}
+        className="relative"
+        style={{ minHeight: `${featured.length * 200 + 400}px` }}
+      >
         {featured.map((project, i) => (
           <StackedCard key={project.id} project={project} index={i} parentRef={sectionRef} />
         ))}
@@ -29,8 +33,12 @@ export function StackedCards() {
   );
 }
 
-function StackedCard({ project, index, parentRef }: {
-  project: typeof projects[0];
+function StackedCard({
+  project,
+  index,
+  parentRef,
+}: {
+  project: (typeof projects)[0];
   index: number;
   parentRef: React.RefObject<HTMLDivElement | null>;
 }) {
@@ -48,7 +56,13 @@ function StackedCard({ project, index, parentRef }: {
   const opacity = useTransform(scrollYProgress, [0, 1], [index === 0 ? 1 : initialOpacity, 1]);
 
   const catColor = getCategoryColor(project.category);
-  const avgScore = (project.scores.features + project.scores.easeOfUse + project.scores.documentation + project.scores.community + project.scores.performance) / 5;
+  const avgScore =
+    (project.scores.features +
+      project.scores.easeOfUse +
+      project.scores.documentation +
+      project.scores.community +
+      project.scores.performance) /
+    5;
 
   return (
     <motion.a
@@ -65,7 +79,10 @@ function StackedCard({ project, index, parentRef }: {
       }}
     >
       <div className="flex flex-col sm:flex-row gap-6">
-        <div className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl shrink-0" style={{ background: `${catColor}15` }}>
+        <div
+          className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl shrink-0"
+          style={{ background: `${catColor}15` }}
+        >
           {project.icon}
         </div>
         <div className="flex-1 min-w-0">
@@ -76,18 +93,29 @@ function StackedCard({ project, index, parentRef }: {
             </div>
             <span className="text-2xl font-bold gradient-text">{avgScore.toFixed(1)}</span>
           </div>
-          <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-4">{project.descriptionCN}</p>
+          <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
+            {project.descriptionCN}
+          </p>
           <div className="flex flex-wrap items-center gap-3">
-            <Badge variant="outline" style={{ borderColor: `${catColor}40`, color: catColor }}>{project.language}</Badge>
+            <Badge variant="outline" style={{ borderColor: `${catColor}40`, color: catColor }}>
+              {project.language}
+            </Badge>
             <span className="flex items-center gap-1 text-xs text-[var(--text-tertiary)]">
               <Star className="w-3 h-3 text-[var(--warm)] fill-[var(--warm)]" />
               {project.stars >= 1000 ? `${(project.stars / 1000).toFixed(1)}k` : project.stars}
             </span>
             <span className="flex items-center gap-1 text-xs text-[var(--text-tertiary)]">
-              <GitFork className="w-3 h-3" />{project.forks}
+              <GitFork className="w-3 h-3" />
+              {project.forks}
             </span>
             {project.tags.slice(0, 3).map((tag) => (
-              <Badge key={tag} variant="outline" className="text-[10px] border-[var(--border)] text-[var(--text-muted)]">{tag}</Badge>
+              <Badge
+                key={tag}
+                variant="outline"
+                className="text-[10px] border-[var(--border)] text-[var(--text-muted)]"
+              >
+                {tag}
+              </Badge>
             ))}
           </div>
         </div>

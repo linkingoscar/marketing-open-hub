@@ -124,7 +124,11 @@ export async function callLLM(options: CallOptions): Promise<string> {
   throw lastError ?? new Error("所有 API 提供商均调用失败");
 }
 
-async function callViaProxy(config: { provider: string; apiKey: string; baseUrl: string; model: string }, options: CallOptions, signal: AbortSignal): Promise<string> {
+async function callViaProxy(
+  config: { provider: string; apiKey: string; baseUrl: string; model: string },
+  options: CallOptions,
+  signal: AbortSignal
+): Promise<string> {
   const { messages, temperature = 0.7, maxTokens = 2000, stream = false, onChunk } = options;
   const res = await fetch("/api/chat", {
     method: "POST",
@@ -143,13 +147,18 @@ async function callViaProxy(config: { provider: string; apiKey: string; baseUrl:
     if (!reader) throw new Error("无法读取响应流");
 
     let full = "";
-    await readSSEStream(reader, (line) => {
-      const text = config.provider === "anthropic" ? parseAnthropicSSELine(line) : parseOpenAISSELine(line);
-      if (text) {
-        full += text;
-        onChunk(text);
-      }
-    }, signal);
+    await readSSEStream(
+      reader,
+      (line) => {
+        const text =
+          config.provider === "anthropic" ? parseAnthropicSSELine(line) : parseOpenAISSELine(line);
+        if (text) {
+          full += text;
+          onChunk(text);
+        }
+      },
+      signal
+    );
     return full;
   }
 
@@ -157,7 +166,10 @@ async function callViaProxy(config: { provider: string; apiKey: string; baseUrl:
   return data.text ?? "";
 }
 
-async function callWithConfig(config: { provider: string; apiKey: string; baseUrl: string; model: string }, options: CallOptions): Promise<string> {
+async function callWithConfig(
+  config: { provider: string; apiKey: string; baseUrl: string; model: string },
+  options: CallOptions
+): Promise<string> {
   const { messages, temperature = 0.7, maxTokens = 2000, stream = false, onChunk } = options;
 
   // 120s timeout — LLM responses can be slow for long outputs
@@ -171,13 +183,26 @@ async function callWithConfig(config: { provider: string; apiKey: string; baseUr
       clearTimeout(timeout);
       return proxyResult;
     } catch (proxyErr) {
-      console.warn(`[API Proxy] ${config.provider} proxy failed, falling back to direct call:`, proxyErr);
+      console.warn(
+        `[API Proxy] ${config.provider} proxy failed, falling back to direct call:`,
+        proxyErr
+      );
     }
   }
 
   try {
     // OpenAI-compatible API (works for OpenAI, DeepSeek, MiMo, Qwen, Kimi, Doubao, Spark, Zhipu, custom endpoints)
-    const openaiCompatibleProviders = ["openai", "deepseek", "mimo", "qwen", "kimi", "doubao", "spark", "zhipu", "custom"];
+    const openaiCompatibleProviders = [
+      "openai",
+      "deepseek",
+      "mimo",
+      "qwen",
+      "kimi",
+      "doubao",
+      "spark",
+      "zhipu",
+      "custom",
+    ];
     if (openaiCompatibleProviders.includes(config.provider)) {
       // MiMo uses "api-key" header instead of "Authorization: Bearer"
       const headers: Record<string, string> = { "Content-Type": "application/json" };
@@ -210,13 +235,17 @@ async function callWithConfig(config: { provider: string; apiKey: string; baseUr
         if (!reader) throw new Error("无法读取响应流");
 
         let full = "";
-        await readSSEStream(reader, (line) => {
-          const text = parseOpenAISSELine(line);
-          if (text) {
-            full += text;
-            onChunk(text);
-          }
-        }, controller.signal);
+        await readSSEStream(
+          reader,
+          (line) => {
+            const text = parseOpenAISSELine(line);
+            if (text) {
+              full += text;
+              onChunk(text);
+            }
+          },
+          controller.signal
+        );
         return full;
       }
 
@@ -257,13 +286,17 @@ async function callWithConfig(config: { provider: string; apiKey: string; baseUr
         if (!reader) throw new Error("无法读取响应流");
 
         let full = "";
-        await readSSEStream(reader, (line) => {
-          const text = parseAnthropicSSELine(line);
-          if (text) {
-            full += text;
-            onChunk(text);
-          }
-        }, controller.signal);
+        await readSSEStream(
+          reader,
+          (line) => {
+            const text = parseAnthropicSSELine(line);
+            if (text) {
+              full += text;
+              onChunk(text);
+            }
+          },
+          controller.signal
+        );
         return full;
       }
 
@@ -282,22 +315,19 @@ async function callWithConfig(config: { provider: string; apiKey: string; baseUr
 
       const systemMsg = messages.find((m) => m.role === "system")?.content;
 
-      const res = await fetch(
-        `${config.baseUrl}/models/${config.model}:generateContent`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-goog-api-key": config.apiKey,
-          },
-          body: JSON.stringify({
-            contents,
-            ...(systemMsg && { systemInstruction: { parts: [{ text: systemMsg }] } }),
-            generationConfig: { temperature, maxOutputTokens: maxTokens },
-          }),
-          signal: controller.signal,
-        }
-      );
+      const res = await fetch(`${config.baseUrl}/models/${config.model}:generateContent`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-goog-api-key": config.apiKey,
+        },
+        body: JSON.stringify({
+          contents,
+          ...(systemMsg && { systemInstruction: { parts: [{ text: systemMsg }] } }),
+          generationConfig: { temperature, maxOutputTokens: maxTokens },
+        }),
+        signal: controller.signal,
+      });
 
       if (!res.ok) {
         const err = await res.text();

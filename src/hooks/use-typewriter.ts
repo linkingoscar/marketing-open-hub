@@ -2,7 +2,12 @@
 
 import { useState, useEffect, useCallback } from "react";
 
-export function useTypewriter(words: string[], typingSpeed = 100, deletingSpeed = 50, pauseTime = 2000) {
+export function useTypewriter(
+  words: string[],
+  typingSpeed = 100,
+  deletingSpeed = 50,
+  pauseTime = 2000
+) {
   const [text, setText] = useState("");
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);

@@ -23,10 +23,13 @@ export function CommandPalette() {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
-  const handleSelect = useCallback((path: string) => {
-    setOpen(false);
-    router.push(path);
-  }, [router]);
+  const handleSelect = useCallback(
+    (path: string) => {
+      setOpen(false);
+      router.push(path);
+    },
+    [router]
+  );
 
   if (!open) return null;
 
@@ -36,7 +39,10 @@ export function CommandPalette() {
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
 
       {/* Dialog */}
-      <div className="relative mx-auto mt-[20vh] max-w-lg px-4" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="relative mx-auto mt-[20vh] max-w-lg px-4"
+        onClick={(e) => e.stopPropagation()}
+      >
         <Command className="rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)] shadow-[var(--shadow-lg)] overflow-hidden">
           <div className="flex items-center gap-2 px-4 border-b border-[var(--border)]">
             <Search className="w-4 h-4 text-[var(--text-muted)]" />
@@ -45,7 +51,9 @@ export function CommandPalette() {
               className="h-12 flex-1 bg-transparent text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none text-sm"
               autoFocus
             />
-            <kbd className="text-[10px] text-[var(--text-muted)] border border-[var(--border)] rounded px-1.5 py-0.5">ESC</kbd>
+            <kbd className="text-[10px] text-[var(--text-muted)] border border-[var(--border)] rounded px-1.5 py-0.5">
+              ESC
+            </kbd>
           </div>
 
           <Command.List className="max-h-[300px] overflow-y-auto p-2">
@@ -55,12 +63,26 @@ export function CommandPalette() {
 
             {/* Categories */}
             <Command.Group heading="分类" className="mb-2">
-              {["ai-simulation", "sentiment-analysis", "user-behavior", "marketing-mix", "social-media", "brand-monitoring", "demand-validation", "statistics-toolkit", "customer-data-platform"].map((catId) => {
+              {[
+                "ai-simulation",
+                "sentiment-analysis",
+                "user-behavior",
+                "marketing-mix",
+                "social-media",
+                "brand-monitoring",
+                "demand-validation",
+                "statistics-toolkit",
+                "customer-data-platform",
+              ].map((catId) => {
                 const cat = getCategoryById(catId);
                 if (!cat) return null;
                 return (
-                  <Command.Item key={catId} value={cat.nameCN} onSelect={() => handleSelect(`/category/${catId}`)}
-                    className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-[var(--text-secondary)] cursor-pointer data-[selected=true]:bg-[var(--bg-card-hover)] data-[selected=true]:text-[var(--text-primary)] transition-colors">
+                  <Command.Item
+                    key={catId}
+                    value={cat.nameCN}
+                    onSelect={() => handleSelect(`/category/${catId}`)}
+                    className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-[var(--text-secondary)] cursor-pointer data-[selected=true]:bg-[var(--bg-card-hover)] data-[selected=true]:text-[var(--text-primary)] transition-colors"
+                  >
                     <span className="text-base">{cat.icon}</span>
                     <span className="flex-1">{cat.nameCN}</span>
                     <ArrowRight className="w-3 h-3 text-[var(--text-muted)]" />
@@ -74,16 +96,28 @@ export function CommandPalette() {
               {projects.map((project) => {
                 const cat = getCategoryById(project.category);
                 return (
-                  <Command.Item key={project.id} value={`${project.name} ${project.descriptionCN} ${project.tags.join(" ")}`}
+                  <Command.Item
+                    key={project.id}
+                    value={`${project.name} ${project.descriptionCN} ${project.tags.join(" ")}`}
                     onSelect={() => handleSelect(`/project/${project.id}`)}
-                    className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm cursor-pointer data-[selected=true]:bg-[var(--bg-card-hover)] data-[selected=true]:text-[var(--text-primary)] transition-colors">
+                    className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm cursor-pointer data-[selected=true]:bg-[var(--bg-card-hover)] data-[selected=true]:text-[var(--text-primary)] transition-colors"
+                  >
                     <span className="text-base">{project.icon}</span>
                     <div className="flex-1 min-w-0">
-                      <div className="font-medium text-[var(--text-primary)] truncate">{project.name}</div>
-                      <div className="text-xs text-[var(--text-muted)] truncate">{project.descriptionCN}</div>
+                      <div className="font-medium text-[var(--text-primary)] truncate">
+                        {project.name}
+                      </div>
+                      <div className="text-xs text-[var(--text-muted)] truncate">
+                        {project.descriptionCN}
+                      </div>
                     </div>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded-full border shrink-0"
-                      style={{ borderColor: `${cat?.color ?? "#6366F1"}40`, color: cat?.color ?? "#6366F1" }}>
+                    <span
+                      className="text-[10px] px-1.5 py-0.5 rounded-full border shrink-0"
+                      style={{
+                        borderColor: `${cat?.color ?? "#6366F1"}40`,
+                        color: cat?.color ?? "#6366F1",
+                      }}
+                    >
                       {cat?.nameCN}
                     </span>
                   </Command.Item>

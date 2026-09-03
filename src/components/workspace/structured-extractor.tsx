@@ -53,36 +53,83 @@ export function StructuredExtractor() {
 
           // Extract method
           const methods = [
-            "survey", "experiment", "SEM", "regression", "ANOVA", "t-test",
-            "questionnaire", "interview", "focus group", "meta-analysis",
-            "longitudinal", "cross-sectional", "case study", "RCT",
-            "structural equation", "factor analysis", "cluster analysis",
+            "survey",
+            "experiment",
+            "SEM",
+            "regression",
+            "ANOVA",
+            "t-test",
+            "questionnaire",
+            "interview",
+            "focus group",
+            "meta-analysis",
+            "longitudinal",
+            "cross-sectional",
+            "case study",
+            "RCT",
+            "structural equation",
+            "factor analysis",
+            "cluster analysis",
           ];
-          const foundMethods = methods.filter((m) => abstract.toLowerCase().includes(m.toLowerCase()));
+          const foundMethods = methods.filter((m) =>
+            abstract.toLowerCase().includes(m.toLowerCase())
+          );
           const method = foundMethods.length > 0 ? foundMethods.slice(0, 2).join(", ") : "—";
 
           // Extract industry context
           const industries = [
-            "e-commerce", "retail", "social media", "banking", "healthcare",
-            "education", "tourism", "hospitality", "automotive", "fashion",
-            "food", "technology", "telecom", "insurance", "real estate",
-            "电商", "零售", "金融", "教育", "旅游",
+            "e-commerce",
+            "retail",
+            "social media",
+            "banking",
+            "healthcare",
+            "education",
+            "tourism",
+            "hospitality",
+            "automotive",
+            "fashion",
+            "food",
+            "technology",
+            "telecom",
+            "insurance",
+            "real estate",
+            "电商",
+            "零售",
+            "金融",
+            "教育",
+            "旅游",
           ];
-          const foundIndustry = industries.find((ind) => abstract.toLowerCase().includes(ind.toLowerCase()));
+          const foundIndustry = industries.find((ind) =>
+            abstract.toLowerCase().includes(ind.toLowerCase())
+          );
           const industry = foundIndustry ?? "—";
 
           // Extract region
           const regions = [
-            "China", "USA", "UK", "Europe", "Asia", "India", "Japan",
-            "Korea", "Germany", "Australia", "Canada", "Brazil",
-            "中国", "美国", "欧洲", "亚洲",
+            "China",
+            "USA",
+            "UK",
+            "Europe",
+            "Asia",
+            "India",
+            "Japan",
+            "Korea",
+            "Germany",
+            "Australia",
+            "Canada",
+            "Brazil",
+            "中国",
+            "美国",
+            "欧洲",
+            "亚洲",
           ];
           const foundRegion = regions.find((r) => abstract.includes(r));
           const region = foundRegion ?? "—";
 
           // Extract key finding (first sentence)
           const firstSentence = abstract.split(".")[0] ?? "";
-          const keyFinding = firstSentence.length > 150 ? firstSentence.slice(0, 150) + "..." : firstSentence;
+          const keyFinding =
+            firstSentence.length > 150 ? firstSentence.slice(0, 150) + "..." : firstSentence;
 
           // Extract effect size
           const effectMatch = abstract.match(/(?:d|η²|ω²|r|β|OR)\s*=\s*([−-]?\d+\.?\d*)/);
@@ -102,7 +149,20 @@ export function StructuredExtractor() {
   const handleExportCSV = () => {
     if (results.length === 0) return;
 
-    const headers = ["标题", "作者", "年份", "期刊", "引用数", "样本量", "方法", "行业", "地区", "关键发现", "效应量", "链接"];
+    const headers = [
+      "标题",
+      "作者",
+      "年份",
+      "期刊",
+      "引用数",
+      "样本量",
+      "方法",
+      "行业",
+      "地区",
+      "关键发现",
+      "效应量",
+      "链接",
+    ];
     const rows = results.map((r) => [
       r.paper.title,
       r.paper.authors?.map((a) => a.name).join("; ") ?? "",
@@ -118,7 +178,9 @@ export function StructuredExtractor() {
       r.paper.url,
     ]);
 
-    const csv = [headers, ...rows].map((row) => row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
+    const csv = [headers, ...rows]
+      .map((row) => row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(","))
+      .join("\n");
     const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -178,13 +240,19 @@ export function StructuredExtractor() {
 
       {/* Results table */}
       {results.length > 0 && (
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="space-y-4"
+        >
           {/* Header with export */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Table2 className="w-4 h-4 text-[var(--primary)]" />
               <span className="text-sm font-medium text-[var(--text-primary)]">提取结果</span>
-              <span className="px-2 py-0.5 rounded text-xs bg-[var(--primary)]/10 text-[var(--primary)]">{results.length} 篇</span>
+              <span className="px-2 py-0.5 rounded text-xs bg-[var(--primary)]/10 text-[var(--primary)]">
+                {results.length} 篇
+              </span>
             </div>
             <button
               onClick={handleExportCSV}
@@ -223,7 +291,10 @@ export function StructuredExtractor() {
                 </thead>
                 <tbody>
                   {sortedResults.map((item) => (
-                    <tr key={item.paper.paperId} className="border-b border-[var(--border)] hover:bg-[var(--bg-card-hover)] transition-colors">
+                    <tr
+                      key={item.paper.paperId}
+                      className="border-b border-[var(--border)] hover:bg-[var(--bg-card-hover)] transition-colors"
+                    >
                       <td className="py-2 px-3 max-w-xs">
                         <a
                           href={item.paper.url}
@@ -235,15 +306,22 @@ export function StructuredExtractor() {
                           <ExternalLink className="w-3 h-3 shrink-0 mt-0.5 opacity-50" />
                         </a>
                         <p className="text-[10px] text-[var(--text-muted)] mt-0.5">
-                          {item.paper.authors?.slice(0, 2).map((a) => a.name).join(", ")}
+                          {item.paper.authors
+                            ?.slice(0, 2)
+                            .map((a) => a.name)
+                            .join(", ")}
                           {item.paper.year ? ` (${item.paper.year})` : ""}
                         </p>
                       </td>
-                      <td className="py-2 px-3 font-mono text-[var(--text-secondary)]">{item.sampleSize}</td>
+                      <td className="py-2 px-3 font-mono text-[var(--text-secondary)]">
+                        {item.sampleSize}
+                      </td>
                       <td className="py-2 px-3 text-[var(--text-secondary)]">{item.method}</td>
                       <td className="py-2 px-3 text-[var(--text-secondary)]">{item.industry}</td>
                       <td className="py-2 px-3 text-[var(--text-secondary)]">{item.region}</td>
-                      <td className="py-2 px-3 font-mono text-[var(--text-secondary)]">{item.effectSize}</td>
+                      <td className="py-2 px-3 font-mono text-[var(--text-secondary)]">
+                        {item.effectSize}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -265,7 +343,11 @@ export function StructuredExtractor() {
             </div>
             <div className="glass-card p-3 text-center">
               <p className="text-lg font-bold text-[var(--text-primary)]">
-                {new Set(results.filter((r) => r.method !== "—").flatMap((r) => r.method.split(", "))).size}
+                {
+                  new Set(
+                    results.filter((r) => r.method !== "—").flatMap((r) => r.method.split(", "))
+                  ).size
+                }
               </p>
               <p className="text-[10px] text-[var(--text-muted)]">研究方法类型</p>
             </div>
@@ -284,7 +366,9 @@ export function StructuredExtractor() {
         <div className="text-center py-16">
           <Table2 className="w-12 h-12 mx-auto mb-4 text-[var(--text-muted)] opacity-30" />
           <p className="text-[var(--text-muted)]">输入研究主题，自动提取文献的关键字段</p>
-          <p className="text-xs text-[var(--text-muted)] mt-1">提取样本量、方法、行业、地区、效应量等结构化信息</p>
+          <p className="text-xs text-[var(--text-muted)] mt-1">
+            提取样本量、方法、行业、地区、效应量等结构化信息
+          </p>
         </div>
       )}
     </div>

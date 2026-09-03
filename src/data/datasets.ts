@@ -17,7 +17,21 @@ export const SAMPLE_DATASETS: SampleDataset[] = [
     nameCN: "客户满意度问卷",
     description: "Likert 7 级量表问卷数据，包含品牌信任、感知价值、购买意愿等构念",
     rows: 500,
-    columns: ["id", "age", "gender", "income", "trust_1", "trust_2", "trust_3", "pv_1", "pv_2", "pv_3", "purchase_intent", "satisfaction", "loyalty"],
+    columns: [
+      "id",
+      "age",
+      "gender",
+      "income",
+      "trust_1",
+      "trust_2",
+      "trust_3",
+      "pv_1",
+      "pv_2",
+      "pv_3",
+      "purchase_intent",
+      "satisfaction",
+      "loyalty",
+    ],
     category: "问卷",
     source: "模拟数据",
     useCase: "信效度检验、SEM、中介调节分析",
@@ -28,7 +42,16 @@ export const SAMPLE_DATASETS: SampleDataset[] = [
     nameCN: "A/B 测试结果",
     description: "电商 A/B 测试数据：对照组 vs 实验组的转化率、客单价、停留时长",
     rows: 2000,
-    columns: ["user_id", "group", "converted", "revenue", "time_on_page", "pages_viewed", "device", "source"],
+    columns: [
+      "user_id",
+      "group",
+      "converted",
+      "revenue",
+      "time_on_page",
+      "pages_viewed",
+      "device",
+      "source",
+    ],
     category: "实验",
     source: "模拟数据",
     useCase: "t 检验、卡方检验、Uplift 建模",
@@ -61,7 +84,16 @@ export const SAMPLE_DATASETS: SampleDataset[] = [
     nameCN: "营销支出数据",
     description: "各渠道营销支出 + 销售额时间序列，适用于 MMM 建模",
     rows: 104,
-    columns: ["week", "tv_spend", "digital_spend", "social_spend", "search_spend", "sales", "price", "promotions"],
+    columns: [
+      "week",
+      "tv_spend",
+      "digital_spend",
+      "social_spend",
+      "search_spend",
+      "sales",
+      "price",
+      "promotions",
+    ],
     category: "营销",
     source: "模拟数据",
     useCase: "营销组合建模、因果推断、时间序列分析",
@@ -72,7 +104,22 @@ export const SAMPLE_DATASETS: SampleDataset[] = [
     nameCN: "技术接受度问卷",
     description: "TAM 模型问卷：感知有用性、感知易用性、使用态度、使用意向",
     rows: 300,
-    columns: ["id", "age", "education", "experience", "pu_1", "pu_2", "pu_3", "peou_1", "peou_2", "peou_3", "attitude_1", "attitude_2", "intention_1", "intention_2"],
+    columns: [
+      "id",
+      "age",
+      "education",
+      "experience",
+      "pu_1",
+      "pu_2",
+      "pu_3",
+      "peou_1",
+      "peou_2",
+      "peou_3",
+      "attitude_1",
+      "attitude_2",
+      "intention_1",
+      "intention_2",
+    ],
     category: "问卷",
     source: "模拟数据",
     useCase: "EFA/CFA、SEM 路径分析、中介效应",
@@ -91,7 +138,12 @@ export function generateSampleCSV(dataset: SampleDataset): string {
     for (const col of dataset.columns) {
       if (col === "id" || col === "user_id" || col === "customer_id" || col === "week") {
         row.push(String(i + 1));
-      } else if (col.endsWith("_1") || col.endsWith("_2") || col.endsWith("_3") || col.endsWith("_4")) {
+      } else if (
+        col.endsWith("_1") ||
+        col.endsWith("_2") ||
+        col.endsWith("_3") ||
+        col.endsWith("_4")
+      ) {
         row.push(String(rng(1, 7)));
       } else if (col === "age") {
         row.push(String(rng(18, 65)));

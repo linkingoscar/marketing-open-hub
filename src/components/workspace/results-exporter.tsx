@@ -44,7 +44,11 @@ export function ResultsExporter({ testLabel, apa, stats }: ResultsExporterProps)
   const tableText = useMemo(() => {
     const lines: string[] = [];
     lines.push(Object.keys(stats).join("\t"));
-    lines.push(Object.values(stats).map((v) => typeof v === "object" ? JSON.stringify(v) : String(v)).join("\t"));
+    lines.push(
+      Object.values(stats)
+        .map((v) => (typeof v === "object" ? JSON.stringify(v) : String(v)))
+        .join("\t")
+    );
     return lines.join("\n");
   }, [stats]);
 
@@ -84,35 +88,57 @@ export function ResultsExporter({ testLabel, apa, stats }: ResultsExporterProps)
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
         {/* APA Format */}
-        <button onClick={() => handleCopy("apa")}
-          className="p-3 rounded-lg border border-[var(--border)] hover:border-[var(--primary)]/30 hover:bg-[var(--bg-card-hover)] transition-all text-left group">
+        <button
+          onClick={() => handleCopy("apa")}
+          className="p-3 rounded-lg border border-[var(--border)] hover:border-[var(--primary)]/30 hover:bg-[var(--bg-card-hover)] transition-all text-left group"
+        >
           <div className="flex items-center justify-between mb-1">
             <span className="text-xs font-medium text-[var(--text-primary)]">APA 格式</span>
-            {copied === "apa" ? <Check className="w-3 h-3 text-[var(--success)]" /> : <Copy className="w-3 h-3 text-[var(--text-muted)] group-hover:text-[var(--primary)]" />}
+            {copied === "apa" ? (
+              <Check className="w-3 h-3 text-[var(--success)]" />
+            ) : (
+              <Copy className="w-3 h-3 text-[var(--text-muted)] group-hover:text-[var(--primary)]" />
+            )}
           </div>
           <p className="text-[10px] text-[var(--text-muted)] line-clamp-2">{apa.statistic}</p>
           <span className="text-[9px] text-[var(--text-muted)] mt-1 block">点击复制到剪贴板</span>
         </button>
 
         {/* Stats Table */}
-        <button onClick={() => handleCopy("table")}
-          className="p-3 rounded-lg border border-[var(--border)] hover:border-[var(--primary)]/30 hover:bg-[var(--bg-card-hover)] transition-all text-left group">
+        <button
+          onClick={() => handleCopy("table")}
+          className="p-3 rounded-lg border border-[var(--border)] hover:border-[var(--primary)]/30 hover:bg-[var(--bg-card-hover)] transition-all text-left group"
+        >
           <div className="flex items-center justify-between mb-1">
             <span className="text-xs font-medium text-[var(--text-primary)]">统计量表格</span>
-            {copied === "table" ? <Check className="w-3 h-3 text-[var(--success)]" /> : <Copy className="w-3 h-3 text-[var(--text-muted)] group-hover:text-[var(--primary)]" />}
+            {copied === "table" ? (
+              <Check className="w-3 h-3 text-[var(--success)]" />
+            ) : (
+              <Copy className="w-3 h-3 text-[var(--text-muted)] group-hover:text-[var(--primary)]" />
+            )}
           </div>
-          <p className="text-[10px] text-[var(--text-muted)] line-clamp-2">{Object.keys(stats).length} 个统计量（制表符分隔）</p>
+          <p className="text-[10px] text-[var(--text-muted)] line-clamp-2">
+            {Object.keys(stats).length} 个统计量（制表符分隔）
+          </p>
           <span className="text-[9px] text-[var(--text-muted)] mt-1 block">点击复制到剪贴板</span>
         </button>
 
         {/* Results Paragraph */}
-        <button onClick={() => handleCopy("results")}
-          className="p-3 rounded-lg border border-[var(--border)] hover:border-[var(--primary)]/30 hover:bg-[var(--bg-card-hover)] transition-all text-left group">
+        <button
+          onClick={() => handleCopy("results")}
+          className="p-3 rounded-lg border border-[var(--border)] hover:border-[var(--primary)]/30 hover:bg-[var(--bg-card-hover)] transition-all text-left group"
+        >
           <div className="flex items-center justify-between mb-1">
             <span className="text-xs font-medium text-[var(--text-primary)]">结果段落</span>
-            {copied === "results" ? <Check className="w-3 h-3 text-[var(--success)]" /> : <Copy className="w-3 h-3 text-[var(--text-muted)] group-hover:text-[var(--primary)]" />}
+            {copied === "results" ? (
+              <Check className="w-3 h-3 text-[var(--success)]" />
+            ) : (
+              <Copy className="w-3 h-3 text-[var(--text-muted)] group-hover:text-[var(--primary)]" />
+            )}
           </div>
-          <p className="text-[10px] text-[var(--text-muted)] line-clamp-2">可直接粘贴到论文“结果”部分</p>
+          <p className="text-[10px] text-[var(--text-muted)] line-clamp-2">
+            可直接粘贴到论文“结果”部分
+          </p>
           <span className="text-[9px] text-[var(--text-muted)] mt-1 block">点击复制到剪贴板</span>
         </button>
 
@@ -124,15 +150,28 @@ export function ResultsExporter({ testLabel, apa, stats }: ResultsExporterProps)
               title={testLabel}
               sections={[
                 { heading: "检验方法", content: apa.test },
-                { heading: "统计结果", content: apa.statistic + (apa.effect ? `\n效应量: ${apa.effect}` : "") + (apa.ci ? `\n置信区间: ${apa.ci}` : "") },
+                {
+                  heading: "统计结果",
+                  content:
+                    apa.statistic +
+                    (apa.effect ? `\n效应量: ${apa.effect}` : "") +
+                    (apa.ci ? `\n置信区间: ${apa.ci}` : ""),
+                },
                 { heading: "结论", content: apa.conclusion },
                 { heading: "详细解读", content: apa.interpretation },
-                { heading: "统计量", content: Object.entries(stats).map(([k, v]) => `${k}: ${typeof v === "object" ? JSON.stringify(v) : v}`).join("\n") },
+                {
+                  heading: "统计量",
+                  content: Object.entries(stats)
+                    .map(([k, v]) => `${k}: ${typeof v === "object" ? JSON.stringify(v) : v}`)
+                    .join("\n"),
+                },
               ]}
               filename={`${testLabel}-report`}
             />
           </div>
-          <p className="text-[10px] text-[var(--text-muted)]">下载 .html 格式报告（可用 Word 打开）</p>
+          <p className="text-[10px] text-[var(--text-muted)]">
+            下载 .html 格式报告（可用 Word 打开）
+          </p>
         </div>
       </div>
     </div>

@@ -1,0 +1,65 @@
+name: 📊 Statistical Bug / Discrepancy Report
+description: Report a numerical discrepancy or formula issue in a statistical test compared to R, SciPy, SPSS, or JASP.
+title: "[Stats Bug]: "
+labels: ["statistics", "bug", "reproducibility"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping us maintain rigorous statistical and academic standards!
+        To investigate numerical discrepancies, please provide reproducible input data and reference benchmark outputs.
+  - type: dropdown
+    id: test-method
+    attributes:
+      label: Statistical Test / Method
+      description: Which statistical test produced the unexpected result?
+      options:
+        - "Student's t-test (Independent)"
+        - "Paired Samples t-test"
+        - "One-Way ANOVA"
+        - "Repeated Measures ANOVA"
+        - "Chi-Square Test of Independence"
+        - "Fisher's Exact Test"
+        - "Pearson Correlation"
+        - "Spearman Correlation"
+        - "Linear / Logistic Regression"
+        - "Bootstrap Mediation (PROCESS-style)"
+        - "Scale Reliability (Cronbach / CR-AVE / HTMT)"
+        - "Other"
+    validations:
+      required: true
+  - type: textarea
+    id: dataset
+    attributes:
+      label: Minimal Reproducible Dataset
+      description: Provide the numbers or CSV data used for the calculation.
+      placeholder: |
+        Group 1: [25, 28, 30, 32, 27]
+        Group 2: [18, 20, 22, 19, 21]
+    validations:
+      required: true
+  - type: textarea
+    id: platform-result
+    attributes:
+      label: Output from Marketing Open Hub
+      description: What values (statistic, df, p-value, effect size) did the platform display?
+      placeholder: "t = 4.12, p = 0.003, Cohen's d = 1.2"
+    validations:
+      required: true
+  - type: textarea
+    id: reference-result
+    attributes:
+      label: Ground Truth Reference Output (R / SciPy / SPSS / JASP)
+      description: Provide the expected values and specify the reference software, library, and version.
+      placeholder: |
+        R 4.3.2 `t.test(g1, g2, var.equal=TRUE)`:
+        t = 3.98, df = 8, p-value = 0.0041
+    validations:
+      required: true
+  - type: textarea
+    id: formula-or-notes
+    attributes:
+      label: Theoretical Formula / Academic Notes
+      description: Any academic references, formulas, or standard citations explaining the expected behavior.
+    validations:
+      required: false

@@ -18,7 +18,12 @@ interface DataTransferStore {
   } | null;
 
   /** 保存分析结果供其他工具使用 */
-  saveResult: (toolId: string, toolName: string, data: unknown, format: "csv" | "json" | "table") => void;
+  saveResult: (
+    toolId: string,
+    toolName: string,
+    data: unknown,
+    format: "csv" | "json" | "table"
+  ) => void;
 
   /** 清除保存的结果 */
   clearResult: () => void;
@@ -87,7 +92,8 @@ export const ONBOARDING_STEPS = [
   {
     id: "api-setup",
     title: "第一步：配置 API Key",
-    description: "AI 功能需要 LLM API Key。推荐 DeepSeek（性价比最高）。配置后所有 AI 工具即可使用。",
+    description:
+      "AI 功能需要 LLM API Key。推荐 DeepSeek（性价比最高）。配置后所有 AI 工具即可使用。",
     target: "/settings",
   },
   {
@@ -99,7 +105,8 @@ export const ONBOARDING_STEPS = [
   {
     id: "statistics",
     title: "核心功能：统计分析",
-    description: "支持 36 种统计检验，自动输出 APA 格式 + 通俗解释 + 应用建议。上传 CSV 或使用内置数据集。",
+    description:
+      "支持 36 种统计检验，自动输出 APA 格式 + 通俗解释 + 应用建议。上传 CSV 或使用内置数据集。",
     target: "/workspace/statistics",
   },
   {

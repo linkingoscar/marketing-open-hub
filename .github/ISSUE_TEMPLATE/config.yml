@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Academic & Usage Discussions
+    url: https://github.com/linkingoscar/marketing-open-hub/discussions
+    about: Ask questions about research workflows, statistical interpretations, and marketing science best practices.
+  - name: 🔒 Security Vulnerability Reporting
+    url: https://github.com/linkingoscar/marketing-open-hub/security/policy
+    about: Report potential security vulnerabilities privately without opening a public issue.

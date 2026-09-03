@@ -70,7 +70,9 @@ export function Navbar() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => document.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }))}
+              onClick={() =>
+                document.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }))
+              }
               className="hidden sm:flex items-center gap-2 bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]"
             >
               <Search className="w-4 h-4" />
@@ -93,7 +95,10 @@ export function Navbar() {
               <span className="sr-only">切换主题</span>
             </Button>
 
-            <a href="https://github.com/linkingoscar/marketing-open-hub" target="_blank" rel="noopener noreferrer"
+            <a
+              href="https://github.com/linkingoscar/marketing-open-hub"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center h-9 w-9 rounded-md text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)] transition-colors"
             >
               <GitFork className="h-4 w-4" />
@@ -105,7 +110,10 @@ export function Navbar() {
                   <Menu className="h-5 w-5" />
                 </span>
               </SheetTrigger>
-              <SheetContent side="right" className="bg-[var(--bg-secondary)] border-[var(--border)] w-[280px]">
+              <SheetContent
+                side="right"
+                className="bg-[var(--bg-secondary)] border-[var(--border)] w-[280px]"
+              >
                 <SheetTitle className="sr-only">导航菜单</SheetTitle>
                 <div className="flex flex-col gap-4 mt-8">
                   {navLinks.map((link) => (

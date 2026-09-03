@@ -10,6 +10,8 @@ import {
   q,
   normalCDF,
   gammaFn,
+  logGamma,
+  regIncGamma,
   fDistCDF,
   chiDistCDF,
   pStars,
@@ -69,6 +71,11 @@ describe("Statistics Math Library", () => {
       expect(gammaFn(3)).toBeCloseTo(2, 3);
       expect(gammaFn(4)).toBeCloseTo(6, 3);
       expect(gammaFn(0.5)).toBeCloseTo(Math.sqrt(Math.PI), 3);
+
+      expect(logGamma(1)).toBeCloseTo(0, 3);
+      expect(logGamma(2)).toBeCloseTo(0, 3);
+      expect(logGamma(5)).toBeCloseTo(Math.log(24), 3);
+      expect(regIncGamma(1, 1)).toBeCloseTo(1 - Math.exp(-1), 4);
     });
 
     it("fDistCDF and chiDistCDF handle edge cases safely", () => {
@@ -77,8 +84,26 @@ describe("Statistics Math Library", () => {
       expect(fDistCDF(1, 2, 2)).toBeLessThan(1);
 
       expect(chiDistCDF(-1, 2)).toBe(0);
-      expect(chiDistCDF(2, 2)).toBeGreaterThan(0);
-      expect(chiDistCDF(2, 2)).toBeLessThan(1);
+      expect(chiDistCDF(0, 2)).toBe(0);
+    });
+
+    it("chiDistCDF computes accurate probabilities against theoretical critical values", () => {
+      // chi2(2) at x=2 is exactly 1 - 1/e ≈ 0.63212
+      expect(chiDistCDF(2, 2)).toBeCloseTo(1 - Math.exp(-1), 4);
+
+      // Theoretical 95% critical values:
+      // chi2(1) = 3.8414588 => CDF ≈ 0.95
+      expect(chiDistCDF(3.8414588, 1)).toBeCloseTo(0.95, 3);
+
+      // chi2(2) = 5.9914645 => CDF ≈ 0.95
+      expect(chiDistCDF(5.9914645, 2)).toBeCloseTo(0.95, 3);
+
+      // chi2(10) = 18.307038 => CDF ≈ 0.95
+      expect(chiDistCDF(18.307038, 10)).toBeCloseTo(0.95, 3);
+
+      // Monotonicity check
+      expect(chiDistCDF(3, 2)).toBeGreaterThan(chiDistCDF(2, 2));
+      expect(chiDistCDF(4, 2)).toBeGreaterThan(chiDistCDF(3, 2));
     });
 
     it("pStars formats significance levels accurately", () => {
@@ -104,7 +129,7 @@ describe("Statistics Math Library", () => {
 
     it("approximateNormalityP gives continuous smooth p-values", () => {
       const pHigh = approximateNormalityP(0.98, 50);
-      const pLow = approximateNormalityP(0.70, 50);
+      const pLow = approximateNormalityP(0.7, 50);
       expect(pHigh).toBeGreaterThan(0.05);
       expect(pLow).toBeLessThan(0.05);
     });

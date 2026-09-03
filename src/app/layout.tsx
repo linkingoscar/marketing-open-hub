@@ -16,7 +16,16 @@ export const metadata: Metadata = {
     template: "%s | MarTech Open Hub",
   },
   description: "汇聚市场营销 × 消费者行为研究的开源项目，支持搜索、对比和快速上手。",
-  keywords: ["市场营销", "开源", "消费者行为", "情感分析", "用户画像", "NLP", "AI", "market research"],
+  keywords: [
+    "市场营销",
+    "开源",
+    "消费者行为",
+    "情感分析",
+    "用户画像",
+    "NLP",
+    "AI",
+    "market research",
+  ],
   authors: [{ name: "MarTech Open Hub" }],
   openGraph: {
     type: "website",

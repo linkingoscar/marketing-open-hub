@@ -11,8 +11,8 @@ describe("Hayes Model 4 Bootstrap Mediation Engine", () => {
 
     for (let i = 0; i < n; i++) {
       const xi = (i - n / 2) / 10;
-      const mi = 0.7 * xi + (Math.sin(i) * 0.2); // strong a path
-      const yi = 0.6 * mi + (Math.cos(i) * 0.2); // strong b path, weak c' path
+      const mi = 0.7 * xi + Math.sin(i) * 0.2; // strong a path
+      const yi = 0.6 * mi + Math.cos(i) * 0.2; // strong b path, weak c' path
       x.push(xi);
       m.push(mi);
       y.push(yi);

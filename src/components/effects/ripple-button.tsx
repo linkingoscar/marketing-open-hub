@@ -29,7 +29,12 @@ export function RippleButton({ children, className, ...props }: RippleButtonProp
   };
 
   return (
-    <button ref={btnRef} {...props} onClick={handleClick} className={cn("relative overflow-hidden", className)}>
+    <button
+      ref={btnRef}
+      {...props}
+      onClick={handleClick}
+      className={cn("relative overflow-hidden", className)}
+    >
       {children}
     </button>
   );

@@ -3,7 +3,13 @@
 import { useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 
-interface Particle { x: number; y: number; vx: number; vy: number; size: number; }
+interface Particle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  size: number;
+}
 
 export function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -15,7 +21,10 @@ export function ParticleBackground() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
     resize();
     window.addEventListener("resize", resize);
 
@@ -37,7 +46,8 @@ export function ParticleBackground() {
       const lineColor = isDark ? "rgba(99,102,241," : "rgba(99,102,241,";
 
       for (const p of particles) {
-        p.x += p.vx; p.y += p.vy;
+        p.x += p.vx;
+        p.y += p.vy;
         if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
         if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
         ctx.beginPath();
@@ -65,8 +75,17 @@ export function ParticleBackground() {
     };
     animate();
 
-    return () => { window.removeEventListener("resize", resize); cancelAnimationFrame(animId); };
+    return () => {
+      window.removeEventListener("resize", resize);
+      cancelAnimationFrame(animId);
+    };
   }, [theme]);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }} />;
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 w-full h-full pointer-events-none"
+      style={{ zIndex: 0 }}
+    />
+  );
 }

@@ -16,6 +16,7 @@ import type {
   UserDataset,
   ProjectCache,
 } from "./types";
+import { MockDatabase } from "./mock";
 
 export interface DatabaseInterface {
   // ===== 用户 =====
@@ -45,7 +46,10 @@ export interface DatabaseInterface {
   // ===== API 使用量 =====
   getAPIUsage(userId: string, provider?: string): Promise<APIUsageRecord[]>;
   addAPIUsage(record: Omit<APIUsageRecord, "id" | "createdAt">): Promise<APIUsageRecord>;
-  getUsageSummary(userId: string, days?: number): Promise<{
+  getUsageSummary(
+    userId: string,
+    days?: number
+  ): Promise<{
     totalRequests: number;
     totalTokens: number;
     estimatedCost: number;
@@ -73,11 +77,5 @@ export interface DatabaseInterface {
  * 根据环境变量选择实现
  */
 export function createDatabase(): DatabaseInterface {
-  // 当前使用 mock 实现
-  // 未来根据环境变量切换:
-  // if (process.env.NEXT_PUBLIC_DB_PROVIDER === "supabase") {
-  //   return new SupabaseDatabase();
-  // }
-  const { MockDatabase } = require("./mock");
   return new MockDatabase();
 }

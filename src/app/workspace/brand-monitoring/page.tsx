@@ -117,7 +117,12 @@ ${textInput ? `以下是相关数据：\n${textInput}` : "请基于你的知识�
         onChunk: (text) => setResult((prev) => prev + text),
       });
       if (!result) setResult(res);
-      addRecord({ tool: "brand-monitoring", type: MODES.find((m) => m.id === mode)!.label, input: brandName, result: res || result });
+      addRecord({
+        tool: "brand-monitoring",
+        type: MODES.find((m) => m.id === mode)!.label,
+        input: brandName,
+        result: res || result,
+      });
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : "分析失败");
     } finally {
@@ -128,31 +133,54 @@ ${textInput ? `以下是相关数据：\n${textInput}` : "请基于你的知识�
   return (
     <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-        <Link href="/workspace" className="inline-flex items-center gap-1 text-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors mb-6">
+        <Link
+          href="/workspace"
+          className="inline-flex items-center gap-1 text-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors mb-6"
+        >
           <ArrowLeft className="w-4 h-4" /> 返回工作台
         </Link>
 
         <div className="flex items-center gap-3 mb-2">
-          <div className="w-10 h-10 rounded-lg bg-[#EF4444]/10 flex items-center justify-center text-xl">🏷️</div>
+          <div className="w-10 h-10 rounded-lg bg-[#EF4444]/10 flex items-center justify-center text-xl">
+            🏷️
+          </div>
           <div>
             <h1 className="text-2xl font-bold text-[var(--text-primary)]">品牌监测</h1>
-            <p className="text-sm text-[var(--text-muted)]">基于 GEO-Insight · SocialPulse · Sentiment-Analysis-for-Branding</p>
+            <p className="text-sm text-[var(--text-muted)]">
+              基于 GEO-Insight · SocialPulse · Sentiment-Analysis-for-Branding
+            </p>
           </div>
         </div>
-        <p className="text-[var(--text-secondary)] mb-6">输入品牌名，AI 模拟多平台搜索，输出可见性评分、舆情分析、竞品对比</p>
+        <p className="text-[var(--text-secondary)] mb-6">
+          输入品牌名，AI 模拟多平台搜索，输出可见性评分、舆情分析、竞品对比
+        </p>
 
         {!hasAnyKey() && (
           <div className="glass-card p-4 mb-6 border-[var(--warning)]/30">
-            <p className="text-sm text-[var(--warning)]">⚠️ 尚未配置 API Key。<Link href="/settings" className="underline ml-1">前往设置</Link></p>
+            <p className="text-sm text-[var(--warning)]">
+              ⚠️ 尚未配置 API Key。
+              <Link href="/settings" className="underline ml-1">
+                前往设置
+              </Link>
+            </p>
           </div>
         )}
 
         <div className="flex flex-wrap gap-2 mb-6">
           {MODES.map((m) => (
-            <button key={m.id} onClick={() => { setMode(m.id); setResult(""); }}
-              className={cn("px-3 py-1.5 rounded-full text-sm border transition-colors",
-                mode === m.id ? "border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)]/10" : "border-[var(--border)] text-[var(--text-tertiary)]"
-              )}>
+            <button
+              key={m.id}
+              onClick={() => {
+                setMode(m.id);
+                setResult("");
+              }}
+              className={cn(
+                "px-3 py-1.5 rounded-full text-sm border transition-colors",
+                mode === m.id
+                  ? "border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)]/10"
+                  : "border-[var(--border)] text-[var(--text-tertiary)]"
+              )}
+            >
               {m.label}
             </button>
           ))}
@@ -162,30 +190,57 @@ ${textInput ? `以下是相关数据：\n${textInput}` : "请基于你的知识�
           <div className="space-y-4">
             <div>
               <label className="text-sm text-[var(--text-tertiary)] mb-2 block">品牌名称</label>
-              <Input value={brandName} onChange={(e) => setBrandName(e.target.value)} placeholder="例如：小米、Nike、星巴克..."
-                className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)]" />
+              <Input
+                value={brandName}
+                onChange={(e) => setBrandName(e.target.value)}
+                placeholder="例如：小米、Nike、星巴克..."
+                className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)]"
+              />
             </div>
 
-            {(mode === "competitor") && (
+            {mode === "competitor" && (
               <div>
-                <label className="text-sm text-[var(--text-tertiary)] mb-2 block">竞品名称（逗号分隔，可选）</label>
-                <Input value={competitors} onChange={(e) => setCompetitors(e.target.value)} placeholder="华为, 苹果, 三星"
-                  className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)]" />
+                <label className="text-sm text-[var(--text-tertiary)] mb-2 block">
+                  竞品名称（逗号分隔，可选）
+                </label>
+                <Input
+                  value={competitors}
+                  onChange={(e) => setCompetitors(e.target.value)}
+                  placeholder="华为, 苹果, 三星"
+                  className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)]"
+                />
               </div>
             )}
 
             {(mode === "sentiment" || mode === "crisis") && (
               <div>
-                <label className="text-sm text-[var(--text-tertiary)] mb-2 block">舆情数据（可选，粘贴评论/社媒内容）</label>
-                <Textarea rows={6} value={textInput} onChange={(e) => setTextInput(e.target.value)}
+                <label className="text-sm text-[var(--text-tertiary)] mb-2 block">
+                  舆情数据（可选，粘贴评论/社媒内容）
+                </label>
+                <Textarea
+                  rows={6}
+                  value={textInput}
+                  onChange={(e) => setTextInput(e.target.value)}
                   placeholder="粘贴收集到的评论、社媒帖子等..."
-                  className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)] resize-none" />
+                  className="bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-primary)] resize-none"
+                />
               </div>
             )}
 
-            <Button onClick={handleRun} disabled={loading || !brandName.trim() || !hasAnyKey()}
-              className="w-full h-11 bg-[var(--primary)] text-white hover:opacity-90">
-              {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> 分析中...</> : <><Play className="w-4 h-4 mr-2" /> 开始分析</>}
+            <Button
+              onClick={handleRun}
+              disabled={loading || !brandName.trim() || !hasAnyKey()}
+              className="w-full h-11 bg-[var(--primary)] text-white hover:opacity-90"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" /> 分析中...
+                </>
+              ) : (
+                <>
+                  <Play className="w-4 h-4 mr-2" /> 开始分析
+                </>
+              )}
             </Button>
 
             <HistoryPanel tool="brand-monitoring" />
@@ -195,10 +250,19 @@ ${textInput ? `以下是相关数据：\n${textInput}` : "请基于你的知识�
             <div className="flex items-center justify-between">
               <label className="text-sm text-[var(--text-tertiary)]">分析结果</label>
               {result && (
-                <Button variant="ghost" size="sm" className="h-7 px-2 text-xs" onClick={() => {
-                  const blob = new Blob([result], { type: "text/markdown" }); const url = URL.createObjectURL(blob);
-                  const a = document.createElement("a"); a.href = url; a.download = `brand-${mode}-${Date.now()}.md`; a.click();
-                }}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-7 px-2 text-xs"
+                  onClick={() => {
+                    const blob = new Blob([result], { type: "text/markdown" });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = `brand-${mode}-${Date.now()}.md`;
+                    a.click();
+                  }}
+                >
                   <Download className="w-3 h-3 mr-1" /> 导出
                 </Button>
               )}
@@ -207,7 +271,9 @@ ${textInput ? `以下是相关数据：\n${textInput}` : "请基于你的知识�
               {error ? (
                 <div className="text-[var(--error)] text-sm">{error}</div>
               ) : result ? (
-                <pre className="whitespace-pre-wrap text-sm text-[var(--text-secondary)] font-sans leading-relaxed">{result}</pre>
+                <pre className="whitespace-pre-wrap text-sm text-[var(--text-secondary)] font-sans leading-relaxed">
+                  {result}
+                </pre>
               ) : (
                 <div className="text-[var(--text-muted)] text-sm text-center py-20">
                   <Eye className="w-8 h-8 mx-auto mb-3 opacity-30" />

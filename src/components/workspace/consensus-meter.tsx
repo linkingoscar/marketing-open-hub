@@ -2,7 +2,15 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Search, TrendingUp, TrendingDown, Minus, BookOpen, ExternalLink, Loader2 } from "lucide-react";
+import {
+  Search,
+  TrendingUp,
+  TrendingDown,
+  Minus,
+  BookOpen,
+  ExternalLink,
+  Loader2,
+} from "lucide-react";
 import { searchPapers, type SemanticScholarPaper } from "@/lib/api/semantic-scholar";
 
 interface EvidenceResult {
@@ -30,7 +38,7 @@ export function ConsensusMeter() {
 
     try {
       const searchResult = await searchPapers(query, 20);
-      
+
       if (searchResult.papers.length === 0) {
         setError("未找到相关文献。请尝试其他关键词。");
         return;
@@ -41,13 +49,43 @@ export function ConsensusMeter() {
         .filter((p) => p.abstract)
         .map((paper) => {
           const abstract = paper.abstract?.toLowerCase() ?? "";
-          
+
           // Support indicators
-          const supportWords = ["significant", "positive", "confirmed", "supported", "validated", "found that", "demonstrated", "revealed", "showed that", "evidence suggests", "results indicate"];
+          const supportWords = [
+            "significant",
+            "positive",
+            "confirmed",
+            "supported",
+            "validated",
+            "found that",
+            "demonstrated",
+            "revealed",
+            "showed that",
+            "evidence suggests",
+            "results indicate",
+          ];
           // Against indicators
-          const againstWords = ["no significant", "not significant", "failed to", "did not", "no effect", "no relationship", "contradicted", "inconsistent", "negative finding"];
+          const againstWords = [
+            "no significant",
+            "not significant",
+            "failed to",
+            "did not",
+            "no effect",
+            "no relationship",
+            "contradicted",
+            "inconsistent",
+            "negative finding",
+          ];
           // Mixed indicators
-          const mixedWords = ["mixed", "partially", "moderate", "conditional", "depends on", "varied", "inconsistent results"];
+          const mixedWords = [
+            "mixed",
+            "partially",
+            "moderate",
+            "conditional",
+            "depends on",
+            "varied",
+            "inconsistent results",
+          ];
 
           const supportCount = supportWords.filter((w) => abstract.includes(w)).length;
           const againstCount = againstWords.filter((w) => abstract.includes(w)).length;
@@ -123,7 +161,11 @@ export function ConsensusMeter() {
 
       {/* Consensus Meter visualization */}
       {results.length > 0 && (
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="space-y-6"
+        >
           {/* Header */}
           <div className="text-center">
             <h2 className="text-lg font-bold text-[var(--text-primary)] mb-1">证据方向分析</h2>
@@ -135,7 +177,7 @@ export function ConsensusMeter() {
             <div className="flex items-center gap-2 mb-4">
               <span className="text-sm font-medium text-[var(--text-primary)]">证据方向</span>
             </div>
-            
+
             {/* Main bar */}
             <div className="h-12 rounded-lg overflow-hidden flex">
               {supportPct > 0 && (
@@ -145,7 +187,9 @@ export function ConsensusMeter() {
                   transition={{ duration: 0.8, ease: "easeOut" }}
                   className="bg-emerald-500 flex items-center justify-center"
                 >
-                  {supportPct > 15 && <span className="text-xs font-bold text-white">{supportPct.toFixed(0)}%</span>}
+                  {supportPct > 15 && (
+                    <span className="text-xs font-bold text-white">{supportPct.toFixed(0)}%</span>
+                  )}
                 </motion.div>
               )}
               {mixedPct > 0 && (
@@ -155,7 +199,9 @@ export function ConsensusMeter() {
                   transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
                   className="bg-amber-500 flex items-center justify-center"
                 >
-                  {mixedPct > 15 && <span className="text-xs font-bold text-white">{mixedPct.toFixed(0)}%</span>}
+                  {mixedPct > 15 && (
+                    <span className="text-xs font-bold text-white">{mixedPct.toFixed(0)}%</span>
+                  )}
                 </motion.div>
               )}
               {againstPct > 0 && (
@@ -165,7 +211,9 @@ export function ConsensusMeter() {
                   transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
                   className="bg-red-500 flex items-center justify-center"
                 >
-                  {againstPct > 15 && <span className="text-xs font-bold text-white">{againstPct.toFixed(0)}%</span>}
+                  {againstPct > 15 && (
+                    <span className="text-xs font-bold text-white">{againstPct.toFixed(0)}%</span>
+                  )}
                 </motion.div>
               )}
             </div>
@@ -174,15 +222,21 @@ export function ConsensusMeter() {
             <div className="flex items-center justify-center gap-6 mt-4">
               <div className="flex items-center gap-2">
                 <TrendingUp className="w-4 h-4 text-emerald-500" />
-                <span className="text-sm text-[var(--text-secondary)]">支持 <span className="font-bold text-emerald-500">{supportCount}</span></span>
+                <span className="text-sm text-[var(--text-secondary)]">
+                  支持 <span className="font-bold text-emerald-500">{supportCount}</span>
+                </span>
               </div>
               <div className="flex items-center gap-2">
                 <Minus className="w-4 h-4 text-amber-500" />
-                <span className="text-sm text-[var(--text-secondary)]">混合 <span className="font-bold text-amber-500">{mixedCount}</span></span>
+                <span className="text-sm text-[var(--text-secondary)]">
+                  混合 <span className="font-bold text-amber-500">{mixedCount}</span>
+                </span>
               </div>
               <div className="flex items-center gap-2">
                 <TrendingDown className="w-4 h-4 text-red-500" />
-                <span className="text-sm text-[var(--text-secondary)]">反对 <span className="font-bold text-red-500">{againstCount}</span></span>
+                <span className="text-sm text-[var(--text-secondary)]">
+                  反对 <span className="font-bold text-red-500">{againstCount}</span>
+                </span>
               </div>
             </div>
 
@@ -192,8 +246,8 @@ export function ConsensusMeter() {
                 {supportPct > 60
                   ? `✅ 多数文献（${supportPct.toFixed(0)}%）支持该假设。研究方向有较好的文献基础。`
                   : againstPct > 60
-                  ? `❌ 多数文献（${againstPct.toFixed(0)}%）不支持该假设。需要重新审视研究方向。`
-                  : `⚠️ 文献证据方向不一致。可能存在调节变量或边界条件，值得深入探索。`}
+                    ? `❌ 多数文献（${againstPct.toFixed(0)}%）不支持该假设。需要重新审视研究方向。`
+                    : `⚠️ 文献证据方向不一致。可能存在调节变量或边界条件，值得深入探索。`}
               </p>
             </div>
           </div>
@@ -217,8 +271,14 @@ export function ConsensusMeter() {
                 <div key={stance}>
                   <div className="flex items-center gap-2 mb-3">
                     <Icon className={`w-4 h-4 text-${config.color}-500`} />
-                    <h3 className="text-sm font-semibold text-[var(--text-primary)]">{config.label}</h3>
-                    <span className={`px-2 py-0.5 rounded text-xs bg-${config.color}-500/10 text-${config.color}-500`}>{papers.length} 篇</span>
+                    <h3 className="text-sm font-semibold text-[var(--text-primary)]">
+                      {config.label}
+                    </h3>
+                    <span
+                      className={`px-2 py-0.5 rounded text-xs bg-${config.color}-500/10 text-${config.color}-500`}
+                    >
+                      {papers.length} 篇
+                    </span>
                   </div>
                   <div className="space-y-2">
                     {papers.map((item, i) => (
@@ -241,18 +301,27 @@ export function ConsensusMeter() {
                               <ExternalLink className="w-3 h-3 shrink-0 mt-1 opacity-50" />
                             </a>
                             <p className="text-xs text-[var(--text-muted)] mt-1">
-                              {item.paper.authors?.slice(0, 3).map((a) => a.name).join(", ")}
+                              {item.paper.authors
+                                ?.slice(0, 3)
+                                .map((a) => a.name)
+                                .join(", ")}
                               {item.paper.year ? ` (${item.paper.year})` : ""}
                               {item.paper.venue ? ` · ${item.paper.venue}` : ""}
-                              {item.paper.citationCount ? ` · ${item.paper.citationCount} 引用` : ""}
+                              {item.paper.citationCount
+                                ? ` · ${item.paper.citationCount} 引用`
+                                : ""}
                             </p>
                             {item.keyFinding && (
-                              <p className="text-xs text-[var(--text-secondary)] mt-2 line-clamp-2">{item.keyFinding}.</p>
+                              <p className="text-xs text-[var(--text-secondary)] mt-2 line-clamp-2">
+                                {item.keyFinding}.
+                              </p>
                             )}
                           </div>
                           <div className="shrink-0 flex items-center gap-1">
                             <div className={`w-2 h-2 rounded-full bg-${config.color}-500`} />
-                            <span className="text-[10px] text-[var(--text-muted)]">{(item.confidence * 100).toFixed(0)}%</span>
+                            <span className="text-[10px] text-[var(--text-muted)]">
+                              {(item.confidence * 100).toFixed(0)}%
+                            </span>
                           </div>
                         </div>
                       </motion.div>
@@ -270,7 +339,9 @@ export function ConsensusMeter() {
         <div className="text-center py-16">
           <BookOpen className="w-12 h-12 mx-auto mb-4 text-[var(--text-muted)] opacity-30" />
           <p className="text-[var(--text-muted)]">输入研究假设，快速判断文献支持方向</p>
-          <p className="text-xs text-[var(--text-muted)] mt-1">基于 Semantic Scholar 2 亿+ 论文库</p>
+          <p className="text-xs text-[var(--text-muted)] mt-1">
+            基于 Semantic Scholar 2 亿+ 论文库
+          </p>
         </div>
       )}
     </div>
