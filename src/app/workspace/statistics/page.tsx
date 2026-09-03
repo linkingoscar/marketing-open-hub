@@ -22,6 +22,25 @@ import { ScatterPlot } from "@/components/charts/scatter-plot";
 import { Heatmap } from "@/components/charts/heatmap";
 import { useHistoryStore } from "@/lib/api/history";
 import { cn } from "@/lib/utils";
+import {
+  mean,
+  median,
+  variance,
+  stddev,
+  se,
+  skewness,
+  kurtosis,
+  q,
+  normalCDF,
+  regIncBeta,
+  gammaFn,
+  fDistCDF,
+  chiDistCDF,
+  pStars,
+  rank,
+  pearsonCI,
+  approximateNormalityP,
+} from "@/lib/statistics/math";
 
 /* ========== Test types ========== */
 type TestType =
@@ -96,77 +115,6 @@ const TESTS: TestDef[] = [
 
 const CATEGORIES = [...new Set(TESTS.map((t) => t.category))];
 
-/* ========== Math helpers ========== */
-function mean(a: number[]) { return a.length ? a.reduce((s, x) => s + x, 0) / a.length : 0; }
-function median(a: number[]) { if (!a.length) return 0; const s = [...a].sort((x, y) => x - y); const m = Math.floor(s.length / 2); return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; }
-function variance(a: number[]) { if (a.length < 2) return 0; const m = mean(a); return a.reduce((s, x) => s + (x - m) ** 2, 0) / (a.length - 1); }
-function stddev(a: number[]) { return Math.sqrt(variance(a)); }
-function se(a: number[]) { return a.length ? stddev(a) / Math.sqrt(a.length) : 0; }
-function skewness(a: number[]) { const m = mean(a), s = stddev(a), n = a.length; if (n < 3 || s === 0) return 0; return (n / ((n - 1) * (n - 2))) * a.reduce((sum, x) => sum + ((x - m) / s) ** 3, 0); }
-function kurtosis(a: number[]) { const m = mean(a), s = stddev(a), n = a.length; if (n < 4 || s === 0) return 0; return ((n * (n + 1)) / ((n - 1) * (n - 2) * (n - 3))) * a.reduce((sum, x) => sum + ((x - m) / s) ** 4, 0) - (3 * (n - 1) ** 2) / ((n - 2) * (n - 3)); }
-function q(a: number[], p: number) { const s = [...a].sort((x, y) => x - y); return s[Math.floor(s.length * p)]; }
-
-function normalCDF(x: number): number {
-  const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741, a4 = -1.453152027, a5 = 1.061405429, p = 0.3275911;
-  const s = x < 0 ? -1 : 1; x = Math.abs(x) / Math.sqrt(2);
-  const t = 1 / (1 + p * x);
-  return 0.5 * (1 + s * (1 - ((((a5 * t + a4) * t + a3) * t + a2) * t + a1) * t * Math.exp(-x * x)));
-}
-
-function regIncBeta(x: number, a: number, b: number): number {
-  if (x <= 0) return 0; if (x >= 1) return 1;
-  let s = 0; const dt = x / 300;
-  for (let i = 0; i < 300; i++) { const t = (i + 0.5) * dt; s += t ** (a - 1) * (1 - t) ** (b - 1) * dt; }
-  return s / (gammaFn(a) * gammaFn(b) / gammaFn(a + b));
-}
-
-function gammaFn(z: number): number {
-  if (z < 0.5) return Math.PI / (Math.sin(Math.PI * z) * gammaFn(1 - z));
-  z -= 1;
-  const c = [0.99999999999980993, 676.5203681218851, -1259.1392167224028, 771.32342877765313, -176.61502916214059, 12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];
-  let x = c[0]; for (let i = 1; i < 9; i++) x += c[i] / (z + i);
-  const t = z + 7.5; return Math.sqrt(2 * Math.PI) * t ** (z + 0.5) * Math.exp(-t) * x;
-}
-
-function fDistCDF(f: number, d1: number, d2: number): number {
-  if (f <= 0) return 0;
-  return regIncBeta(d1 * f / (d1 * f + d2), d1 / 2, d2 / 2);
-}
-
-function chiDistCDF(x: number, k: number): number {
-  if (x <= 0) return 0;
-  return regIncBeta(x / (x + k), k / 2, 0.5);
-}
-
-function pStars(p: number): string {
-  if (p < 0.001) return "***";
-  if (p < 0.01) return "**";
-  if (p < 0.05) return "*";
-  return "n.s.";
-}
-
-function rank(arr: number[]): number[] {
-  const sorted = arr.map((v, i) => ({ v, i })).sort((a, b) => a.v - b.v);
-  const ranks = new Array(arr.length);
-  let i = 0;
-  while (i < sorted.length) {
-    let j = i;
-    while (j < sorted.length && sorted[j].v === sorted[i].v) j++;
-    const avgRank = (i + j + 1) / 2;
-    for (let k = i; k < j; k++) ranks[sorted[k].i] = avgRank;
-    i = j;
-  }
-  return ranks;
-}
-
-function pearsonCI(r: number, n: number, alpha = 0.05): [number, number] {
-  const z = 0.5 * Math.log((1 + r) / (1 - r));
-  const se = 1 / Math.sqrt(n - 3);
-  const zCrit = alpha === 0.05 ? 1.96 : 2.576;
-  const lo = z - zCrit * se, hi = z + zCrit * se;
-  return [+(Math.tanh(lo)).toFixed(4), +(Math.tanh(hi)).toFixed(4)];
-}
-
 interface APAReport { title: string; test: string; statistic: string; df: string; p: string; effect: string; ci: string; conclusion: string; interpretation: string }
 
 function formatAPA(partial: Partial<APAReport>): APAReport {
@@ -199,12 +147,12 @@ function runDescriptive(nums: number[]): { stats: Record<string, number>; apa: A
 }
 
 function runShapiroWilk(nums: number[]): { stats: Record<string, number>; apa: APAReport } {
-  // Simplified Shapiro-Wilk approximation using skewness/kurtosis
+  // Enhanced continuous approximation using skewness/kurtosis and Royston-style mapping
   const n = nums.length;
   const sk = skewness(nums), ku = kurtosis(nums);
   const W = 1 - (sk ** 2 + ku ** 2 / 4) / n;
   const wStat = Math.max(0, Math.min(1, W));
-  const pApprox = wStat > 0.95 ? 0.5 : wStat > 0.90 ? 0.1 : wStat > 0.85 ? 0.01 : 0.001;
+  const pApprox = approximateNormalityP(wStat, n);
   const normal = pApprox > 0.05;
   const stats = { W: +wStat.toFixed(4), p_approx: +pApprox.toFixed(4) };
   const apa = formatAPA({

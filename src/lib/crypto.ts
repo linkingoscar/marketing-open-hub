@@ -131,7 +131,7 @@ export async function encrypt(plaintext: string): Promise<string> {
     const encoded = new TextEncoder().encode(plaintext);
 
     const ciphertext = await crypto.subtle.encrypt(
-      { name: "AES-GCM", iv },
+      { name: "AES-GCM", iv: iv as unknown as BufferSource },
       key,
       encoded
     );
@@ -160,9 +160,9 @@ export async function decrypt(ciphertext: string): Promise<string> {
     const ct = Uint8Array.from(atob(parts[2]), (c) => c.charCodeAt(0));
 
     const decrypted = await crypto.subtle.decrypt(
-      { name: "AES-GCM", iv },
+      { name: "AES-GCM", iv: iv as unknown as BufferSource },
       key,
-      ct
+      ct as unknown as BufferSource
     );
 
     return new TextDecoder().decode(decrypted);

@@ -22,8 +22,8 @@
 [![Vitest](https://img.shields.io/badge/Vitest-3.2-6E9F18?logo=vitest)](https://vitest.dev/)
 
 <!-- 测试与质量 -->
-[![Tests](https://img.shields.io/badge/Tests-60%20passed-brightgreen)](#测试)
-[![Coverage](https://img.shields.io/badge/Coverage-statistics%20%2B%20workflow-brightgreen)](#测试)
+[![Tests](https://img.shields.io/badge/Tests-75%20passed-brightgreen)](#测试)
+[![Coverage](https://img.shields.io/badge/Coverage-statistics%20%2B%20workflow%20%2B%20mediation-brightgreen)](#测试)
 
 <!-- GitHub 互动 -->
 [![GitHub Stars](https://img.shields.io/github/stars/linkingoscar/marketing-open-hub?style=social)](https://github.com/linkingoscar/marketing-open-hub/stargazers)
@@ -38,14 +38,17 @@
 [![SEO](https://img.shields.io/badge/SEO-JSON--LD%20%2B%20RSC-green)](#技术栈)
 [![Security](https://img.shields.io/badge/Security-AES--GCM%20encrypted-orange)](#安全特性)
 
-31 个学术级开源项目 · 36 种统计检验 · 18 个交互式工具 · 11 家 LLM API · 纯浏览器端计算
+31 个学术级开源项目 · 36 种统计检验 · 18 个交互式工具 · 11 家 LLM API · 纯浏览器端计算与安全代理
 
 ---
 
 ## ✨ 核心特性
 
 - **项目发现**：31 个营销研究开源项目，9 大分类，评分雷达图，健康度评分
-- **统计分析**：36 种检验方法，APA 格式输出，结果自动注释（通俗解释 + 应用建议）
+- **中介效应**：支持 **Hayes PROCESS Model 4 非参数 Bootstrap（1000 次重抽样）**，计算间接效应 95% 置信区间 [LLCI, ULCI]、效应占比与中介类型判定
+- **统计分析**：36 种检验方法，APA 格式输出，结果自动注释（通俗解释 + 应用建议）与平滑化正态性检验
+- **Word 导出**：一键导出原生 **Microsoft Word (.doc) APA 第 7 版标准三线表**报告，双击即可无缝贴入论文
+- **API 网关**：内置同源服务端 `/api/chat` Route Handler 代理，支持流式 SSE 输出，彻底杜绝浏览器 CORS 跨域报错
 - **营销模板**：10 个预设研究场景（品牌认知、A/B 测试、满意度、市场细分等）
 - **场景对比**：7 大研究场景自动推荐相关工具，多维度雷达图对比
 - **证据方向**：输入假设 → 搜索文献 → 支持/混合/反对百分比可视化
@@ -305,7 +308,9 @@ pnpm test:watch
 pnpm test:coverage
 ```
 
-**测试覆盖**：
+**测试覆盖（75 个测试全部通过）**：
+- `src/lib/empirical/bootstrap-mediation.test.ts` — 2 个测试（Hayes Model 4 Bootstrap 中介引擎）
+- `src/lib/statistics/math.test.ts` — 13 个测试（统计数学基础库与概率分布检验）
 - `src/lib/statistics/annotations.test.ts` — 44 个测试（统计注释系统）
 - `src/lib/workflow/engine.test.ts` — 16 个测试（工作流引擎）
 

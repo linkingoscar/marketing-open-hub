@@ -124,12 +124,56 @@ export async function callLLM(options: CallOptions): Promise<string> {
   throw lastError ?? new Error("所有 API 提供商均调用失败");
 }
 
+async function callViaProxy(config: { provider: string; apiKey: string; baseUrl: string; model: string }, options: CallOptions, signal: AbortSignal): Promise<string> {
+  const { messages, temperature = 0.7, maxTokens = 2000, stream = false, onChunk } = options;
+  const res = await fetch("/api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ config, messages, temperature, maxTokens, stream }),
+    signal,
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Proxy error: ${res.status} - ${err}`);
+  }
+
+  if (stream && onChunk) {
+    const reader = res.body?.getReader();
+    if (!reader) throw new Error("无法读取响应流");
+
+    let full = "";
+    await readSSEStream(reader, (line) => {
+      const text = config.provider === "anthropic" ? parseAnthropicSSELine(line) : parseOpenAISSELine(line);
+      if (text) {
+        full += text;
+        onChunk(text);
+      }
+    }, signal);
+    return full;
+  }
+
+  const data = await res.json();
+  return data.text ?? "";
+}
+
 async function callWithConfig(config: { provider: string; apiKey: string; baseUrl: string; model: string }, options: CallOptions): Promise<string> {
   const { messages, temperature = 0.7, maxTokens = 2000, stream = false, onChunk } = options;
 
   // 120s timeout — LLM responses can be slow for long outputs
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 120_000);
+
+  // Try server-side proxy route first to avoid browser CORS restrictions
+  if (typeof window !== "undefined") {
+    try {
+      const proxyResult = await callViaProxy(config, options, controller.signal);
+      clearTimeout(timeout);
+      return proxyResult;
+    } catch (proxyErr) {
+      console.warn(`[API Proxy] ${config.provider} proxy failed, falling back to direct call:`, proxyErr);
+    }
+  }
 
   try {
     // OpenAI-compatible API (works for OpenAI, DeepSeek, MiMo, Qwen, Kimi, Doubao, Spark, Zhipu, custom endpoints)

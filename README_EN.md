@@ -22,8 +22,8 @@
 [![Vitest](https://img.shields.io/badge/Vitest-3.2-6E9F18?logo=vitest)](https://vitest.dev/)
 
 <!-- Testing & Quality -->
-[![Tests](https://img.shields.io/badge/Tests-60%20passed-brightgreen)](#testing)
-[![Coverage](https://img.shields.io/badge/Coverage-statistics%20%2B%20workflow-brightgreen)](#testing)
+[![Tests](https://img.shields.io/badge/Tests-75%20passed-brightgreen)](#testing)
+[![Coverage](https://img.shields.io/badge/Coverage-statistics%20%2B%20workflow%20%2B%20mediation-brightgreen)](#testing)
 
 <!-- GitHub -->
 [![GitHub Stars](https://img.shields.io/github/stars/linkingoscar/marketing-open-hub?style=social)](https://github.com/linkingoscar/marketing-open-hub/stargazers)
@@ -38,14 +38,17 @@
 [![SEO](https://img.shields.io/badge/SEO-JSON--LD%20%2B%20RSC-green)](#tech-stack)
 [![Security](https://img.shields.io/badge/Security-AES--GCM%20encrypted-orange)](#security)
 
-31 academic-grade open-source projects · 36 statistical tests · 18 interactive tools · 11 LLM APIs · Browser-only computation
+31 academic-grade open-source projects · 36 statistical tests · 18 interactive tools · 11 LLM APIs · Client computation & Secure Proxy
 
 ---
 
 ## ✨ Core Features
 
 - **Project Discovery**: 31 marketing research open-source projects, 9 categories, radar chart scoring, health scores
-- **Statistical Analysis**: 36 test methods, APA format output, auto-annotation (plain-language explanation + practical advice)
+- **Mediation Analysis**: **Hayes PROCESS Model 4 non-parametric Bootstrap (1,000 resamples)** with 95% confidence intervals [LLCI, ULCI], ratio decomposition, and full/partial mediation detection
+- **Statistical Analysis**: 36 test methods, APA format output, auto-annotation (plain-language explanation + practical advice) and smooth normality approximations
+- **Word Export**: One-click export to native **Microsoft Word (.doc) APA 7th Edition three-line tables**, ready for paper submission
+- **API Gateway**: Built-in same-origin `/api/chat` Route Handler proxy with SSE streaming, eliminating browser CORS restrictions
 - **Marketing Templates**: 10 preset research scenarios (brand awareness, A/B testing, satisfaction, market segmentation, etc.)
 - **Scenario Comparison**: 7 research scenarios with auto-recommended tools, multi-dimensional radar comparison
 - **Evidence Direction**: Input hypothesis → search literature → support/mixed/oppose percentage visualization
@@ -305,7 +308,9 @@ pnpm test:watch
 pnpm test:coverage
 ```
 
-**Test Coverage**:
+**Test Coverage (75 tests all passed)**:
+- `src/lib/empirical/bootstrap-mediation.test.ts` — 2 tests (Hayes Model 4 Bootstrap mediation engine)
+- `src/lib/statistics/math.test.ts` — 13 tests (statistical mathematics library & probability distributions)
 - `src/lib/statistics/annotations.test.ts` — 44 tests (statistical annotation system)
 - `src/lib/workflow/engine.test.ts` — 16 tests (workflow engine)
 
