@@ -153,7 +153,8 @@ export function regIncBeta(x: number, a: number, b: number): number {
     const t = (i + 0.5) * dt;
     s += t ** (a - 1) * (1 - t) ** (b - 1) * dt;
   }
-  const denom = (gammaFn(a) * gammaFn(b)) / gammaFn(a + b);
+  const logBeta = logGamma(a) + logGamma(b) - logGamma(a + b);
+  const denom = Math.exp(logBeta);
   return Math.min(1, Math.max(0, s / (denom || 1e-12)));
 }
 
@@ -163,6 +164,37 @@ export function tDistCDF(t: number, df: number): number {
   const x = df / (df + t * t);
   const ib = regIncBeta(x, df / 2, 0.5);
   return t > 0 ? 1 - 0.5 * ib : 0.5 * ib;
+}
+
+/**
+ * Student's t 分布分位数函数（Quantile / Inverse CDF）
+ * 用于计算置信区间临界值 t_crit（如 95% CI 双尾对应的 tDistQuantile(0.975, df)）
+ */
+export function tDistQuantile(p: number, df: number): number {
+  if (df <= 0) return 0;
+  if (p <= 0) return -Infinity;
+  if (p >= 1) return Infinity;
+  if (p === 0.5) return 0;
+  if (p < 0.5) return -tDistQuantile(1 - p, df);
+
+  // 对于 p > 0.5，寻找 t > 0 使得 tDistCDF(t, df) = p
+  let low = 0;
+  let high = 5;
+  while (tDistCDF(high, df) < p && high < 1e6) {
+    low = high;
+    high *= 2;
+  }
+
+  // 45 次二分搜索，精度优于 1e-9
+  for (let i = 0; i < 45; i++) {
+    const mid = (low + high) / 2;
+    if (tDistCDF(mid, df) < p) {
+      low = mid;
+    } else {
+      high = mid;
+    }
+  }
+  return (low + high) / 2;
 }
 
 export function fDistCDF(f: number, d1: number, d2: number): number {

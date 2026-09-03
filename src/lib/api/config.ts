@@ -1,8 +1,8 @@
 "use client";
 
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
-import { encrypt, decrypt, migratePlaintextStorage } from "@/lib/crypto";
+import { persist, type StorageValue, type PersistStorage } from "zustand/middleware";
+import { createEncryptedStorage, migratePlaintextStorage } from "@/lib/crypto";
 
 export interface APIProvider {
   id: string;
@@ -101,13 +101,6 @@ export const API_PROVIDERS: APIProvider[] = [
     pricing: { input: 0.8, output: 2.0, unit: "¥/MTok" },
   },
   {
-    id: "wenxin",
-    name: "文心一言 (百度)",
-    baseUrl: "https://qianfan.baidubce.com/v2",
-    models: ["ernie-5.1", "ernie-5.0", "ernie-4.5-turbo-128k", "ernie-4.0-8k"],
-    pricing: { input: 8.0, output: 24.0, unit: "¥/MTok" },
-  },
-  {
     id: "spark",
     name: "讯飞星火",
     baseUrl: "https://spark-api-open.xf-yun.com/v1",
@@ -150,35 +143,6 @@ interface APIStore {
 }
 
 export const STORAGE_KEY = "martech-api-config";
-
-/**
- * Encrypted localStorage adapter for Zustand.
- * Encrypts API keys before writing to localStorage,
- * decrypts after reading.
- */
-const encryptedStorage = createJSONStorage<APIStore>(() => ({
-  getItem: async (name: string) => {
-    const raw = localStorage.getItem(name);
-    if (!raw) return null;
-    try {
-      const decrypted = await decrypt(raw);
-      return decrypted;
-    } catch {
-      return raw; // fallback to plaintext (migration path)
-    }
-  },
-  setItem: async (name: string, value: string) => {
-    try {
-      const encrypted = await encrypt(value);
-      localStorage.setItem(name, encrypted);
-    } catch {
-      localStorage.setItem(name, value); // fallback to plaintext
-    }
-  },
-  removeItem: (name: string) => {
-    localStorage.removeItem(name);
-  },
-}));
 
 export const useAPIStore = create<APIStore>()(
   persist(
@@ -255,7 +219,7 @@ export const useAPIStore = create<APIStore>()(
     }),
     {
       name: STORAGE_KEY,
-      storage: encryptedStorage,
+      storage: createEncryptedStorage<StorageValue<APIStore>>() as PersistStorage<APIStore>,
       onRehydrateStorage: () => {
         // Migrate existing plaintext data to encrypted on first load
         return (_state, _error) => {

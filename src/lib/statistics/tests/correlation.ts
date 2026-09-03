@@ -1,4 +1,4 @@
-import { mean, rank, normalCDF, pearsonCI, pStars } from "../math";
+import { mean, rank, tDistCDF, normalCDF, pearsonCI, pStars } from "../math";
 import { formatAPA } from "../formatters/apa";
 import type { APAReport } from "../types";
 
@@ -21,8 +21,9 @@ export function runPearson(
   }
   const denom = Math.sqrt(dx2 * dy2);
   const r = denom > 0 ? num / denom : 0;
-  const t = 1 - r * r > 0 ? r * Math.sqrt(Math.max(1, n - 2) / (1 - r * r)) : 0;
-  const p = 2 * (1 - normalCDF(Math.abs(t)));
+  const df = Math.max(1, n - 2);
+  const t = 1 - r * r > 0 ? r * Math.sqrt(df / (1 - r * r)) : 0;
+  const p = 2 * (1 - tDistCDF(Math.abs(t), df));
   const rSq = r * r;
   const ci = pearsonCI(r, n);
   const strength =

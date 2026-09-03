@@ -21,35 +21,15 @@ const ANALYTICS_ENABLED =
 const POSTHOG_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY;
 const POSTHOG_HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://app.posthog.com";
 
-// ===== Sentry DSN（可选）=====
-const SENTRY_DSN = process.env.NEXT_PUBLIC_SENTRY_DSN;
-
 interface PostHogClient {
   init: (key: string, options: Record<string, unknown>) => void;
   capture: (event: string, properties?: Record<string, unknown>) => void;
   set_config?: (config: Record<string, unknown>) => void;
 }
 
-interface SentryScope {
-  setExtra: (key: string, value: unknown) => void;
-}
-
-interface SentryClient {
-  init: (options: Record<string, unknown>) => void;
-  BrowserTracing: new () => unknown;
-  withScope: (callback: (scope: SentryScope) => void) => void;
-  captureException: (error: unknown) => void;
-  captureMessage: (message: string, level?: string) => void;
-}
-
 function getPostHog(): PostHogClient | undefined {
   if (typeof window === "undefined") return undefined;
   return (window as unknown as { posthog?: PostHogClient }).posthog;
-}
-
-function getSentry(): SentryClient | undefined {
-  if (typeof window === "undefined") return undefined;
-  return (window as unknown as { Sentry?: SentryClient }).Sentry;
 }
 
 // ===== PostHog =====
@@ -125,90 +105,23 @@ export function trackPageView(path: string) {
   trackEvent("$pageview", { $current_url: path });
 }
 
-// ===== Sentry (Error Tracking) =====
-
-let sentryInitialized = false;
-
-/**
- * 初始化 Sentry（如果配置了 DSN）
- */
-export function initSentry() {
-  if (!SENTRY_DSN || sentryInitialized) return;
-
-  try {
-    // 动态加载 Sentry
-    const script = document.createElement("script");
-    script.src = "https://browser.sentry-cdn.com/8.0.0/bundle.min.js";
-    script.crossOrigin = "anonymous";
-    script.onload = () => {
-      const sentry = getSentry();
-      if (sentry) {
-        sentry.init({
-          dsn: SENTRY_DSN,
-          environment: process.env.NODE_ENV,
-          tracesSampleRate: 0.1, // 10% of transactions
-          replaysSessionSampleRate: 0,
-          replaysOnErrorSampleRate: 0,
-          integrations: [new sentry.BrowserTracing()],
-          beforeSend(event: { request?: { headers?: Record<string, string> } }) {
-            // Don't send events from localhost
-            if (window.location.hostname.includes("localhost")) return null;
-            // Scrub any accidentally captured API keys
-            if (event.request?.headers) {
-              delete event.request.headers["Authorization"];
-              delete event.request.headers["x-api-key"];
-            }
-            return event;
-          },
-        });
-        sentryInitialized = true;
-        console.debug("[ErrorTracking] Sentry initialized");
-      }
-    };
-    document.head.appendChild(script);
-  } catch (err) {
-    console.debug("[ErrorTracking] Sentry init failed:", err);
-  }
-}
+// ===== Error & Message Logging =====
 
 /**
  * Capture an error manually
  */
 export function captureError(error: Error, context?: Record<string, unknown>) {
   console.error("[Error]", error, context);
-
-  if (!SENTRY_DSN) return;
-
-  try {
-    const sentry = getSentry();
-    if (sentry) {
-      sentry.withScope((scope: SentryScope) => {
-        if (context) {
-          Object.entries(context).forEach(([key, value]) => {
-            scope.setExtra(key, value);
-          });
-        }
-        sentry.captureException(error);
-      });
-    }
-  } catch {
-    // Silently fail
-  }
 }
 
 /**
  * Capture a message (non-error)
  */
 export function captureMessage(message: string, level: "info" | "warning" = "info") {
-  if (!SENTRY_DSN) return;
-
-  try {
-    const sentry = getSentry();
-    if (sentry) {
-      sentry.captureMessage(message, level);
-    }
-  } catch {
-    // Silently fail
+  if (level === "warning") {
+    console.warn("[Message]", message);
+  } else {
+    console.info("[Message]", message);
   }
 }
 

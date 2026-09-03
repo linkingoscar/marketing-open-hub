@@ -7,7 +7,7 @@
 <!-- 核心状态 -->
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/linkingoscar/marketing-open-hub/ci.yml?branch=main&label=CI)](https://github.com/linkingoscar/marketing-open-hub/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/linkingoscar/marketing-open-hub/ci.yml?branch=master&label=CI)](https://github.com/linkingoscar/marketing-open-hub/actions)
 [![Vercel](https://img.shields.io/badge/Vercel-deployed-black?logo=vercel)](https://martech-open-hub.vercel.app)
 
 <!-- 框架与语言 -->
@@ -23,7 +23,7 @@
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.x-0055FF?logo=framer)](https://www.framer.com/motion/)
 [![Recharts](https://img.shields.io/badge/Recharts-3.8-FF6B6B)](https://recharts.org/)
 [![Vitest](https://img.shields.io/badge/Vitest-3.2-6E9F18?logo=vitest)](https://vitest.dev/)
-[![Tests](https://img.shields.io/badge/Tests-102%20passed-brightgreen)](#测试)
+[![Tests](https://img.shields.io/badge/Tests-114%20passed-brightgreen)](#测试)
 [![Coverage](https://img.shields.io/badge/Coverage-statistics%20%2B%20reference-brightgreen)](#测试)
 
 <!-- GitHub 互动 -->
@@ -41,29 +41,23 @@
 [![SEO](https://img.shields.io/badge/SEO-JSON--LD%20%2B%20RSC-green)](#技术栈)
 [![Security](https://img.shields.io/badge/Security-AES--GCM%20encrypted-orange)](#安全特性)
 
-31 个精选开源项目 · 36 种统计检验 · 18 个交互式工具 · 11 家 LLM API · 本地优先计算与安全代理
+> **Local-first Marketing Research Workbench**  
+> **市场营销与消费者行为研究的本地优先开源工作台**
+
+```text
+发现工具 → 导入数据 → 统计分析 → 文献研究 → AI 辅助 → APA 输出
+```
 
 ---
 
-## ✨ 核心特性
+## ✨ 核心研究工作流与特性
 
-- **项目发现**：31 个营销研究开源项目，9 大分类，评分雷达图，健康度评分
-- **中介效应**：支持 **非参数 Bootstrap 中介分析（参考 PROCESS Model 4 框架）**，计算间接效应 95% 置信区间 [LLCI, ULCI]、效应占比与动态显著性判定
-- **统计分析**：36 种检验方法，APA 格式输出，结果自动注释（通俗解释 + 应用建议）与偏度-峰度探索性正态检验
-- **参考对拍**：内置 `tests/reference/` 基准验证套件，核心方法（t 检验、ANOVA、卡方检验、相关分析、非参数检验）与 R / SciPy 严格对拍
-- **数学不变量**：内置 `tests/invariants.test.ts` 数学属性与边界约束校验，保障极端/退化数据下的算法稳定性
-- **Word 导出**：一键导出 **Word 兼容格式 (.doc) APA 第 7 版标准三线表**报告，双击即可无缝贴入论文
-- **安全代理**：内置同源服务端 `/api/chat` Route Handler 代理，内嵌防 SSRF 保护与超时控制，支持流式 SSE 输出
-- **营销模板**：10 个预设研究场景（品牌认知、A/B 测试、满意度、市场细分等）
-- **场景对比**：7 大研究场景自动推荐相关工具，多维度雷达图对比
-- **证据方向**：输入假设 → 搜索文献 → 支持/混合/反对百分比可视化
-- **结构化提取**：文献自动提取样本量、方法、行业、效应量 → 导出 CSV
-- **研究工作流**：可视化流程编排，4 个预设模板，步骤依赖管理
-- **AI 助手**：11 家 LLM API 支持，对话式研究指导
-- **论文辅助**：APA 格式输出、论文写作、AI 痕迹检测与润色
-- **新手引导**：首次访问自动弹出 6 步引导流程
-- **收藏功能**：一键收藏项目，支持导出/导入配置
-- **数据安全**：API Key 本地加密存储（AES-GCM 96-bit 随机 IV），纯浏览器端本地优先计算
+- **本地优先实证工作台**：统计计算完全在浏览器本地内存运行，不上传外部服务器；API Key 采用 Web Crypto (AES-GCM 256-bit + 96-bit 随机 IV) 本地静态加密存储，严禁明文回落。
+- **统计分析与规范输出**：支持 36 种统计分析方法，自动生成符合 APA 第 7 版标准的三线表报告，支持 Word 兼容格式 (.doc) 一键导出，附带通俗解释与应用建议。
+- **参考基准结果验证 (Validated)**：核心统计方法（Welch 独立样本 t 检验、配对 t 检验、单因素 ANOVA、卡方检验、Pearson 相关、Mann-Whitney U、Cronbach's α 等）内置多组参考用例（含显著性临界边界用例），与 R / SciPy 成熟计算实现保持一致校验。其他探索性方法明确标识为 Beta / Experimental。
+- **中介与实证模型**：支持参考 PROCESS Model 4 框架的非参数 Bootstrap 中介分析，普通回归路径统一使用 Student t 分布推断与 t 临界值置信区间，输出直接效应、间接效应 Percentile Bootstrap 95% CI 与动态显著性判定。
+- **项目与文献发现**：31 个营销研究开源项目多维雷达对比与健康度评分；集成 Semantic Scholar 学术文献检索、证据方向（支持/混合/反对）可视化与结构化数据提取。
+- **AI 辅助研究助手**：支持主流 LLM API，同源 `/api/chat` 服务端代理内嵌防 SSRF 保护与流式 SSE 输出，辅助研究设计与论文润色。
 
 ---
 
@@ -230,7 +224,7 @@ marketing-open-hub/
 │   │   ├── search/                   # 搜索组件（Cmd+K 命令面板）
 │   │   ├── ui/                       # 基础 UI 组件（shadcn/ui）
 │   │   ├── workspace/                # 工作台组件（文件上传、结果导出、模板选择等）
-│   │   ├── analytics-provider.tsx    # 分析初始化（Sentry + PostHog）
+│   │   ├── analytics-provider.tsx    # 用户分析初始化（PostHog）
 │   │   ├── error-boundary.tsx        # 全局错误边界
 │   │   └── project-detail-client.tsx # 项目详情客户端交互
 │   ├── data/
@@ -244,7 +238,7 @@ marketing-open-hub/
 │   ├── lib/
 │   │   ├── api/                      # API 层（LLM 调用、配置、历史、文献）
 │   │   ├── crypto.ts                 # Web Crypto API 加密工具
-│   │   ├── analytics.ts              # 错误追踪 + 用户分析
+│   │   ├── analytics.ts              # 本地日志 + 用户分析
 │   │   ├── config-export.ts          # 配置导出/导入
 │   │   ├── db/                       # 数据库接口（抽象 + Mock 实现）
 │   │   │   ├── types.ts              # 数据模型定义
@@ -255,7 +249,7 @@ marketing-open-hub/
 │   │   │   ├── favorites.ts          # 收藏功能
 │   │   │   └── workspace.ts          # 工作台状态（引导、数据流转）
 │   │   ├── empirical/                # 实证分析算法（构念识别、PROCESS 模型）
-│   │   ├── statistics/               # 统计注释系统
+│   │   ├── statistics/               # 统计注释系统与算法库
 │   │   ├── workflow/                 # 工作流引擎
 │   │   ├── i18n/                     # 国际化（模块化翻译）
 │   │   │   ├── index.ts              # 入口
@@ -282,21 +276,21 @@ marketing-open-hub/
 
 ## 🔧 技术栈
 
-| 层       | 技术                                         | 版本       |
-| -------- | -------------------------------------------- | ---------- |
-| 框架     | Next.js (App Router + RSC)                   | 16.2.6     |
-| 语言     | TypeScript (strict)                          | 5.x        |
-| 样式     | Tailwind CSS                                 | 4.x        |
-| 组件库   | shadcn/ui + Radix UI                         | Latest     |
-| 动画     | Framer Motion                                | 12.x       |
-| 图表     | Recharts                                     | 3.8        |
-| 状态管理 | Zustand (persist)                            | 5.x        |
-| 搜索     | cmdk + Fuse.js                               | 1.x / 7.x  |
-| 测试     | Vitest                                       | 3.2.x      |
-| 加密     | Web Crypto API (AES-GCM)                     | 浏览器原生 |
-| 分析     | Sentry + PostHog（可选）                     | -          |
-| 文献 API | Semantic Scholar                             | Free       |
-| LLM API  | 11 家（OpenAI/Anthropic/Gemini/DeepSeek 等） | -          |
+| 层       | 技术                               | 版本       |
+| -------- | ---------------------------------- | ---------- |
+| 框架     | Next.js (App Router + RSC)         | 16.2.6     |
+| 语言     | TypeScript (strict)                | 5.x        |
+| 样式     | Tailwind CSS                       | 4.x        |
+| 组件库   | shadcn/ui + Radix UI               | Latest     |
+| 动画     | Framer Motion                      | 12.x       |
+| 图表     | Recharts                           | 3.8        |
+| 状态管理 | Zustand (persist)                  | 5.x        |
+| 搜索     | cmdk + Fuse.js                     | 1.x / 7.x  |
+| 测试     | Vitest                             | 3.2.x      |
+| 加密     | Web Crypto API (AES-GCM)           | 浏览器原生 |
+| 分析     | PostHog（可选）                    | -          |
+| 文献 API | Semantic Scholar                   | Free       |
+| LLM API  | 10 家内置主流模型 + 自定义兼容端点 | -          |
 
 ---
 
@@ -313,13 +307,14 @@ pnpm test:watch
 pnpm test:coverage
 ```
 
-**测试覆盖（102 个测试全部通过）**：
+**测试覆盖（114 个测试全部通过）**：
 
-- `tests/reference/stats-reference.test.ts` — 8 个基准测试（R / SciPy ground truth 对拍）
+- `tests/reference/stats-reference.test.ts` — 16 个基准测试（R / SciPy ground truth 基准校验，含临界显著边界用例）
 - `tests/invariants.test.ts` — 11 个数学属性与边界约束测试（方差非负、CDF 边界、平移不变性）
-- `tests/smoke.test.ts` — 7 个核心业务黄金路径集成测试（含 SSRF 拦截防御测试）
+- `tests/smoke.test.ts` — 7 个核心业务研究流程冒烟测试（含 SSRF 拦截防御测试）
+- `tests/provider-registry.test.ts` — 3 个模型供应商注册一致性校验测试
 - `src/lib/empirical/bootstrap-mediation.test.ts` — 2 个测试（Hayes Model 4 框架 Bootstrap 中介引擎）
-- `src/lib/statistics/math.test.ts` — 14 个测试（Gamma 函数、不完全 Gamma 卡方分布与概率分布）
+- `src/lib/statistics/math.test.ts` — 15 个测试（Gamma 函数、Student t 分位数、卡方分布与概率分布）
 - `src/lib/statistics/annotations.test.ts` — 44 个测试（统计注释系统）
 - `src/lib/workflow/engine.test.ts` — 16 个测试（工作流引擎）
 
@@ -343,11 +338,11 @@ pnpm test:coverage
 
 ## 🔐 安全特性
 
-- **API Key 加密**：使用 Web Crypto API (AES-GCM 256-bit + 96-bit 随机 IV) 加密后存储在浏览器端
+- **API Key 加密**：使用 Web Crypto API (AES-GCM 256-bit + 96-bit 随机 IV) 加密后存储在浏览器端，严禁明文回退
 - **服务端防 SSRF**：`/api/chat` 代理严格限制出站域名，拦截环回地址、私网网段与云元数据端点
 - **CSP 安全头**：严格的 Content-Security-Policy，限制外部资源加载并支持 PostHog 遥测
 - **纯前端计算**：统计数据完全在浏览器内存处理，不上传到任何后端服务器
-- **隐私分析**：Sentry/PostHog 默认匿名化，支持 Do Not Track
+- **隐私分析**：PostHog 默认匿名化，尊重 Do Not Track (DNT) 设置
 
 ---
 

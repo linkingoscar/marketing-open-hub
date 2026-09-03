@@ -2,6 +2,7 @@ import {
   mean,
   stddev,
   normalCDF,
+  tDistCDF,
   fDistCDF,
   chiDistCDF,
   pStars,
@@ -39,7 +40,7 @@ export function runRegression(
 
   const seBeta = XtXinv.map((row, i) => Math.sqrt(Math.max(0, row[i] * msRes)));
   const tStats = beta.map((b, i) => (seBeta[i] > 0 ? b / seBeta[i] : 0));
-  const pValues = tStats.map((t) => 2 * (1 - normalCDF(Math.abs(t))));
+  const pValues = tStats.map((t) => 2 * (1 - tDistCDF(Math.abs(t), dfResidual)));
 
   let dwNum = 0,
     dwDen = 0;

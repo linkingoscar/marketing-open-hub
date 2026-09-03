@@ -29,9 +29,9 @@ When you choose to enable AI assistant features or online literature lookups, sp
    - When searching literature in the Literature Explorer, query search terms are sent to public scholarly APIs (Semantic Scholar, CrossRef, arXiv) to retrieve citation and abstract metadata.
 
 3. **Telemetry & Analytics (Optional / Anonymized)**:
-   - Sentry / PostHog telemetry is enabled only when specific tracking environment variables are provisioned during deployment.
+   - PostHog telemetry is enabled only when specific tracking environment variables (`NEXT_PUBLIC_POSTHOG_KEY`) are provisioned during deployment.
    - Respects `Do Not Track (DNT)` browser settings.
-   - Telemetry strictly collects anonymized error stacks and page view counts. No uploaded research data, private keys, or prompt texts are ever tracked.
+   - Telemetry strictly collects anonymized interaction events and page view counts. No uploaded research data, private keys, or prompt texts are ever tracked.
 
 ---
 

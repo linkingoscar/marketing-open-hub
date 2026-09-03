@@ -22,7 +22,7 @@ interface RequestBody {
  * 官方 Provider 标准服务端入口映射
  * 杜绝客户端篡改内置供应商的 baseUrl 引发请求劫持
  */
-const TRUSTED_PROVIDER_BASE_URLS: Record<string, string> = {
+export const TRUSTED_PROVIDER_BASE_URLS: Record<string, string> = {
   openai: "https://api.openai.com/v1",
   deepseek: "https://api.deepseek.com",
   mimo: "https://api.xiaomimimo.com/v1",

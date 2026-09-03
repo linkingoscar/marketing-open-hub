@@ -7,7 +7,7 @@
 <!-- Core Status -->
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/linkingoscar/marketing-open-hub/ci.yml?branch=main&label=CI)](https://github.com/linkingoscar/marketing-open-hub/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/linkingoscar/marketing-open-hub/ci.yml?branch=master&label=CI)](https://github.com/linkingoscar/marketing-open-hub/actions)
 [![Vercel](https://img.shields.io/badge/Vercel-deployed-black?logo=vercel)](https://martech-open-hub.vercel.app)
 
 <!-- Framework & Language -->
@@ -26,7 +26,7 @@
 
 <!-- Testing & Quality -->
 
-[![Tests](https://img.shields.io/badge/Tests-102%20passed-brightgreen)](#testing)
+[![Tests](https://img.shields.io/badge/Tests-114%20passed-brightgreen)](#testing)
 [![Coverage](https://img.shields.io/badge/Coverage-statistics%20%2B%20reference-brightgreen)](#testing)
 
 <!-- GitHub -->
@@ -44,28 +44,23 @@
 [![SEO](https://img.shields.io/badge/SEO-JSON--LD%20%2B%20RSC-green)](#tech-stack)
 [![Security](https://img.shields.io/badge/Security-AES--GCM%20encrypted-orange)](#security)
 
-31 curated open-source projects · 36 statistical tests · 18 interactive tools · 11 LLM APIs · Local-first computation & Secure Proxy
+> **Local-first Marketing Research Workbench**  
+> **An open-source workbench for empirical marketing & consumer behavior research**
+
+```text
+Discover Tools → Import Data → Statistical Analysis → Literature Mining → AI Assistance → APA Export
+```
 
 ---
 
-## ✨ Core Features
+## ✨ Core Research Workflow & Features
 
-- **Project Discovery**: 31 marketing research open-source projects, 9 categories, radar chart scoring, health scores
-- **Mediation Analysis**: **Non-parametric Bootstrap mediation analysis (PROCESS Model 4 framework)** with 95% confidence intervals [LLCI, ULCI], ratio decomposition, and dynamic significance reporting
-- **Statistical Analysis**: 36 test methods, APA format output, auto-annotation (plain-language explanation + practical advice) and exploratory skewness-kurtosis normality heuristic
-- **Reference Benchmarking**: Embedded `tests/reference/` benchmark suite validating core statistical methods against R and SciPy ground truth
-- **Word Export**: One-click export to **Word-compatible (.doc) APA 7th Edition three-line tables**, ready for paper submission
-- **Secure Gateway**: Built-in same-origin `/api/chat` Route Handler proxy with SSRF protection and SSE streaming
-- **Marketing Templates**: 10 preset research scenarios (brand awareness, A/B testing, satisfaction, market segmentation, etc.)
-- **Scenario Comparison**: 7 research scenarios with auto-recommended tools, multi-dimensional radar comparison
-- **Evidence Direction**: Input hypothesis → search literature → support/mixed/oppose percentage visualization
-- **Structured Extraction**: Auto-extract sample size, method, industry, effect size from papers → export CSV
-- **Research Workflow**: Visual workflow orchestration, 4 preset templates, step dependency management
-- **AI Assistant**: 11 LLM API providers, conversational research guidance
-- **Paper Writing**: APA format output, paper writing, AI trace detection & polishing
-- **Onboarding**: 6-step guided tour on first visit
-- **Favorites**: One-click project favorites, config export/import support
-- **Data Security**: Local-first computation, AES-GCM encrypted API key storage (96-bit random IV)
+- **Local-first Empirical Workbench**: All computation runs strictly in browser memory without sending user datasets to external servers. API Keys are encrypted at rest locally via Web Crypto API (AES-GCM 256-bit + 96-bit random IV) with zero plaintext fallbacks.
+- **Statistical Analysis & Standardized Reporting**: 36 test methods generating APA 7th Edition compliant reports, one-click export to Word-compatible (.doc) formatted tables, accompanied by plain-language interpretations.
+- **Reference Benchmarking (Validated)**: Core statistical methods (Welch independent t-test, paired t-test, one-way ANOVA, Chi-square, Pearson r, Mann-Whitney U, Cronbach's α) verified against R and SciPy ground truth across multiple test cases, including significance boundary cases ($p \approx .05$). Exploratory methods are explicitly flagged as Beta / Experimental.
+- **Mediation & Empirical Modeling**: Non-parametric Bootstrap mediation analysis referencing the Hayes PROCESS Model 4 framework, with Student t distribution inference on regression paths, reporting direct effects and 95% Percentile Bootstrap indirect effect CIs.
+- **Project & Literature Discovery**: 31 curated marketing research projects with health scores and radar comparisons; integrated Semantic Scholar literature explorer with evidence direction visualization (support/mixed/oppose) and CSV export.
+- **AI-Powered Research Assistant**: Compatible with major LLM APIs through a same-origin `/api/chat` Route Handler featuring SSRF defense and SSE streaming.
 
 ---
 
@@ -232,7 +227,7 @@ marketing-open-hub/
 │   │   ├── search/                   # Search components (Cmd+K command palette)
 │   │   ├── ui/                       # Base UI components (shadcn/ui)
 │   │   ├── workspace/                # Workspace components (file upload, export, templates)
-│   │   ├── analytics-provider.tsx    # Analytics init (Sentry + PostHog)
+│   │   ├── analytics-provider.tsx    # User analytics init (PostHog)
 │   │   ├── error-boundary.tsx        # Global error boundary
 │   │   └── project-detail-client.tsx # Project detail client interactions
 │   ├── data/
@@ -246,7 +241,7 @@ marketing-open-hub/
 │   ├── lib/
 │   │   ├── api/                      # API layer (LLM calls, config, history, literature)
 │   │   ├── crypto.ts                 # Web Crypto API encryption
-│   │   ├── analytics.ts              # Error tracking + user analytics
+│   │   ├── analytics.ts              # Local logging + user analytics
 │   │   ├── config-export.ts          # Config export/import
 │   │   ├── db/                       # Database interface (abstract + mock)
 │   │   │   ├── types.ts              # Data model definitions
@@ -257,7 +252,7 @@ marketing-open-hub/
 │   │   │   ├── favorites.ts          # Favorites functionality
 │   │   │   └── workspace.ts          # Workspace state (onboarding, data transfer)
 │   │   ├── empirical/                # Empirical analysis (construct detection, PROCESS)
-│   │   ├── statistics/               # Statistical annotation system
+│   │   ├── statistics/               # Statistical annotation & math engine
 │   │   ├── workflow/                 # Workflow engine
 │   │   ├── i18n/                     # Internationalization (modular)
 │   │   │   ├── index.ts              # Entry point
@@ -284,21 +279,21 @@ marketing-open-hub/
 
 ## 🔧 Tech Stack
 
-| Layer            | Technology                                           | Version        |
-| ---------------- | ---------------------------------------------------- | -------------- |
-| Framework        | Next.js (App Router + RSC)                           | 16.2.6         |
-| Language         | TypeScript (strict)                                  | 5.x            |
-| Styling          | Tailwind CSS                                         | 4.x            |
-| UI Library       | shadcn/ui + Radix UI                                 | Latest         |
-| Animation        | Framer Motion                                        | 12.x           |
-| Charts           | Recharts                                             | 3.8            |
-| State Management | Zustand (persist)                                    | 5.x            |
-| Search           | cmdk + Fuse.js                                       | 1.x / 7.x      |
-| Testing          | Vitest                                               | 3.2.x          |
-| Encryption       | Web Crypto API (AES-GCM)                             | Browser native |
-| Analytics        | Sentry + PostHog (optional)                          | -              |
-| Literature API   | Semantic Scholar                                     | Free           |
-| LLM API          | 11 providers (OpenAI/Anthropic/Gemini/DeepSeek etc.) | -              |
+| Layer            | Technology                              | Version        |
+| ---------------- | --------------------------------------- | -------------- |
+| Framework        | Next.js (App Router + RSC)              | 16.2.6         |
+| Language         | TypeScript (strict)                     | 5.x            |
+| Styling          | Tailwind CSS                            | 4.x            |
+| UI Library       | shadcn/ui + Radix UI                    | Latest         |
+| Animation        | Framer Motion                           | 12.x           |
+| Charts           | Recharts                                | 3.8            |
+| State Management | Zustand (persist)                       | 5.x            |
+| Search           | cmdk + Fuse.js                          | 1.x / 7.x      |
+| Testing          | Vitest                                  | 3.2.x          |
+| Encryption       | Web Crypto API (AES-GCM)                | Browser native |
+| Analytics        | PostHog (optional)                      | -              |
+| Literature API   | Semantic Scholar                        | Free           |
+| LLM API          | 10 built-in providers + custom endpoint | -              |
 
 ---
 
@@ -315,13 +310,14 @@ pnpm test:watch
 pnpm test:coverage
 ```
 
-**Test Coverage (102 tests all passed)**:
+**Test Coverage (114 tests all passed)**:
 
-- `tests/reference/stats-reference.test.ts` — 8 reference benchmark tests (matching R / SciPy ground truth)
+- `tests/reference/stats-reference.test.ts` — 16 reference benchmark tests (matching R / SciPy ground truth, including boundary cases)
 - `tests/invariants.test.ts` — 11 mathematical property and boundary constraint tests
-- `tests/smoke.test.ts` — 7 end-to-end golden path integration tests (including SSRF defense validation)
+- `tests/smoke.test.ts` — 7 research pipeline smoke tests (including SSRF defense validation)
+- `tests/provider-registry.test.ts` — 3 provider registry consistency tests
 - `src/lib/empirical/bootstrap-mediation.test.ts` — 2 tests (Hayes Model 4 framework Bootstrap mediation engine)
-- `src/lib/statistics/math.test.ts` — 14 tests (Gamma functions, incomplete Gamma Chi-square distribution & numerical helpers)
+- `src/lib/statistics/math.test.ts` — 15 tests (Gamma functions, Student t quantiles, Chi-square distribution & numerical helpers)
 - `src/lib/statistics/annotations.test.ts` — 44 tests (statistical annotation system)
 - `src/lib/workflow/engine.test.ts` — 16 tests (workflow engine)
 
@@ -345,11 +341,11 @@ pnpm test:coverage
 
 ## 🔐 Security
 
-- **API Key Encryption**: AES-GCM 256-bit client-side encryption with freshly generated 96-bit random IVs
+- **API Key Encryption**: AES-GCM 256-bit client-side encryption with freshly generated 96-bit random IVs, refusing plaintext fallbacks
 - **Server-side SSRF Defense**: `/api/chat` strictly restricts target endpoints, blocking loopback, private RFC 1918 subnets, and cloud metadata
 - **CSP Headers**: Strict Content-Security-Policy supporting PostHog telemetry and blocking untrusted scripts
 - **Browser-only Computation**: Statistical datasets processed strictly in browser memory, never uploaded
-- **Privacy Analytics**: Sentry/PostHog anonymized by default, supports Do Not Track
+- **Privacy Analytics**: PostHog anonymized by default, respects Do Not Track (DNT) browser settings
 
 ---
 

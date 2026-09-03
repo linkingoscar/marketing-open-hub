@@ -18,6 +18,8 @@ import {
   rank,
   pearsonCI,
   approximateNormalityP,
+  tDistCDF,
+  tDistQuantile,
   matInv,
   matMul,
 } from "./math";
@@ -104,6 +106,30 @@ describe("Statistics Math Library", () => {
       // Monotonicity check
       expect(chiDistCDF(3, 2)).toBeGreaterThan(chiDistCDF(2, 2));
       expect(chiDistCDF(4, 2)).toBeGreaterThan(chiDistCDF(3, 2));
+    });
+
+    it("tDistCDF and tDistQuantile match theoretical Student t values", () => {
+      // t(10) at t=0 is 0.5
+      expect(tDistCDF(0, 10)).toBe(0.5);
+      expect(tDistQuantile(0.5, 10)).toBe(0);
+
+      // t(1) at t=1 is 0.75 (Cauchy, singularity at endpoints)
+      expect(tDistCDF(1, 1)).toBeCloseTo(0.75, 2);
+      expect(tDistQuantile(0.75, 1)).toBeCloseTo(1, 1);
+
+      // 95% two-tailed critical value: p=0.975
+      // df = 14: t_crit ≈ 2.1448
+      const tCrit14 = tDistQuantile(0.975, 14);
+      expect(tCrit14).toBeCloseTo(2.1448, 2);
+      expect(tDistCDF(tCrit14, 14)).toBeCloseTo(0.975, 4);
+
+      // df = 30: t_crit ≈ 2.0423
+      const tCrit30 = tDistQuantile(0.975, 30);
+      expect(tCrit30).toBeCloseTo(2.0423, 2);
+      expect(tDistCDF(tCrit30, 30)).toBeCloseTo(0.975, 4);
+
+      // Inversion symmetry
+      expect(tDistQuantile(0.025, 14)).toBeCloseTo(-2.1448, 2);
     });
 
     it("pStars formats significance levels accurately", () => {

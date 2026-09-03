@@ -81,13 +81,6 @@ const PROVIDER_META: Record<
     recommended: "doubao-seed-2.0-pro-256k",
     features: ["256K 上下文", "多模态", "代码优化"],
   },
-  wenxin: {
-    icon: "🔵",
-    color: "#3B82F6",
-    desc: "百度文心一言，ERNIE 5.1 旗舰",
-    recommended: "ernie-5.1",
-    features: ["128K 上下文", "联网搜索", "中文优化"],
-  },
   spark: {
     icon: "🟣",
     color: "#A855F7",

@@ -1,7 +1,8 @@
 import {
   mean,
   stddev,
-  normalCDF,
+  tDistCDF,
+  tDistQuantile,
   fDistCDF,
   pStars,
   matMul,
@@ -23,11 +24,20 @@ export function runTTest(
     m2 = mean(g2);
   const s1 = stddev(g1),
     s2 = stddev(g2);
-  const pooledSE = Math.sqrt(s1 ** 2 / Math.max(1, n1) + s2 ** 2 / Math.max(1, n2));
-  const t = pooledSE > 0 ? (m1 - m2) / pooledSE : 0;
-  const df = Math.max(1, n1 + n2 - 2);
-  const p = 2 * (1 - normalCDF(Math.abs(t)));
-  const pooledSD = Math.sqrt(((n1 - 1) * s1 ** 2 + (n2 - 1) * s2 ** 2) / df);
+  const v1 = s1 ** 2 / Math.max(1, n1);
+  const v2 = s2 ** 2 / Math.max(1, n2);
+  const welchSE = Math.sqrt(v1 + v2);
+  const t = welchSE > 0 ? (m1 - m2) / welchSE : 0;
+
+  // Welch-Satterthwaite degrees of freedom
+  const num = (v1 + v2) ** 2;
+  const den = (n1 > 1 ? v1 ** 2 / (n1 - 1) : 0) + (n2 > 1 ? v2 ** 2 / (n2 - 1) : 0);
+  const df = den > 0 ? num / den : Math.max(1, n1 + n2 - 2);
+
+  const p = 2 * (1 - tDistCDF(Math.abs(t), df));
+  const tCrit = tDistQuantile(0.975, df);
+
+  const pooledSD = Math.sqrt(((n1 - 1) * s1 ** 2 + (n2 - 1) * s2 ** 2) / Math.max(1, n1 + n2 - 2));
   const cohensD = pooledSD > 0 ? (m1 - m2) / pooledSD : 0;
   const dInterp =
     Math.abs(cohensD) < 0.2
@@ -37,8 +47,9 @@ export function runTTest(
         : Math.abs(cohensD) < 0.8
           ? "中"
           : "大";
-  const ciLo = +(m1 - m2 - 1.96 * pooledSE).toFixed(4);
-  const ciHi = +(m1 - m2 + 1.96 * pooledSE).toFixed(4);
+  const ciLo = +(m1 - m2 - tCrit * welchSE).toFixed(4);
+  const ciHi = +(m1 - m2 + tCrit * welchSE).toFixed(4);
+  const dfFormatted = +df.toFixed(2);
   const stats = {
     group1_mean: +m1.toFixed(4),
     group2_mean: +m2.toFixed(4),
@@ -47,16 +58,16 @@ export function runTTest(
     group1_n: n1,
     group2_n: n2,
     t: +t.toFixed(4),
-    df,
+    df: dfFormatted,
     p: +p.toFixed(6),
     cohens_d: +cohensD.toFixed(4),
     CI_95: `[${ciLo}, ${ciHi}]`,
   };
   const apa = formatAPA({
-    title: "独立样本 t 检验",
-    test: "Independent Samples t-test",
-    statistic: `t(${df}) = ${t.toFixed(2)}`,
-    df: `${df}`,
+    title: "独立样本 t 检验 (Welch's t-test)",
+    test: "Welch's Independent Samples t-test",
+    statistic: `t(${dfFormatted}) = ${t.toFixed(2)}`,
+    df: `${dfFormatted}`,
     p: `${p < 0.001 ? "< .001" : `= ${p.toFixed(3)}`}`,
     effect: `d = ${cohensD.toFixed(2)} (${dInterp}效应量)`,
     ci: `95% CI [${ciLo.toFixed(2)}, ${ciHi.toFixed(2)}]`,
@@ -64,7 +75,7 @@ export function runTTest(
       p < 0.05
         ? `两组均值存在显著差异（${pStars(p)}），${dInterp}效应量。`
         : "两组均值无显著差异。",
-    interpretation: `独立样本 t 检验结果表明，两组均值差异${p < 0.05 ? "统计显著" : "不显著"}，t(${df}) = ${t.toFixed(2)}，p ${
+    interpretation: `独立样本 t 检验（Welch's t-test）结果表明，两组均值差异${p < 0.05 ? "统计显著" : "不显著"}，t(${dfFormatted}) = ${t.toFixed(2)}，p ${
       p < 0.001 ? "< .001" : `= ${p.toFixed(3)}`
     }，Cohen's d = ${cohensD.toFixed(2)}。${
       p < 0.05
@@ -86,7 +97,8 @@ export function runPairedTTest(
     seVal = sd / Math.sqrt(Math.max(1, n));
   const t = seVal > 0 ? md / seVal : 0;
   const df = Math.max(1, n - 1);
-  const p = 2 * (1 - normalCDF(Math.abs(t)));
+  const p = 2 * (1 - tDistCDF(Math.abs(t), df));
+  const tCrit = tDistQuantile(0.975, df);
   const cohensD = sd > 0 ? md / sd : 0;
   const dInterp =
     Math.abs(cohensD) < 0.2
@@ -96,8 +108,8 @@ export function runPairedTTest(
         : Math.abs(cohensD) < 0.8
           ? "中"
           : "大";
-  const ciLo = +(md - 1.96 * seVal).toFixed(4);
-  const ciHi = +(md + 1.96 * seVal).toFixed(4);
+  const ciLo = +(md - tCrit * seVal).toFixed(4);
+  const ciHi = +(md + tCrit * seVal).toFixed(4);
   const stats: Record<string, number | string> = {
     n_pairs: n,
     mean_before: +mean(before).toFixed(4),

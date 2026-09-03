@@ -12,7 +12,7 @@
  * 总效应 (Total Effect): c = c' + ab
  */
 
-import { normalCDF } from "../statistics/math";
+import { tDistCDF, tDistQuantile } from "../statistics/math";
 
 export interface MediationInput {
   x: number[];
@@ -106,11 +106,11 @@ function simpleRegression(
   const mse = ssRes / df;
   const se = ssxx > 1e-12 ? Math.sqrt(mse / ssxx) : 0;
   const t = se > 1e-12 ? beta / se : 0;
-  const p = 2 * (1 - normalCDF(Math.abs(t)));
+  const p = 2 * (1 - tDistCDF(Math.abs(t), df));
 
-  const zCrit = 1.96;
-  const llci = beta - zCrit * se;
-  const ulci = beta + zCrit * se;
+  const tCrit = tDistQuantile(0.975, df);
+  const llci = beta - tCrit * se;
+  const ulci = beta + tCrit * se;
 
   return {
     intercept: +intercept.toFixed(4),
@@ -142,6 +142,7 @@ function multipleRegression(
   p1: number;
   p2: number;
   r2: number;
+  df: number;
 } {
   const n = y.length;
   const m1 = x1.reduce((s, v) => s + v, 0) / n;
@@ -189,8 +190,8 @@ function multipleRegression(
   const t1 = se1 > 1e-12 ? b1 / se1 : 0;
   const t2 = se2 > 1e-12 ? b2 / se2 : 0;
 
-  const p1 = 2 * (1 - normalCDF(Math.abs(t1)));
-  const p2 = 2 * (1 - normalCDF(Math.abs(t2)));
+  const p1 = 2 * (1 - tDistCDF(Math.abs(t1), df));
+  const p2 = 2 * (1 - tDistCDF(Math.abs(t2), df));
 
   return {
     intercept: +intercept.toFixed(4),
@@ -203,6 +204,7 @@ function multipleRegression(
     p1: +p1.toFixed(6),
     p2: +p2.toFixed(6),
     r2: +r2.toFixed(4),
+    df,
   };
 }
 
@@ -244,13 +246,14 @@ export function runBootstrapMediation(input: MediationInput): MediationResult {
 
   // 3. 结局方程: Y = i2 + c'*X + b*M
   const multiModel = multipleRegression(cleanX, cleanM, cleanY);
+  const multiTCrit = tDistQuantile(0.975, multiModel.df);
   const directEffect: EffectReport = {
     effect: multiModel.b1,
     se: multiModel.se1,
     t: multiModel.t1,
     p: multiModel.p1,
-    llci: +(multiModel.b1 - 1.96 * multiModel.se1).toFixed(4),
-    ulci: +(multiModel.b1 + 1.96 * multiModel.se1).toFixed(4),
+    llci: +(multiModel.b1 - multiTCrit * multiModel.se1).toFixed(4),
+    ulci: +(multiModel.b1 + multiTCrit * multiModel.se1).toFixed(4),
   };
 
   const pathB: EffectReport = {
@@ -258,8 +261,8 @@ export function runBootstrapMediation(input: MediationInput): MediationResult {
     se: multiModel.se2,
     t: multiModel.t2,
     p: multiModel.p2,
-    llci: +(multiModel.b2 - 1.96 * multiModel.se2).toFixed(4),
-    ulci: +(multiModel.b2 + 1.96 * multiModel.se2).toFixed(4),
+    llci: +(multiModel.b2 - multiTCrit * multiModel.se2).toFixed(4),
+    ulci: +(multiModel.b2 + multiTCrit * multiModel.se2).toFixed(4),
   };
 
   // 点估计间接效应

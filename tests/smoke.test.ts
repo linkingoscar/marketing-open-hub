@@ -3,7 +3,7 @@ import { POST } from "@/app/api/chat/route";
 import { NextRequest } from "next/server";
 import { runDescriptive, runTTest, runAnova, runCronbach, formatAPAText } from "@/lib/statistics";
 
-describe("End-to-End Research Golden Paths (OSQ-015)", () => {
+describe("Research Pipeline Smoke Tests (Golden Paths)", () => {
   describe("Golden Path 1: CSV Ingestion -> Descriptive Analysis -> APA Export", () => {
     it("processes simulated survey responses and formats APA report", () => {
       // Simulated 10 respondent ratings on a 7-point Likert scale
@@ -34,7 +34,7 @@ describe("End-to-End Research Golden Paths (OSQ-015)", () => {
 
       expect(result.stats.group1_n).toBe(8);
       expect(result.stats.group2_n).toBe(8);
-      expect(result.stats.df).toBe(14);
+      expect(result.stats.df).toBeCloseTo(14, 0);
       expect(result.stats.p).toBeLessThan(0.001);
 
       const apaText = formatAPAText(result.apa);

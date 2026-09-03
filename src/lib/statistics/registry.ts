@@ -34,7 +34,7 @@ export const TESTS: TestDef[] = [
   {
     id: "ttest",
     label: "独立样本 t",
-    desc: "两组均值比较 + Cohen's d",
+    desc: "两组均值比较 (Welch's t) + Cohen's d",
     category: "比较",
     validationLevel: "validated",
   },
@@ -228,7 +228,7 @@ export const TESTS: TestDef[] = [
     label: "效果量计算",
     desc: "Cohen's d / η² / ω² / f²",
     category: "效果量",
-    validationLevel: "validated",
+    validationLevel: "beta",
   },
   // 贝叶斯
   {
