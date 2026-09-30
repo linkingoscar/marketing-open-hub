@@ -22,6 +22,7 @@ import { ScatterPlot } from "@/components/charts/scatter-plot";
 import { Heatmap } from "@/components/charts/heatmap";
 import { useHistoryStore } from "@/lib/api/history";
 import { cn } from "@/lib/utils";
+import { completeNumericPairs, runPairedAnalysis } from "@/lib/statistics/paired-analysis";
 import {
   type TestType,
   type APAReport,
@@ -46,9 +47,6 @@ import {
   runFriedman,
   runChiSquare,
   runFisherExact,
-  runPearson,
-  runSpearman,
-  runRegression,
   runLogistic,
   runCronbach,
   runSplitHalf,
@@ -462,55 +460,10 @@ export default function StatisticsPage() {
             setResult(runFisherExact(table));
             break;
           }
-          case "pearson": {
-            if (!colA || !colB) {
-              setError("请指定两列数值");
-              return;
-            }
-            const x = getNumCol(colA),
-              y = getNumCol(colB);
-            const minLen = Math.min(x.length, y.length);
-            if (minLen < 3) {
-              setError("需要至少 3 个配对观测");
-              return;
-            }
-            setResult(runPearson(x.slice(0, minLen), y.slice(0, minLen)));
-            break;
-          }
-          case "spearman": {
-            if (!colA || !colB) {
-              setError("请指定两列数值");
-              return;
-            }
-            const x = getNumCol(colA),
-              y = getNumCol(colB);
-            const minLen = Math.min(x.length, y.length);
-            if (minLen < 3) {
-              setError("需要至少 3 个配对观测");
-              return;
-            }
-            setResult(runSpearman(x.slice(0, minLen), y.slice(0, minLen)));
-            break;
-          }
+          case "pearson":
+          case "spearman":
           case "regression": {
-            if (!colA || !colB) {
-              setError("请指定因变量列和至少一个自变量列");
-              return;
-            }
-            const y = getNumCol(colB);
-            const xVars: number[][] = [];
-            const _numCols = fileData.headers.filter(
-              (h) => h !== colB && rows.some((r) => typeof r[colA] === "number")
-            );
-            // Use colA as the single predictor for simplicity; multiple predictors via multiple selection
-            const xCol = getNumCol(colA);
-            const minLen = Math.min(y.length, xCol.length);
-            if (minLen < 5) {
-              setError("需要至少 5 个观测");
-              return;
-            }
-            for (let i = 0; i < minLen; i++) xVars.push([xCol[i]]);
-            setResult(runRegression(xVars, y.slice(0, minLen)));
+            setResult(runPairedAnalysis(selectedTest, rows, colA, colB));
             break;
           }
           case "logistic": {
@@ -1375,19 +1328,13 @@ export default function StatisticsPage() {
                       {["pearson", "spearman", "regression"].includes(selectedTest) &&
                         colB &&
                         (() => {
-                          const x = fileData.rows
-                            .map((r) => r[colA])
-                            .filter((v): v is number => typeof v === "number");
-                          const y = fileData.rows
-                            .map((r) => r[colB])
-                            .filter((v): v is number => typeof v === "number");
-                          const minLen = Math.min(x.length, y.length);
-                          if (minLen >= 5) {
+                          const { x, y } = completeNumericPairs(fileData.rows, colA, colB);
+                          if (x.length >= 5) {
                             return (
                               <ChartExportWrapper filename={`${colA}-vs-${colB}-scatter`}>
                                 <ScatterPlot
-                                  x={x.slice(0, minLen)}
-                                  y={y.slice(0, minLen)}
+                                  x={x}
+                                  y={y}
                                   xLabel={colA}
                                   yLabel={colB}
                                   title={`${colA} vs ${colB} 散点图`}

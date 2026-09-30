@@ -106,7 +106,7 @@ export const TESTS: TestDef[] = [
   {
     id: "spearman",
     label: "Spearman ρ",
-    desc: "秩相关（非参数）",
+    desc: "秩相关（N≤9 精确置换；更大样本 t 近似）",
     category: "相关",
     validationLevel: "beta",
   },
